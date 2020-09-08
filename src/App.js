@@ -1,11 +1,14 @@
 import React from "react";
 import { StyledApp } from "./style";
-function App() {
+
+import { Menu } from "./components";
+import Routes from "./routes/routes";
+
+export default function App() {
   return (
     <StyledApp>
-      <h1>NPX Create React APP Pure</h1>
+      <Menu />
+      <Routes />
     </StyledApp>
   );
 }
-
-export default App;
