@@ -1,12 +1,38 @@
 # Project: BookBook
 
+- login/resister
+
+- menu
+
+  - user profile
+  - logout
+
+- timeline
+  - books reads
+    - feedbacks
+      - profile
+      - users info
+      - graph/chart
+        - users shelf's
+- shelf
+
+  - wishlist
+    - add to reading
+  - reading
+    - add to read
+  - read
+    - create feedbacks
+
+- search book
+  - search
+  - pagination
+  - book preview
+
 A empresa BookBook está com uma ideia ousada para competir de frente com grandes players do mercado de vendas de Livros físicos e eBook. Trata-se de um projeto chamado BookBook, o qual será uma rede social voltada para consumidores de livros. Futuramente, a empresa BookBook pretende usar as informações dos usuários para oferecer a venda de livros. Mas por ora, a empresa BookBook quer apenas um MVP para validar o produto.
 
 ## Link Vercel
 
--
-
-**Note: this project is create by [Christopher William](https://www.linkedin.com/in/christopher-william-4363321a5/), see more about!**
+- **Note: this project is create by [Christopher William](https://www.linkedin.com/in/christopher-william-4363321a5/), see more about!**
 
 ## Learn More About [Kenzie Academy](https://kenzie.com.br/)
 
