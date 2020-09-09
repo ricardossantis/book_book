@@ -1,27 +1,30 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { StyledHeader, StyledMenu } from "./styledmenu";
 
 export default function Menu() {
   return (
-    <div>
-      <div>
-        <Link to="/login">Login</Link>
-      </div>
-      <div>
-        <Link to="/profile">Profile</Link>
-      </div>
-      <div>
-        <Link to="/register">Register</Link>
-      </div>
-      <div>
-        <Link to="/shelves">Shelves</Link>
-      </div>
-      <div>
-        <Link to="/timeline">Timeline</Link>
-      </div>
-      <div>
-        <Link to="/">Home</Link>
-      </div>
-    </div>
+    <StyledHeader>
+      <StyledMenu>
+        <h1>BookBook</h1>
+        <StyledMenu.Section>
+          <StyledMenu.item>
+            <Link to="/login">Login</Link>
+          </StyledMenu.item>
+          <StyledMenu.item>
+            <Link to="/profile">Profile</Link>
+          </StyledMenu.item>
+          <StyledMenu.item>
+            <Link to="/register">Register</Link>
+          </StyledMenu.item>
+          <StyledMenu.item>
+            <Link to="/shelves">Shelves</Link>
+          </StyledMenu.item>
+          <StyledMenu.item>
+            <Link to="/timeline">Timeline</Link>
+          </StyledMenu.item>
+        </StyledMenu.Section>
+      </StyledMenu>
+    </StyledHeader>
   );
 }

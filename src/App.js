@@ -6,9 +6,11 @@ import Routes from "./routes/routes";
 
 export default function App() {
   return (
-    <StyledApp>
+    <div>
       <Menu />
-      <Routes />
-    </StyledApp>
+      <StyledApp>
+        <Routes />
+      </StyledApp>
+    </div>
   );
 }
