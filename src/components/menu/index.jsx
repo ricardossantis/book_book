@@ -8,14 +8,13 @@ export default function Menu() {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    console.log(history);
     if (token) {
       setHasToken(true);
       history.push("/timeline");
     } else {
       history.push("/login");
     }
-  }, [history, history.location.pathname]);
+  }, [history]);
 
   const logout = () => {
     localStorage.clear();

@@ -29,6 +29,7 @@ StyledMenu.SubMenu.Options = styled.li`
 
 StyledMenu.SubMenu.Link = styled.li`
   visibility: hidden;
+  cursor: pointer;
   margin: 5px 0;
 `;
 
