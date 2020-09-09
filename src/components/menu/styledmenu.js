@@ -13,4 +13,23 @@ StyledMenu.Section = styled.section`
   display: flex;
 `;
 
+StyledMenu.SubMenu = styled.ul`
+  list-style: none;
+  margin: 0;
+  padding: 0;
+`;
+
+StyledMenu.SubMenu.Options = styled.li`
+  :hover {
+    * {
+      visibility: visible;
+    }
+  }
+`;
+
+StyledMenu.SubMenu.Link = styled.li`
+  visibility: hidden;
+  margin: 5px 0;
+`;
+
 export { StyledHeader, StyledMenu };

@@ -8,13 +8,20 @@ export default function Menu() {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+    console.log(history);
     if (token) {
       setHasToken(true);
       history.push("/timeline");
     } else {
       history.push("/login");
     }
-  }, [history]);
+  }, [history, history.location.pathname]);
+
+  const logout = () => {
+    localStorage.clear();
+    setHasToken(false);
+    history.push("/login");
+  };
 
   return (
     <StyledHeader>
@@ -23,7 +30,7 @@ export default function Menu() {
         {hasToken ? (
           <StyledMenu.Section>
             <StyledMenu.item>
-              <Link to="/profile">Profile</Link>
+              <Link to="/search">Search</Link>
             </StyledMenu.item>
 
             <StyledMenu.item>
@@ -32,6 +39,22 @@ export default function Menu() {
 
             <StyledMenu.item>
               <Link to="/timeline">Timeline</Link>
+            </StyledMenu.item>
+            <StyledMenu.item>
+              <StyledMenu.SubMenu>
+                <StyledMenu.SubMenu.Options>
+                  Options
+                  <StyledMenu.SubMenu>
+                    <StyledMenu.SubMenu.Link>
+                      <Link to="/profile">Profile</Link>
+                    </StyledMenu.SubMenu.Link>
+
+                    <StyledMenu.SubMenu.Link onClick={logout}>
+                      Logout
+                    </StyledMenu.SubMenu.Link>
+                  </StyledMenu.SubMenu>
+                </StyledMenu.SubMenu.Options>
+              </StyledMenu.SubMenu>
             </StyledMenu.item>
           </StyledMenu.Section>
         ) : (
