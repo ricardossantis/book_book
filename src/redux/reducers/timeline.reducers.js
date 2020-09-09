@@ -1,4 +1,4 @@
-import { GET_BOOKS_REVIEWS } from "../actions/timeline.actions";
+import { GET_BOOKS_REVIEWS } from "../actions";
 
 const initialState = {
   books: [],
