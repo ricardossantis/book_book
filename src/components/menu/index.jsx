@@ -1,19 +1,32 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useHistory } from "react-router-dom";
 
 import { StyledHeader, StyledMenu } from "./styledmenu";
-import { logout } from "../../redux/actions/session";
+import { logout } from "../../redux/actions/session.actions";
 
 import { useSelector } from "react-redux";
 
 export default function Menu() {
-  const token = useSelector((state) => state.session.token) ? true : false;
+  const history = useHistory();
+  const token = useSelector((state) => state.session.token);
+
+  useEffect(() => {
+    if (token) {
+      history.push("/");
+    } else {
+      history.push("/login");
+    }
+  });
+
+  const logoutPush = () => {
+    logout();
+    history.push("/login");
+  };
 
   return (
     <StyledHeader>
       <StyledMenu>
         <h1>BookBook</h1>
-
         {token ? (
           <StyledMenu.Section>
             <StyledMenu.item>
@@ -27,6 +40,7 @@ export default function Menu() {
             <StyledMenu.item>
               <Link to="/">Review</Link>
             </StyledMenu.item>
+
             <StyledMenu.item>
               <StyledMenu.SubMenu>
                 <StyledMenu.SubMenu.Options>
@@ -36,7 +50,7 @@ export default function Menu() {
                       <Link to="/profile">Profile</Link>
                     </StyledMenu.SubMenu.Link>
 
-                    <StyledMenu.SubMenu.Link onClick={logout}>
+                    <StyledMenu.SubMenu.Link onClick={logoutPush}>
                       Logout
                     </StyledMenu.SubMenu.Link>
                   </StyledMenu.SubMenu>

@@ -1,16 +1,16 @@
 import React from "react";
-import { StyledApp } from "./style";
 
 import { Menu } from "./components";
-import Authenticator from "./components/authenticator/index.jsx";
+import Routes from "./routes/routes";
+import "./App.css";
 
 export default function App() {
   return (
     <div>
       <Menu />
-      <StyledApp>
-        <Authenticator />
-      </StyledApp>
+      <div className="App">
+        <Routes />
+      </div>
     </div>
   );
 }

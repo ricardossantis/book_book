@@ -2,23 +2,31 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 
 import { Profile, Search, Shelves, Timeline, Login, Register } from "../pages";
+import { useSelector } from "react-redux";
 
-export function RoutesAuth() {
-  return (
-    <Switch>
-      <Route path="/login" component={Login} />
-      <Route path="/register" component={Register} />
-    </Switch>
-  );
-}
+export default function Routes() {
+  const token = useSelector((state) => state.session.token);
 
-export function RoutesIn() {
-  return (
-    <Switch>
-      <Route exact path="/" component={Timeline} />
-      <Route path="/profile" component={Profile} />
-      <Route path="/search" component={Search} />
-      <Route path="/shelves" component={Shelves} />
-    </Switch>
-  );
+  switch (token ? true : false) {
+    case true:
+      return (
+        <Switch>
+          <Route path="/profile" component={Profile} />
+          <Route path="/search" component={Search} />
+          <Route path="/shelves" component={Shelves} />
+          <Route exact path="/" component={Timeline} />
+        </Switch>
+      );
+
+    case false:
+      return (
+        <Switch>
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
+        </Switch>
+      );
+
+    default:
+      return <div>...</div>;
+  }
 }
