@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getBooksReviews } from "../../redux/actions/actions";
+import { getBooksReviews } from "../../redux/actions/timeline.actions";
 
 import StyledTimeline from "./styled-timeline";
 
@@ -16,42 +16,34 @@ export default function Timeline() {
     <StyledTimeline>
       <StyledTimeline.Title>Timeline</StyledTimeline.Title>
       <StyledTimeline.Rows>
-        {books.map(
-          ({
-            title,
-            author,
-            creator: { image_url: userImage, name },
-            image_url,
-            id,
-            review,
-          }) => (
-            <StyledTimeline.Book key={id}>
+        {books.map((book) => {
+          return (
+            <StyledTimeline.Book key={book.id}>
               <StyledTimeline.Book.Title>
-                Book Title: {title}
+                Book Title: {book.title}
               </StyledTimeline.Book.Title>
+
               <StyledTimeline.User>
-                <StyledTimeline.User.Image
-                  src={userImage}
-                  width={70}
-                  height={70}
-                />
-                <StyledTimeline.User.Name>{name}</StyledTimeline.User.Name>
+                <StyledTimeline.User.Image src={book.creator.userImage} />
+
+                <StyledTimeline.User.Name>
+                  {book.creator.name}
+                </StyledTimeline.User.Name>
               </StyledTimeline.User>
+
               <StyledTimeline.Rows>
                 <StyledTimeline.Book.Image
-                  src={image_url}
-                  alt={author}
-                  width={130}
-                  height={200}
+                  src={book.image_url}
+                  alt={book.author}
                 />
 
                 <StyledTimeline.User.Review>
-                  Review: {review}
+                  Review: {book.review}
                 </StyledTimeline.User.Review>
               </StyledTimeline.Rows>
             </StyledTimeline.Book>
-          )
-        )}
+          );
+        })}
       </StyledTimeline.Rows>
     </StyledTimeline>
   );

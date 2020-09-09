@@ -18,6 +18,8 @@ StyledTimeline.User = styled.figure`
 `;
 StyledTimeline.User.Image = styled.img`
   background-image: url("http://www.ecp.org.br/wp-content/uploads/2017/12/default-avatar.png");
+  width: 70px;
+  height: 70px;
 `;
 StyledTimeline.User.Name = styled.figcaption``;
 StyledTimeline.User.Review = styled.p`
@@ -32,7 +34,10 @@ StyledTimeline.Book = styled.div`
 StyledTimeline.Book.Title = styled.h4`
   margin: 0;
 `;
-StyledTimeline.Book.Image = styled.img``;
+StyledTimeline.Book.Image = styled.img`
+  width: 130px;
+  height: 200px;
+`;
 StyledTimeline.Book.Description = styled.p``;
 
 export default StyledTimeline;
