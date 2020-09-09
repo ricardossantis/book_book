@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { Form, Input, Button, Checkbox, notification } from "antd";
+import { Form, Input, Button, Checkbox, message } from "antd";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { postLogin } from "../../redux/actions/session";
@@ -19,16 +19,17 @@ const Login = () => {
       history.push("/timeline");
     }
 
-    if (userInfo.error) {
-      notification.open({
-        message: "Credenciais Inválidas!",
-        description: "Usuário ou senha incorretos.",
-      });
+    if (userInfo.status === 401) {
+      message.warning("Usuário ou senha inválidos!");
+    }
+
+    if (userInfo.status === 500) {
+      message.error("Erro no Servidor, Por favor tente novamente mais tarde!");
     }
   }, [history, userInfo]);
 
   return (
-    <LoginForm>
+    <LoginBox>
       <Title>LOGIN</Title>
       <Form name="basic" initialValues={{ remember: true }} onFinish={onFinish}>
         <Form.Item
@@ -52,7 +53,7 @@ const Login = () => {
           </Button>
         </Form.Item>
       </Form>
-    </LoginForm>
+    </LoginBox>
   );
 };
 
@@ -65,7 +66,7 @@ const Title = styled.h1`
   margin: 0;
 `;
 
-const LoginForm = styled.div`
+const LoginBox = styled.div`
   border-radius: 6px;
   width: 500px;
   height: 350px;

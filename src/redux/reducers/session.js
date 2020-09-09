@@ -8,12 +8,12 @@ const defaultState = {
 const session = (state = defaultState, { type, payload }) => {
   switch (type) {
     case LOGIN:
-      const { token, user, error } = payload;
+      const { status, token, user } = payload;
       return {
         ...state,
+        status,
         token,
         user,
-        error,
       };
 
     default:
