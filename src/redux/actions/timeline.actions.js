@@ -1,9 +1,9 @@
-import axios from "../api";
+import api from "../api";
 import { GET_BOOK_REVIEWS } from "../actions/actions-type";
 
 export const getBooksReviews = (token) => (dispatch) => {
   const headers = { headers: { authorization: token } };
-  axios
+  api
     .get("/book_reviews", headers)
     .then((response) => response.data)
     .then((response) => dispatch(setBooks(response)))
