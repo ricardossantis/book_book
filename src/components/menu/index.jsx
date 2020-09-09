@@ -1,33 +1,75 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { logout } from "../../redux/actions/session";
+import React, { useEffect } from "react";
+import { Link, useHistory } from "react-router-dom";
+
+import { StyledHeader, StyledMenu } from "./styledmenu";
+import { logout } from "../../redux/actions/session.actions";
+
+import { useSelector } from "react-redux";
 
 export default function Menu() {
+  const history = useHistory();
+  const token = useSelector((state) => state.session.token);
+
+  useEffect(() => {
+    if (token) {
+      history.push("/");
+    } else {
+      history.push("/login");
+    }
+  });
+
+  const logoutPush = () => {
+    logout();
+    history.push("/login");
+  };
+
   return (
-    <div>
-      <div>
-        <Link to="/login">Login</Link>
-      </div>
-      <div>
-        <Link onClick={logout} to="/login">
-          Logout
-        </Link>
-      </div>
-      <div>
-        <Link to="/profile">Profile</Link>
-      </div>
-      <div>
-        <Link to="/register">Register</Link>
-      </div>
-      <div>
-        <Link to="/shelves">Shelves</Link>
-      </div>
-      <div>
-        <Link to="/timeline">Timeline</Link>
-      </div>
-      <div>
-        <Link to="/">Home</Link>
-      </div>
-    </div>
+    <StyledHeader>
+      <StyledMenu>
+        <h1>BookBook</h1>
+        {token ? (
+          <StyledMenu.Section>
+            <StyledMenu.item>
+              <Link to="/search">Search</Link>
+            </StyledMenu.item>
+
+            <StyledMenu.item>
+              <Link to="/shelves">Shelves</Link>
+            </StyledMenu.item>
+
+            <StyledMenu.item>
+              <Link to="/">Review</Link>
+            </StyledMenu.item>
+
+            <StyledMenu.item>
+              <StyledMenu.SubMenu>
+                <StyledMenu.SubMenu.Options>
+                  Options
+                  <StyledMenu.SubMenu>
+                    <StyledMenu.SubMenu.Link>
+                      <Link to="/profile">Profile</Link>
+                    </StyledMenu.SubMenu.Link>
+
+                    <StyledMenu.SubMenu.Link onClick={logoutPush}>
+                      Logout
+                    </StyledMenu.SubMenu.Link>
+                  </StyledMenu.SubMenu>
+                </StyledMenu.SubMenu.Options>
+              </StyledMenu.SubMenu>
+            </StyledMenu.item>
+          </StyledMenu.Section>
+        ) : (
+          <StyledMenu.Section>
+            <StyledMenu.item>
+              <Link to="/login">Login</Link>
+            </StyledMenu.item>
+
+            <StyledMenu.item>
+              <Link to="/register">Register</Link>
+            </StyledMenu.item>
+          </StyledMenu.Section>
+        )}
+      </StyledMenu>
+    </StyledHeader>
   );
 }

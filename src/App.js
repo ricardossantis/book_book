@@ -1,14 +1,16 @@
 import React from "react";
-import { StyledApp } from "./style";
 
 import { Menu } from "./components";
 import Routes from "./routes/routes";
+import "./App.css";
 
 export default function App() {
   return (
-    <StyledApp>
+    <div>
       <Menu />
-      <Routes />
-    </StyledApp>
+      <div className="App">
+        <Routes />
+      </div>
+    </div>
   );
 }

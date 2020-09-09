@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Form, Input, Button, Checkbox, message } from "antd";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { postLogin } from "../../redux/actions/session";
+import { postLogin } from "../../redux/actions/session.actions";
 
 const Login = () => {
   let history = useHistory();
