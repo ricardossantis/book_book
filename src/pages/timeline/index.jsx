@@ -1,24 +1,19 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { useHistory } from "react-router-dom";
-
 import { useDispatch, useSelector } from "react-redux";
 import { getBooks } from "../../redux/actions/books";
 
 const Timeline = () => {
-  let history = useHistory();
   const dispatch = useDispatch();
 
   const booksReviews = useSelector((state) => state.getBooksReview);
-
-  const userInfo = useSelector((state) => state.setUserLogin);
+  const userInfo = useSelector((state) => state.session);
 
   useEffect(() => {
-    if (history.location.pathname === "/timeline") {
+    if (userInfo.token) {
       dispatch(getBooks(userInfo.token));
-      console.log(booksReviews);
     }
-  }, [history]);
+  }, [dispatch, userInfo]);
 
   return (
     <Explorer>

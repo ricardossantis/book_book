@@ -1,22 +1,29 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { Form, Input, Button, Checkbox } from "antd";
+import { Form, Input, Button, Checkbox, notification } from "antd";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { postLogin } from "../../redux/actions";
+import { postLogin } from "../../redux/actions/session";
 
 const Login = () => {
   let history = useHistory();
   const dispatch = useDispatch();
-  const userInfo = useSelector((state) => state.setUserLogin);
+  const userInfo = useSelector((state) => state.session);
 
   const onFinish = (values) => {
     dispatch(postLogin(values));
   };
 
   useEffect(() => {
-    if (userInfo.token) {
+    if (localStorage.getItem("token")) {
       history.push("/timeline");
+    }
+
+    if (userInfo.error) {
+      notification.open({
+        message: "Credenciais Inválidas!",
+        description: "Usuário ou senha incorretos.",
+      });
     }
   }, [history, userInfo]);
 

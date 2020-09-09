@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import setUserLogin from "./login";
+import session from "./session";
 import getBooksReview from "./timeline";
 
-export default combineReducers({ setUserLogin, getBooksReview });
+export default combineReducers({ session, getBooksReview });
