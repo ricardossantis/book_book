@@ -24,10 +24,6 @@ const Login = () => {
     if (userInfo.status === 401) {
       message.warning("Usuário ou senha inválidos!");
     }
-
-    if (userInfo.status === 500) {
-      message.error("Erro no Servidor, Por favor tente novamente mais tarde!");
-    }
   }, [history, userInfo]);
 
   return (
