@@ -2,25 +2,25 @@ import React, { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 
 import { StyledHeader, StyledMenu } from "./styledmenu";
-import { logout } from "../../redux/actions/session.actions";
+import { setLogout } from "../../redux/actions/sessionActions";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Menu() {
   const history = useHistory();
   const token = useSelector((state) => state.session.token);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (token) {
-      history.push("/");
+      history.push("/timeline");
     } else {
       history.push("/login");
     }
   });
 
-  const logoutPush = () => {
-    logout();
-    history.push("/login");
+  const handleLogout = () => {
+    dispatch(setLogout(history));
   };
 
   return (
@@ -38,7 +38,7 @@ export default function Menu() {
             </StyledMenu.item>
 
             <StyledMenu.item>
-              <Link to="/">Review</Link>
+              <Link to="/timeline">Reviews</Link>
             </StyledMenu.item>
 
             <StyledMenu.item>
@@ -50,7 +50,7 @@ export default function Menu() {
                       <Link to="/profile">Profile</Link>
                     </StyledMenu.SubMenu.Link>
 
-                    <StyledMenu.SubMenu.Link onClick={logoutPush}>
+                    <StyledMenu.SubMenu.Link onClick={handleLogout}>
                       Logout
                     </StyledMenu.SubMenu.Link>
                   </StyledMenu.SubMenu>

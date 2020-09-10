@@ -1,14 +1,15 @@
 import React from "react";
 import { message } from "antd";
-import axios from "axios";
+import api from "../../services/api";
 import {
+  RegisterBox,
   InputContainer,
   StyledForm,
   H2Form,
   StyledButton,
   LinkA,
   StyledInput,
-} from "./register.js";
+} from "./styled-register.js";
 import { useHistory } from "react-router-dom";
 
 const Register = () => {
@@ -21,8 +22,8 @@ const Register = () => {
   const onFinish = (values) => {
     let apiObject = { user: values };
 
-    axios
-      .post("https://ka-users-api.herokuapp.com/users", apiObject)
+    api
+      .post("/users", apiObject)
       .then((res) => {
         info("Register successful");
         history.push("/");
@@ -33,14 +34,13 @@ const Register = () => {
   };
 
   return (
-    <>
+    <RegisterBox>
       <InputContainer>
         <StyledForm onFinish={onFinish}>
-          <H2Form>Join us!</H2Form>
+          <H2Form>Cadastro</H2Form>
           <StyledForm.Item
             style={{ color: "white" }}
             name="name"
-            label="Name"
             type="text"
             rules={[
               { required: true, message: "Please type your name!" },
@@ -50,11 +50,10 @@ const Register = () => {
               },
             ]}
           >
-            <StyledInput />
+            <StyledInput placeholder="Nome" />
           </StyledForm.Item>
           <StyledForm.Item
             name="user"
-            label="Username"
             type="text"
             rules={[
               { required: true, message: "Please input your username!" },
@@ -64,12 +63,11 @@ const Register = () => {
               },
             ]}
           >
-            <StyledInput />
+            <StyledInput placeholder="Nome de usuário" />
           </StyledForm.Item>
 
           <StyledForm.Item
             name="email"
-            label="Email"
             type="text"
             rules={[
               { required: true, message: "Please type your Email!" },
@@ -79,12 +77,11 @@ const Register = () => {
               },
             ]}
           >
-            <StyledInput />
+            <StyledInput placeholder="Email" />
           </StyledForm.Item>
 
           <StyledForm.Item
             name="password"
-            label="Password"
             type="password"
             rules={[
               { required: true, message: "Please input your password!" },
@@ -98,12 +95,11 @@ const Register = () => {
               },
             ]}
           >
-            <StyledInput />
+            <StyledInput placeholder="Senha" />
           </StyledForm.Item>
 
           <StyledForm.Item
             name="confirmPassword"
-            label="Confirm password"
             type="password"
             rules={[
               { required: true, message: "Please confirm your password!" },
@@ -119,16 +115,16 @@ const Register = () => {
               }),
             ]}
           >
-            <StyledInput />
+            <StyledInput placeholder="Confirme sua senha" />
           </StyledForm.Item>
 
           <LinkA to="/">Voltar</LinkA>
           <StyledButton type="submit" htmlType="submit">
-            Register
+            Cadastrar
           </StyledButton>
         </StyledForm>
       </InputContainer>
-    </>
+    </RegisterBox>
   );
 };
 

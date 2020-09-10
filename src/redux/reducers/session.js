@@ -1,4 +1,4 @@
-import { LOGIN } from "../actions/actions-type";
+import { LOGIN, LOGOUT } from "../actions/actions-type";
 
 const defaultState = {
   token: localStorage.getItem("token") || "",
@@ -14,6 +14,16 @@ const session = (state = defaultState, { type, payload }) => {
         status,
         token,
         user,
+      };
+
+    case LOGOUT:
+      localStorage.clear();
+      payload.status.push("/login");
+      return {
+        ...state,
+        status: 205,
+        token: "",
+        user: {},
       };
 
     default:

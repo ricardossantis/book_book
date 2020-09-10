@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import styled from "styled-components";
 import { Form, Input, Button, Checkbox, message } from "antd";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { postLogin } from "../../redux/actions/session.actions";
+import { postLogin } from "../../redux/actions/sessionActions";
+import { LoginBox, Title } from "./styled-login";
 
 const Login = () => {
   let history = useHistory();
@@ -58,21 +58,3 @@ const Login = () => {
 };
 
 export default Login;
-
-const Title = styled.h1`
-  font-family: Roboto;
-  font-weight: 700;
-  font-size: 4rem;
-  margin: 0;
-`;
-
-const LoginBox = styled.div`
-  border-radius: 6px;
-  width: 500px;
-  height: 350px;
-  background-color: #cccccc;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;

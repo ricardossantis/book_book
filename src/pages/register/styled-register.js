@@ -2,6 +2,17 @@ import styled from "styled-components";
 import { Form, Button, Input } from "antd";
 import { Link } from "react-router-dom";
 
+export const RegisterBox = styled.div`
+  width: 500px;
+  height: 700px;
+  background-color: #cccccc;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const InputContainer = styled.div`
   display: flex;
   align-items: center;
@@ -15,16 +26,17 @@ export const StyledInput = styled(Input)`
 export const StyledForm = styled(Form)`
   width: 360px;
   display: flex;
-  align-items: center;
-  text-align: center;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 `;
 
 export const H2Form = styled.h2`
-  font-size: 2.9rem;
-  text-transform: uppercase;
-  margin: 15px 0;
-  color: #ccc;
+  font-family: Roboto;
+  font-weight: 700;
+  font-size: 4rem;
+  margin: 0;
 `;
 
 export const LinkA = styled(Link)`
