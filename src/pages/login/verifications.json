@@ -1,0 +1,27 @@
+{
+  "user": [
+    {
+      "required": true,
+      "message": "Please enter your username!"
+    },
+    {
+      "whitespace": true,
+      "message": "User is blank!"
+    },
+    {
+      "min": 6,
+      "message": "User must be at least 6 characters!"
+    }
+  ],
+  "password": [
+    {
+      "required": true,
+      "message": "Please enter your password!"
+    },
+    {
+      "whitespace": true,
+      "message": "Password cant be blank!"
+    }
+  ],
+  "remember": true
+}
