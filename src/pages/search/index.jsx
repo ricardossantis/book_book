@@ -34,23 +34,48 @@ function Search() {
     });
   };
 
-  const handleBookClick = (shelf, book) => {
+  const handleBookClick = (shelf, apiBook) => {
     let bookInfo = {
       book: {
-        title: book.volumeInfo.title,
-        author: book.volumeInfo.authors,
+        title: apiBook.volumeInfo.title,
+        author: apiBook.volumeInfo.authors.join(","),
         shelf: shelf,
-        image_url: book.volumeInfo.imageLinks.thumbnail,
+        image_url: apiBook.volumeInfo.imageLinks.thumbnail,
         grade: "",
-        categories: book.volumeInfo.categories,
+        categories: apiBook.volumeInfo.categories.join(","),
         review: "",
-        google_book_id: book.id,
+        google_book_id: apiBook.id,
       },
     };
 
-    api.post(`/users/${userInfo.user.id}/books`, bookInfo, {
-      headers: { authorization: userInfo.token },
-    });
+    let userBooksArr = [...userBooks];
+    console.log(userBooks, userBooksArr);
+    let filteredTitle = userBooks.payload.filter(
+      (book) => book.book.title === bookInfo.title
+    );
+
+    if (filteredTitle.length === 0) {
+      api
+        .post(`/users/${userInfo.user.id}/books/`, bookInfo, {
+          headers: { authorization: userInfo.token },
+        })
+        .catch((err) => console.log(err));
+      dispatch(getBooks(userInfo));
+    } else {
+      let filteredShelf = filteredTitle.filter(
+        (book) => book.book.shelf === bookInfo.shelf
+      );
+
+      filteredShelf.length === 0
+        ? api.put(
+            `/users/${userInfo.user.id}/books/${apiBook.id}`,
+            { book: { shelf: apiBook.shelf } },
+            {
+              headers: { authorization: userInfo.token },
+            }
+          )
+        : console.log("Book already added");
+    }
   };
 
   return (

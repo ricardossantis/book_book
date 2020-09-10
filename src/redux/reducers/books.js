@@ -1,23 +1,12 @@
 import { GET_BOOKS } from "../actions/actions-type";
 
-const defaultState = [];
-//{
-//   book: {
-//     title: "",
-//     author: "",
-//     shelf: "",
-//     image_url: "",
-//     grade: "",
-//     categories: [],
-//     review: "",
-//     google_book_id: "",
-//   },
-//};
+const defaultState = { book: {} };
 
 const books = (state = defaultState, { type, payload }) => {
   switch (type) {
     case GET_BOOKS:
-      return { ...state, payload };
+      const { book } = payload;
+      return { ...state, book };
 
     default:
       return state;
