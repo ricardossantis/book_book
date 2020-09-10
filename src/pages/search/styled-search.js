@@ -52,4 +52,7 @@ export const StyledAddButtonsDiv = styled.div`
 
 export const StyledAddButton = styled.button`
   background-color: #666;
+  &:hover {
+    cursor: pointer;
+  }
 `;

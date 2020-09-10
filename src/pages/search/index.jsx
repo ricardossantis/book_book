@@ -8,8 +8,10 @@ import {
   StyledAddButtonsDiv,
   StyledAddButton,
 } from "./styled-search.js";
+import { useDispatch } from "react-redux";
 
 function Search() {
+  const dispatch = useDispatch();
   const [input, setInput] = useState();
   const [books, setBooks] = useState([]);
 
@@ -20,11 +22,36 @@ function Search() {
 
   const handleSearchClick = () => {
     let bookLinks = ` https://www.googleapis.com/books/v1/volumes?q=${input}`;
-    axios.get(bookLinks).then((res) => setBooks(res.data.items));
+    axios.get(bookLinks).then((res) => {
+      res.data.items === undefined ? setBooks([]) : setBooks(res.data.items);
+    });
   };
 
-  const handleBookClick = (e) => {
-    console.log(e.target);
+  const handleBookClick = (shelf, book) => {
+    let bookInfo = {
+      book: {
+        title: book.volumeInfo.title,
+        author: book.volumeInfo.authors,
+        shelf: shelf,
+        image_url: book.volumeInfo.imageLinks.thumbnail,
+        grade: "",
+        categories: book.volumeInfo.categories,
+        review: "",
+        google_book_id: book.id,
+      },
+    };
+
+    // switch (shelf) {
+    //   case 1:
+    //     dispatch(addBook(bookInfo));
+    //     break;
+    //   case 2:
+    //     dispatch(addBook(bookInfo));
+    //     break;
+    //   case 3:
+    //     dispatch(addBook(bookInfo));
+    //     break;
+    // }
   };
 
   return (
@@ -39,7 +66,7 @@ function Search() {
       <StyledSearch>
         <StyledSearch.Title>Search</StyledSearch.Title>
         <StyledSearch.Rows>
-          {books.length > 0 &&
+          {books.length > 0 ? (
             books.map((book) => {
               return (
                 <StyledSearch.Book key={book.id}>
@@ -48,18 +75,26 @@ function Search() {
                   </StyledSearch.Book.Title>
 
                   <StyledSearch.Book.Image
-                    onClick={handleBookClick}
                     src={book.volumeInfo.imageLinks.thumbnail}
                     alt={book.volumeInfo.authors[0]}
                   />
                   <StyledAddButtonsDiv>
-                    <StyledAddButton>Add to 1</StyledAddButton>
-                    <StyledAddButton>Add to 2</StyledAddButton>
-                    <StyledAddButton>Add to 3</StyledAddButton>
+                    <StyledAddButton onClick={() => handleBookClick(1, book)}>
+                      Add to 1
+                    </StyledAddButton>
+                    <StyledAddButton onClick={() => handleBookClick(2, book)}>
+                      Add to 2
+                    </StyledAddButton>
+                    <StyledAddButton onClick={() => handleBookClick(3, book)}>
+                      Add to 3
+                    </StyledAddButton>
                   </StyledAddButtonsDiv>
                 </StyledSearch.Book>
               );
-            })}
+            })
+          ) : (
+            <StyledSearch.Book>No book found</StyledSearch.Book>
+          )}
         </StyledSearch.Rows>
       </StyledSearch>
     </>
