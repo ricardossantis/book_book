@@ -1,4 +1,4 @@
-import api from "../api";
+import api from "../../services/api";
 import { GET_BOOK_REVIEWS } from "../actions/actions-type";
 
 export const getBooksReviews = (token) => (dispatch) => {
@@ -6,8 +6,10 @@ export const getBooksReviews = (token) => (dispatch) => {
   api
     .get("/book_reviews", headers)
     .then((response) => response.data)
-    .then((response) => dispatch(setBooks(response)))
-    .catch((error) => console.error(error));
+    .then((response) => {
+      dispatch(setBooks(response));
+    })
+    .catch((error) => console.log(error));
 };
 
 const setBooks = (books) => ({

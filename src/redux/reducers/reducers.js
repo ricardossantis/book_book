@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import session from "./session.reducers";
-import timeline from "./timeline.reducers";
+import session from "./session";
+import timeline from "./timeline";
 
 export default combineReducers({ session, timeline });

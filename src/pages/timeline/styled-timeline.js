@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import FramerLoading from "./framer-loading";
 
 const StyledTimeline = styled.section``;
 
@@ -8,6 +9,8 @@ StyledTimeline.Title = styled.h1`
 StyledTimeline.Rows = styled.div`
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 `;
 
 StyledTimeline.User = styled.figure`
@@ -27,17 +30,28 @@ StyledTimeline.User.Review = styled.p`
 `;
 
 StyledTimeline.Book = styled.div`
-  border: 1px solid black;
-  margin: 5px;
-  width: 500px;
+  // border: 1px solid black;
+  margin: 10px;
+  width: 380px;
+  height: 380px;
+  background-color: #13334c;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
 `;
 StyledTimeline.Book.Title = styled.h4`
   margin: 0;
+  font-size: 1.4rem;
 `;
 StyledTimeline.Book.Image = styled.img`
   width: 130px;
   height: 200px;
 `;
-StyledTimeline.Book.Description = styled.p``;
+StyledTimeline.Book.Description = styled.p`
+  font-size: 1rem;
+`;
 
-export default StyledTimeline;
+export { StyledTimeline, FramerLoading };
