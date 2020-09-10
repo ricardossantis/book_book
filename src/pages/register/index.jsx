@@ -77,7 +77,7 @@ const Register = () => {
             type="password"
             rules={password}
           >
-            <StyledInput />
+            <StyledInput.Password />
           </StyledForm.Item>
 
           <StyledForm.Item
@@ -86,10 +86,10 @@ const Register = () => {
             type="password"
             rules={[password_confirmation, password_verifications]}
           >
-            <StyledInput />
+            <StyledInput.Password />
           </StyledForm.Item>
 
-          <LinkA to="/">Voltar</LinkA>
+          <LinkA to="/login">Voltar</LinkA>
           <StyledButton type="submit" htmlType="submit">
             Register
           </StyledButton>
