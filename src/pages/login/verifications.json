@@ -2,25 +2,25 @@
   "user": [
     {
       "required": true,
-      "message": "Please enter your username!"
+      "message": "Por favor, digite seu usuário!"
     },
     {
       "whitespace": true,
-      "message": "User is blank!"
+      "message": "Usuário obrigatório!"
     },
     {
       "min": 6,
-      "message": "User must be at least 6 characters!"
+      "message": "Úsuario deve conter 6 caracteres."
     }
   ],
   "password": [
     {
       "required": true,
-      "message": "Please enter your password!"
+      "message": "Por favor, digite sua senha!"
     },
     {
       "whitespace": true,
-      "message": "Password cant be blank!"
+      "message": "Senha incorreta!"
     }
   ],
   "remember": true

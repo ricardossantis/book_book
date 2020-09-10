@@ -2,31 +2,33 @@ import React, { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 
 import { StyledHeader, StyledMenu } from "./styledmenu";
-import { logout } from "../../redux/actions/session.actions";
+import { setLogout } from "../../redux/actions/sessionActions";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Menu() {
   const history = useHistory();
   const token = useSelector((state) => state.session.token);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (token) {
-      history.push("/");
+      history.push("/timeline");
     } else {
       history.push("/login");
     }
   });
 
-  const logoutPush = () => {
-    logout();
-    history.push("/login");
+  const handleLogout = () => {
+    dispatch(setLogout(history));
   };
 
   return (
     <StyledHeader>
       <StyledMenu>
-        <h1>BookBook</h1>
+        <StyledMenu.Title>
+          BookBook <p> MVC VERSION</p>
+        </StyledMenu.Title>
         {token ? (
           <StyledMenu.Section>
             <StyledMenu.item>
@@ -38,7 +40,7 @@ export default function Menu() {
             </StyledMenu.item>
 
             <StyledMenu.item>
-              <Link to="/">Review</Link>
+              <Link to="/timeline">Reviews</Link>
             </StyledMenu.item>
 
             <StyledMenu.item>
@@ -47,11 +49,11 @@ export default function Menu() {
                   Options
                   <StyledMenu.SubMenu>
                     <StyledMenu.SubMenu.Link>
-                      <Link to="/profile">Profile</Link>
+                      <Link to="/profile">PERFIL</Link>
                     </StyledMenu.SubMenu.Link>
 
-                    <StyledMenu.SubMenu.Link onClick={logoutPush}>
-                      Logout
+                    <StyledMenu.SubMenu.Link onClick={handleLogout}>
+                      LOGOUT
                     </StyledMenu.SubMenu.Link>
                   </StyledMenu.SubMenu>
                 </StyledMenu.SubMenu.Options>

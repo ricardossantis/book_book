@@ -1,5 +1,5 @@
-import api from "../api";
-import { LOGIN } from "./actions-type";
+import api from "../../services/api";
+import { LOGIN, LOGOUT } from "./actions-type";
 
 const session = (status, token, user) => ({
   type: LOGIN,
@@ -20,6 +20,11 @@ export const postLogin = ({ username, password }) => (dispatch) => {
     });
 };
 
-export const logout = () => {
-  localStorage.clear();
+const logout = (page, token, user) => ({
+  type: LOGOUT,
+  payload: { status: page, token, user },
+});
+
+export const setLogout = (page) => (dispatch) => {
+  dispatch(logout(page));
 };
