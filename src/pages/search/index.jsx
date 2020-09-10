@@ -8,22 +8,29 @@ import {
   StyledAddButtonsDiv,
   StyledAddButton,
 } from "./styled-search.js";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import api from "../../services/api.js";
+import getBooks from "../../redux/actions/getBook.js";
 
 function Search() {
   const dispatch = useDispatch();
+  const userInfo = useSelector((state) => state.session);
+  const userBooks = useSelector((state) => state.books);
   const [input, setInput] = useState();
-  const [books, setBooks] = useState([]);
+  const [googleBooks, setGoogleBooks] = useState([]);
 
   useEffect(() => {
     let bookLinks = ` https://www.googleapis.com/books/v1/volumes?q=coding`;
-    axios.get(bookLinks).then((res) => setBooks(res.data.items));
+    axios.get(bookLinks).then((res) => setGoogleBooks(res.data.items));
+    dispatch(getBooks(userInfo));
   }, []);
 
   const handleSearchClick = () => {
     let bookLinks = ` https://www.googleapis.com/books/v1/volumes?q=${input}`;
     axios.get(bookLinks).then((res) => {
-      res.data.items === undefined ? setBooks([]) : setBooks(res.data.items);
+      res.data.items === undefined
+        ? setGoogleBooks([])
+        : setGoogleBooks(res.data.items);
     });
   };
 
@@ -41,17 +48,9 @@ function Search() {
       },
     };
 
-    // switch (shelf) {
-    //   case 1:
-    //     dispatch(addBook(bookInfo, shelf));
-    //     break;
-    //   case 2:
-    //     dispatch(addBook(bookInfo, shelf));
-    //     break;
-    //   case 3:
-    //     dispatch(addBook(bookInfo, shelf));
-    //     break;
-    // }
+    api.post(`/users/${userInfo.user.id}/books`, bookInfo, {
+      headers: { authorization: userInfo.token },
+    });
   };
 
   return (
@@ -66,8 +65,8 @@ function Search() {
       <StyledSearch>
         <StyledSearch.Title>Search</StyledSearch.Title>
         <StyledSearch.Rows>
-          {books.length > 0 ? (
-            books.map((book) => {
+          {googleBooks.length > 0 ? (
+            googleBooks.map((book) => {
               return (
                 <StyledSearch.Book key={book.id}>
                   <StyledSearch.Book.Title>

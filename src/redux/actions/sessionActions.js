@@ -16,7 +16,9 @@ export const postLogin = ({ username, password }) => (dispatch) => {
       localStorage.setItem("CurrentUser", JSON.stringify(res.data.user));
     })
     .catch(({ response }) => {
-      dispatch(session(response.status));
+      if (response.status === 401) {
+        dispatch(session(response.status));
+      }
     });
 };
 
