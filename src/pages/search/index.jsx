@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import StyledSearch from "./styled-search.js";
+import {
+  StyledSearch,
+  StyledSearchField,
+  StyledInput,
+  StyledSearchButton,
+  StyledAddButtonsDiv,
+  StyledAddButton,
+} from "./styled-search.js";
 
 function Search() {
   const [input, setInput] = useState();
@@ -22,8 +29,13 @@ function Search() {
 
   return (
     <>
-      <input onChange={({ target: { value } }) => setInput(value)} />
-      <button onClick={handleSearchClick}>Search</button>
+      <StyledSearchField>
+        <StyledInput onChange={({ target: { value } }) => setInput(value)} />
+        <StyledSearchButton onClick={handleSearchClick}>
+          Search
+        </StyledSearchButton>
+      </StyledSearchField>
+
       <StyledSearch>
         <StyledSearch.Title>Search</StyledSearch.Title>
         <StyledSearch.Rows>
@@ -35,13 +47,16 @@ function Search() {
                     Book Title: {book.volumeInfo.title}
                   </StyledSearch.Book.Title>
 
-                  <StyledSearch.Rows>
-                    <StyledSearch.Book.Image
-                      onClick={handleBookClick}
-                      src={book.volumeInfo.imageLinks.thumbnail}
-                      alt={book.volumeInfo.authors[0]}
-                    />
-                  </StyledSearch.Rows>
+                  <StyledSearch.Book.Image
+                    onClick={handleBookClick}
+                    src={book.volumeInfo.imageLinks.thumbnail}
+                    alt={book.volumeInfo.authors[0]}
+                  />
+                  <StyledAddButtonsDiv>
+                    <StyledAddButton>Add to 1</StyledAddButton>
+                    <StyledAddButton>Add to 2</StyledAddButton>
+                    <StyledAddButton>Add to 3</StyledAddButton>
+                  </StyledAddButtonsDiv>
                 </StyledSearch.Book>
               );
             })}

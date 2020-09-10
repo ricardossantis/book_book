@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledSearch = styled.section``;
+export const StyledSearch = styled.section``;
 
 StyledSearch.Title = styled.h1`
   margin: 0;
@@ -8,9 +8,14 @@ StyledSearch.Title = styled.h1`
 StyledSearch.Rows = styled.div`
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
 `;
 
 StyledSearch.Book = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   border: 1px solid black;
   margin: 5px;
   width: 500px;
@@ -27,4 +32,24 @@ StyledSearch.Book.Image = styled.img`
 `;
 StyledSearch.Book.Description = styled.p``;
 
-export default StyledSearch;
+export const StyledSearchField = styled.div``;
+
+export const StyledInput = styled.input`
+  color: #000000;
+`;
+
+export const StyledSearchButton = styled.button`
+  background-color: #666;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+export const StyledAddButtonsDiv = styled.div`
+  display: flex;
+  flex-wrap: nowrap;
+`;
+
+export const StyledAddButton = styled.button`
+  background-color: #666;
+`;
