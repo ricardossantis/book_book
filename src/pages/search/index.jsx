@@ -15,7 +15,7 @@ import getBooks from "../../redux/actions/getBook.js";
 function Search() {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.session);
-  const userBooks = useSelector((state) => state.books);
+  const userBooks = useSelector((state) => state.books.books);
   const [input, setInput] = useState();
   const [googleBooks, setGoogleBooks] = useState([]);
 
@@ -35,6 +35,7 @@ function Search() {
   };
 
   const handleBookClick = (shelf, apiBook) => {
+    console.log(shelf);
     let bookInfo = {
       book: {
         title: apiBook.volumeInfo.title,
@@ -48,10 +49,9 @@ function Search() {
       },
     };
 
-    let userBooksArr = [...userBooks];
-    console.log(userBooks, userBooksArr);
-    let filteredTitle = userBooks.payload.filter(
-      (book) => book.book.title === bookInfo.title
+    console.log(userBooks, apiBook);
+    let filteredTitle = userBooks.filter(
+      (book) => book.title === bookInfo.book.title
     );
 
     if (filteredTitle.length === 0) {
@@ -63,18 +63,21 @@ function Search() {
       dispatch(getBooks(userInfo));
     } else {
       let filteredShelf = filteredTitle.filter(
-        (book) => book.book.shelf === bookInfo.shelf
+        (book) => book.shelf === bookInfo.book.shelf
       );
 
-      filteredShelf.length === 0
-        ? api.put(
-            `/users/${userInfo.user.id}/books/${apiBook.id}`,
-            { book: { shelf: apiBook.shelf } },
-            {
-              headers: { authorization: userInfo.token },
-            }
-          )
-        : console.log("Book already added");
+      if (filteredShelf.length === 0) {
+        api.put(
+          `/users/${userInfo.user.id}/books/${filteredTitle[0].id}`,
+          { book: { shelf: shelf } },
+          {
+            headers: { authorization: userInfo.token },
+          }
+        );
+        dispatch(getBooks(userInfo));
+      } else {
+        console.log("Book already added");
+      }
     }
   };
 
