@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getBooksReviews } from "../../redux/actions/timelineActions";
 import { StyledTimeline, FramerLoading } from "./styled-timeline";
+import { updateSession } from "../../redux/actions/sessionActions";
 
 export default function Timeline() {
   const [loading, setLoading] = useState(true);
@@ -13,6 +14,14 @@ export default function Timeline() {
 
   useEffect(() => {
     dispatch(getBooksReviews(token));
+    if (localStorage.getItem("CurrentUser")) {
+      dispatch(
+        updateSession(
+          localStorage.getItem("token"),
+          JSON.parse(localStorage.getItem("CurrentUser"))
+        )
+      );
+    }
   }, [dispatch, token]);
 
   setTimeout(() => {
