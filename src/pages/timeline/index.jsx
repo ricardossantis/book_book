@@ -18,7 +18,6 @@ export default function Timeline() {
       <StyledTimeline.Title>Timeline</StyledTimeline.Title>
       <StyledTimeline.Rows>
         {books.map((book) => {
-          console.log(book);
           return (
             <StyledTimeline.Book key={book.id}>
               <StyledTimeline.Book.Title>

@@ -1,0 +1,67 @@
+{
+  "name": [
+    {
+      "required": true,
+      "message": "Please enter your name!"
+    },
+    {
+      "whitespace": true,
+      "message": "This name is not valid!"
+    },
+    {
+      "pattern": "[A-Za-z]* [A-Za-z]*",
+      "message": "enter your first and last name"
+    }
+  ],
+  "email": [
+    {
+      "type": "email",
+      "message": "This email is not valid!"
+    },
+    {
+      "required": true,
+      "message": "Please, type your e-mail!"
+    },
+    {
+      "patternTEST": "^[a-zA-Z0-9_-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$(gi)",
+      "message": "Email must be example@example.com"
+    }
+  ],
+  "user": [
+    {
+      "required": true,
+      "message": "Please enter your username!"
+    },
+    {
+      "whitespace": true,
+      "message": "This user is not valid!"
+    },
+    {
+      "min": 6,
+      "message": "Must have at least 6 characters!"
+    }
+  ],
+  "password": [
+    {
+      "required": true,
+      "message": "Please enter your password!"
+    },
+    {
+      "min": 6,
+      "message": "Password must be at least 6 characters long"
+    },
+    {
+      "whitespace": true,
+      "message": "This password is not valid!"
+    },
+    {
+      "pattern": "(?=.*[}{,^?~=+\\-_*\\-+|!@#$%&-+¨´\"'])",
+      "message": "Must contain at least one special character"
+    }
+  ],
+  "password_confirmation": {
+    "required": true,
+    "message": "Please confirm your password!",
+    "whitespace": true
+  }
+}

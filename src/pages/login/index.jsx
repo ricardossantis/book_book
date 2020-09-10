@@ -5,6 +5,8 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { postLogin } from "../../redux/actions/session.actions";
 
+import { user, password, remember } from "./verifications.json";
+
 const Login = () => {
   let history = useHistory();
   const dispatch = useDispatch();
@@ -31,17 +33,11 @@ const Login = () => {
   return (
     <LoginBox>
       <Title>LOGIN</Title>
-      <Form name="basic" initialValues={{ remember: true }} onFinish={onFinish}>
-        <Form.Item
-          name="username"
-          rules={[{ required: true, message: "Please input your username!" }]}
-        >
+      <Form name="basic" initialValues={remember} onFinish={onFinish}>
+        <Form.Item name="username" rules={user}>
           <Input placeholder="Username" />
         </Form.Item>
-        <Form.Item
-          name="password"
-          rules={[{ required: true, message: "Please input your password!" }]}
-        >
+        <Form.Item name="password" rules={password}>
           <Input.Password placeholder="Password" />
         </Form.Item>
         <Form.Item name="remember" valuePropName="checked">
