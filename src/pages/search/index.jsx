@@ -35,7 +35,6 @@ function Search() {
   };
 
   const handleBookClick = (shelf, apiBook) => {
-    console.log(shelf);
     let bookInfo = {
       book: {
         title: apiBook.volumeInfo.title,
@@ -49,7 +48,6 @@ function Search() {
       },
     };
 
-    console.log(userBooks, apiBook);
     let filteredTitle = userBooks.filter(
       (book) => book.title === bookInfo.book.title
     );
