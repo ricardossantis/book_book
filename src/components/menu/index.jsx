@@ -26,7 +26,9 @@ export default function Menu() {
   return (
     <StyledHeader>
       <StyledMenu>
-        <h1>BookBook</h1>
+        <StyledMenu.Title>
+          BookBook <p> MVC VERSION</p>
+        </StyledMenu.Title>
         {token ? (
           <StyledMenu.Section>
             <StyledMenu.item>
@@ -47,11 +49,11 @@ export default function Menu() {
                   Options
                   <StyledMenu.SubMenu>
                     <StyledMenu.SubMenu.Link>
-                      <Link to="/profile">Profile</Link>
+                      <Link to="/profile">PERFIL</Link>
                     </StyledMenu.SubMenu.Link>
 
                     <StyledMenu.SubMenu.Link onClick={handleLogout}>
-                      Logout
+                      LOGOUT
                     </StyledMenu.SubMenu.Link>
                   </StyledMenu.SubMenu>
                 </StyledMenu.SubMenu.Options>

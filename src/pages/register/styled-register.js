@@ -6,7 +6,7 @@ export const RegisterBox = styled.div`
   width: 500px;
   height: 700px;
   background-color: #cccccc;
-  border-radius: 6px;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,14 +20,14 @@ export const InputContainer = styled.div`
 `;
 
 export const StyledInput = styled(Input)`
-  margin: 1rem;
+  // margin: 1rem;
 `;
 
 export const StyledForm = styled(Form)`
-  width: 360px;
+  width: 280px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  // align-items: center;
   justify-content: center;
   text-align: center;
 `;
@@ -36,29 +36,37 @@ export const H2Form = styled.h2`
   font-family: Roboto;
   font-weight: 700;
   font-size: 4rem;
-  margin: 0;
+  // margin: 0;
 `;
 
 export const LinkA = styled(Link)`
   display: block;
-  text-align: right;
+  margin: 0 auto;
   text-decoration: none;
-  color: #999;
+  color: #000;
   font-size: 0.9rem;
-  transition: 0.3s;
+  width: 100%;
+  height: 24px;
+  transition: 0.5s;
+  background-color: #fff;
+  padding: 2px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
 
   &:hover {
-    color: #ccc;
+    background-color: rgba(41, 128, 185, 0.6);
+    color: #fff;
   }
 `;
 
 export const StyledButton = styled(Button)`
-  display: block;
   width: 100%;
-  height: 50px;
-  border-radius: 25px;
-  margin: 1rem 0;
+  height: 40px;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  margin: 0.6rem 0;
   font-size: 1.2rem;
+  font-weight: bold;
   outline: none;
   border: none;
   text-transform: uppercase;

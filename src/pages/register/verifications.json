@@ -1,0 +1,67 @@
+{
+  "name": [
+    {
+      "required": true,
+      "message": "Por favor, digite seu nome e sobrenome"
+    },
+    {
+      "whitespace": true,
+      "message": "Este nome não é válido!"
+    },
+    {
+      "pattern": "^(?=(?:[^A-Za-z]*[A-Za-z]){2})(?![^\\d~`?!^*¨ˆ;@=$%{}\\[\\]|\\/<>#“.,]*[\\d~`?!^*¨ˆ;@=$%{}\\[\\]|\\/<>#“.,])\\S+(?: \\S+){1,5}$",
+      "message": "Por favor, digite seu nome e sobrenome"
+    }
+  ],
+  "email": [
+    {
+      "type": "email",
+      "message": "Este email não é válido!"
+    },
+    {
+      "required": true,
+      "message": "Por favor, digite seu email"
+    },
+    {
+      "patternTEST": "^[0-9?A-z0-9?]+(\\.)?[0-9?A-z0-9?]+@[A-z]+\\.[A-z]{3}.?[A-z]{0,3}$",
+      "message": "Email deve ser example@example.com"
+    }
+  ],
+  "user": [
+    {
+      "required": true,
+      "message": "Por favor, digite seu usuário!"
+    },
+    {
+      "whitespace": true,
+      "message": "Este usuário não é válido!"
+    },
+    {
+      "min": 6,
+      "message": "Usuário deve conter no mínimo 6 caracteres!"
+    }
+  ],
+  "password": [
+    {
+      "required": true,
+      "message": "Por favor, digite sua senha!"
+    },
+    {
+      "min": 6,
+      "message": "Senha deve ter ao menos 6 caracteres!"
+    },
+    {
+      "whitespace": true,
+      "message": "Está senha não é válido!"
+    },
+    {
+      "pattern": "(?=.*[}{,^?~=+\\-_*\\-+|!@#$%&-+¨´\"'])",
+      "message": "Senha deve conter um caractere especial!"
+    }
+  ],
+  "password_confirmation": {
+    "required": true,
+    "message": "Por favor, confirme sua senha",
+    "whitespace": true
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "user": [
+    {
+      "required": true,
+      "message": "Por favor, digite seu usuário!"
+    },
+    {
+      "whitespace": true,
+      "message": "Usuário obrigatório!"
+    },
+    {
+      "min": 6,
+      "message": "Úsuario deve conter 6 caracteres."
+    }
+  ],
+  "password": [
+    {
+      "required": true,
+      "message": "Por favor, digite sua senha!"
+    },
+    {
+      "whitespace": true,
+      "message": "Senha incorreta!"
+    }
+  ],
+  "remember": true
+}
