@@ -43,13 +43,13 @@ function Search() {
 
     // switch (shelf) {
     //   case 1:
-    //     dispatch(addBook(bookInfo));
+    //     dispatch(addBook(bookInfo, shelf));
     //     break;
     //   case 2:
-    //     dispatch(addBook(bookInfo));
+    //     dispatch(addBook(bookInfo, shelf));
     //     break;
     //   case 3:
-    //     dispatch(addBook(bookInfo));
+    //     dispatch(addBook(bookInfo, shelf));
     //     break;
     // }
   };
