@@ -14,6 +14,7 @@ const Login = () => {
 
   const onFinish = (values) => {
     dispatch(postLogin(values));
+    history.push("/timeline");
   };
 
   useEffect(() => {
