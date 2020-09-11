@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link, useHistory } from "react-router-dom";
 
 import { StyledHeader, StyledMenu } from "./styledmenu";
@@ -46,16 +46,16 @@ export default function Menu() {
             </StyledMenu.item>
           </StyledMenu.Section>
         ) : (
-          <StyledMenu.Section>
-            <StyledMenu.item>
-              <Link to="/login">Login</Link>
-            </StyledMenu.item>
+            <StyledMenu.Section>
+              <StyledMenu.item>
+                <Link to="/login">Login</Link>
+              </StyledMenu.item>
 
-            <StyledMenu.item>
-              <Link to="/register">Cadastro</Link>
-            </StyledMenu.item>
-          </StyledMenu.Section>
-        )}
+              <StyledMenu.item>
+                <Link to="/register">Cadastro</Link>
+              </StyledMenu.item>
+            </StyledMenu.Section>
+          )}
       </StyledMenu>
     </StyledHeader>
   );
