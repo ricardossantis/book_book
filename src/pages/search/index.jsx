@@ -63,6 +63,8 @@ function Search() {
       let filteredShelf = filteredTitle.filter(
         (book) => book.shelf === bookInfo.book.shelf
       );
+
+      if (filteredShelf.length === 0) {
         api.put(
           `/users/${userInfo.user.id}/books/${filteredTitle[0].id}`,
           { book: { shelf: shelf } },
@@ -70,6 +72,10 @@ function Search() {
             headers: { authorization: userInfo.token },
           }
         );
+        dispatch(getBooks(userInfo));
+      } else {
+        console.log("Book already added");
+      }
     }
   };
 
