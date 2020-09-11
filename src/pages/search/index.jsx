@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import api from "../../services/api.js";
 import getBooks from "../../redux/actions/getBook.js";
 
-function Search() {
+const Search = () => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.session);
   const userBooks = useSelector((state) => state.books.books);
@@ -105,13 +105,13 @@ function Search() {
                   />
                   <StyledAddButtonsDiv>
                     <StyledAddButton onClick={() => handleBookClick(1, book)}>
-                      Add to 1
+                      Quero Ler
                     </StyledAddButton>
                     <StyledAddButton onClick={() => handleBookClick(2, book)}>
-                      Add to 2
+                      Lendo
                     </StyledAddButton>
                     <StyledAddButton onClick={() => handleBookClick(3, book)}>
-                      Add to 3
+                      Lido
                     </StyledAddButton>
                   </StyledAddButtonsDiv>
                 </StyledSearch.Book>
@@ -124,6 +124,6 @@ function Search() {
       </StyledSearch>
     </>
   );
-}
+};
 
 export default Search;

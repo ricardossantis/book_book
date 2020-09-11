@@ -1,16 +1,18 @@
 import styled from "styled-components";
 
 const StyledHeader = styled.header`
-  position: fixed;
-  background-color: #979a9a;
+  // position: fixed;
+  background-color: #AEB6BF
   width: 100%;
   height: 50px;
+  
 `;
 const StyledMenu = styled.div`
   height: 50px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 20px;
 `;
 
 StyledMenu.Title = styled.h2`
@@ -38,12 +40,9 @@ StyledMenu.item = styled.div`
     margin-right: 20px;
   }
 
-  // a {
-  //   color: #1c2833;
-  // }
-  // a:hover {
-  //   color: #fdfefe;
-  // }
+  a:hover {
+    color: #1c2833;
+  }
 `;
 StyledMenu.Section = styled.section`
   display: flex;
