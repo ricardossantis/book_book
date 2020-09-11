@@ -10,5 +10,10 @@ export default function Shelves() {
     dispatch(getBooks(userInfo));
   }, []);
 
-  return <div>Shelves</div>;
+  return (
+    <div>
+      Aqui devem existir 3 categorias/prateleiras: Quero Ler, Lendo Atualmente e
+      Acabei de ler;
+    </div>
+  );
 }

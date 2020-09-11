@@ -16,6 +16,7 @@ function Search() {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.session);
   const userBooks = useSelector((state) => state.books);
+
   const [input, setInput] = useState();
   const [googleBooks, setGoogleBooks] = useState([]);
 
@@ -104,13 +105,13 @@ function Search() {
                   />
                   <StyledAddButtonsDiv>
                     <StyledAddButton onClick={() => handleBookClick(1, book)}>
-                      Add to 1
+                      Quero Ler
                     </StyledAddButton>
                     <StyledAddButton onClick={() => handleBookClick(2, book)}>
-                      Add to 2
+                      Lendo
                     </StyledAddButton>
                     <StyledAddButton onClick={() => handleBookClick(3, book)}>
-                      Add to 3
+                      Lido
                     </StyledAddButton>
                   </StyledAddButtonsDiv>
                 </StyledSearch.Book>

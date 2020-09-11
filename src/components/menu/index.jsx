@@ -32,32 +32,25 @@ export default function Menu() {
         {token ? (
           <StyledMenu.Section>
             <StyledMenu.item>
-              <Link to="/search">Search</Link>
+              <Link to="/search">Buscar</Link>
             </StyledMenu.item>
 
             <StyledMenu.item>
-              <Link to="/shelves">Shelves</Link>
+              <Link to="/shelves">Prateleiras</Link>
             </StyledMenu.item>
 
             <StyledMenu.item>
-              <Link to="/timeline">Reviews</Link>
+              <Link to="/timeline">Linha do Tempo</Link>
             </StyledMenu.item>
 
             <StyledMenu.item>
-              <StyledMenu.SubMenu>
-                <StyledMenu.SubMenu.Options>
-                  Options
-                  <StyledMenu.SubMenu>
-                    <StyledMenu.SubMenu.Link>
-                      <Link to="/profile">PERFIL</Link>
-                    </StyledMenu.SubMenu.Link>
+              <Link to="/profile">Perfil</Link>
+            </StyledMenu.item>
 
-                    <StyledMenu.SubMenu.Link onClick={handleLogout}>
-                      LOGOUT
-                    </StyledMenu.SubMenu.Link>
-                  </StyledMenu.SubMenu>
-                </StyledMenu.SubMenu.Options>
-              </StyledMenu.SubMenu>
+            <StyledMenu.item>
+              <Link to="/login" onClick={handleLogout}>
+                | SAIR
+              </Link>
             </StyledMenu.item>
           </StyledMenu.Section>
         ) : (
@@ -67,7 +60,7 @@ export default function Menu() {
             </StyledMenu.item>
 
             <StyledMenu.item>
-              <Link to="/register">Register</Link>
+              <Link to="/register">Cadastro</Link>
             </StyledMenu.item>
           </StyledMenu.Section>
         )}

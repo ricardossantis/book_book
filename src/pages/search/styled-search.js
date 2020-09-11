@@ -16,9 +16,10 @@ StyledSearch.Book = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid black;
   margin: 5px;
   width: 500px;
+  background-color: #cccccc;
+  border-radius: 8px;
 `;
 StyledSearch.Book.Title = styled.h4`
   margin: 0;
