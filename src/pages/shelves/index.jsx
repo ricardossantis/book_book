@@ -7,10 +7,8 @@ import Book from "../../components/book/index.jsx";
 
 const Shelves = () => {
   const dispatch = useDispatch();
-  const [userInfo, userBooks] = useSelector((state) => [
-    state.session,
-    state.books.books,
-  ]);
+  const userInfo = useSelector((state) => state.session);
+  const userBooks = useSelector((state) => state.books.books);
 
   useEffect(() => {
     dispatch(
@@ -19,37 +17,31 @@ const Shelves = () => {
         JSON.parse(localStorage.getItem("CurrentUser"))
       )
     );
-
-    dispatch(getBooks(userInfo))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  setTimeout(() => dispatch(getBooks(userInfo)), 200)
+  useEffect(() => {
+    dispatch(getBooks(userInfo));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userInfo]);
 
+  // setTimeout(() => dispatch(getBooks(userInfo)), 200);
 
   const ShelvesFilter = (shelf) => {
-    console.log(userBooks)
     return userBooks
       .filter((book) => book.shelf === shelf)
-      .map((book) => <Book book={book} key={book.id} />)
-  }
-
-
+      .map((book) => <Book book={book} key={book.id} />);
+  };
 
   return (
     <Container>
       <Profile>
         <h2>Usuário: {userInfo.user.user}</h2>
       </Profile>
-      <Shelf >
-        {ShelvesFilter(1)}
-      </Shelf>
+      <Shelf>{ShelvesFilter(1)}</Shelf>
 
-      <Shelf >
-        {ShelvesFilter(2)}
-      </Shelf>
-      <Shelf >
-        {ShelvesFilter(3)}
-      </Shelf>
+      <Shelf>{ShelvesFilter(2)}</Shelf>
+      <Shelf>{ShelvesFilter(3)}</Shelf>
     </Container>
   );
 };
