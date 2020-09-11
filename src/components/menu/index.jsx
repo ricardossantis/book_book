@@ -11,14 +11,6 @@ export default function Menu() {
   const token = useSelector((state) => state.session.token);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (token) {
-      history.push("/timeline");
-    } else {
-      history.push("/login");
-    }
-  });
-
   const handleLogout = () => {
     dispatch(setLogout(history));
   };

@@ -4,7 +4,7 @@ import { getBooksReviews } from "../../redux/actions/timelineActions";
 import { StyledTimeline, FramerLoading } from "./styled-timeline";
 import { updateSession } from "../../redux/actions/sessionActions";
 
-export default function Timeline() {
+const Timeline = () => {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const [books, token] = useSelector((state) => [
@@ -26,7 +26,7 @@ export default function Timeline() {
 
   setTimeout(() => {
     setLoading(false);
-  }, 1000);
+  }, 500);
 
   switch (loading) {
     default:
@@ -69,4 +69,6 @@ export default function Timeline() {
         </StyledTimeline>
       );
   }
-}
+};
+
+export default Timeline;
