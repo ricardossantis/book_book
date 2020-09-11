@@ -14,12 +14,8 @@ import getBooks from "../../redux/actions/getBook.js";
 
 const Search = () => {
   const dispatch = useDispatch();
-
-  const [userInfo, userBooks] = useSelector((state) => [
-    state.session,
-    state.books.books,
-  ]);
-
+  const userInfo = useSelector((state) => state.session);
+  const userBooks = useSelector((state) => state.books.books);
   const [input, setInput] = useState();
   const [googleBooks, setGoogleBooks] = useState([]);
 
