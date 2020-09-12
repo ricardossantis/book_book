@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import FramerLoading from "./framer-loading";
+import FramerLoading from "../../components/framerLoading";
 
 const StyledTimeline = styled.section``;
 

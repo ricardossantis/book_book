@@ -1,31 +1,27 @@
 import React, { useEffect } from "react";
-import { Form, Input, Button, Checkbox, message } from "antd";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { postLogin } from "../../redux/actions/sessionActions";
-import { LoginBox, Title, LoginButton } from "./styled-login";
 
+import { postLogin } from "../../redux/actions/session.js";
 import { user, password, remember } from "./verifications.json";
+
+import { Form, Input, Checkbox, message } from "antd";
+import { LoginBox, Title, LoginButton } from "./styled-login";
 
 const Login = () => {
   let history = useHistory();
   const dispatch = useDispatch();
-  const userInfo = useSelector((state) => state.session);
+  const { token, status } = useSelector((state) => state.session);
 
   const onFinish = (values) => {
     dispatch(postLogin(values));
-    history.push("/timeline");
+    history.push("/avaliacoes");
   };
 
   useEffect(() => {
-    if (localStorage.getItem("token")) {
-      history.push("/timeline");
-    }
-
-    if (userInfo.status === 401) {
-      message.warning("Usuário ou senha inválidos!");
-    }
-  }, [history, userInfo]);
+    token && history.push("/avaliacoes");
+    status === 401 && message.warning("Usuário ou senha inválidos!");
+  }, [status, token, history,]);
 
   return (
     <LoginBox>

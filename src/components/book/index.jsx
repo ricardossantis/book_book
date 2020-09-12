@@ -1,40 +1,32 @@
 import { motion } from "framer-motion";
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import api from "../../services/api";
+import updateBook from "../../utils/updateBook";
 import Feedback from "../feedback";
 
-import { setFeedbackAuthorization } from "../../redux/actions/feedback";
 
 const Book = ({ book }) => {
-  const dispatch = useDispatch();
-  const [userInfo, authorization] = useSelector((state) => [
-    state.session,
-    state.authorization.feedback.authorization,
-  ]);
+  const [modal, setModal] = useState();
+  const { id } = useParams()
+
+
   const changeShelf = (shelf) => {
-    api.put(
-      `/users/${userInfo.user.id}/books/${book.id}`,
-      { book: { shelf: shelf } },
-      {
-        headers: { authorization: userInfo.token },
-      }
-    );
+
+    updateBook({ book: { shelf: shelf } }, id, book)
+
   };
 
   return (
     <Box>
-      <img src={book.image_url} />
-      {authorization && <Feedback book={book} />}
+      <img src={book.image_url} alt="imagem do livro" />
+      {modal && <Feedback book={book} setModal={setModal} />}
       <BoxButton>
         <Button onClick={() => changeShelf(1)}>ler</Button>
         <Button onClick={() => changeShelf(2)}>lendo</Button>
         <Button onClick={() => changeShelf(3)}>lido</Button>
         <Button
-          onClick={() => {
-            dispatch(setFeedbackAuthorization(true));
-          }}
+          onClick={() => setModal(!modal)}
         >
           FeedBack
         </Button>
@@ -58,12 +50,13 @@ const Box = styled(motion.div)`
     height: 180px;
   }
 `;
-const ContainerBook = styled.div``;
+
 const Button = styled.button`
   flex: 1;
   font-size: 10px;
   color: black;
 `;
+
 const BoxButton = styled.div`
   width: 100%;
   height: 50px;

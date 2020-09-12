@@ -1,56 +1,46 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import {
-  StyledSearch,
-  StyledSearchField,
-  StyledInput,
-  StyledSearchButton,
-  StyledAddButtonsDiv,
-  StyledAddButton,
-} from "./styled-search.js";
 import { useDispatch, useSelector } from "react-redux";
+import addBooks from "../../redux/actions/addBook.js";
+
+import axios from "axios";
 import api from "../../services/api.js";
-import getBooks from "../../redux/actions/getBook.js";
+
+import { StyledSearch, StyledSearchField, StyledInput, StyledSearchButton, StyledAddButtonsDiv, StyledAddButton } from "./styled-search.js";
+import updateBook from "../../utils/updateBook.js";
 
 const Search = () => {
   const dispatch = useDispatch();
-  const userInfo = useSelector((state) => state.session);
-  const userBooks = useSelector((state) => state.books.books);
-  const [input, setInput] = useState();
-  const [googleBooks, setGoogleBooks] = useState([]);
+  const [userInfo, userBooks] = useSelector((state) => [state.session, state.books.books]);
+  const [googleBooks, setGoogleBooks] = useState({ totalItems: 0, items: [] });
+  const [input, setInput] = useState("");
 
   useEffect(() => {
-    let bookLinks = ` https://www.googleapis.com/books/v1/volumes?q=coding`;
-    axios.get(bookLinks).then((res) => setGoogleBooks(res.data.items));
-    dispatch(getBooks(userInfo));
-  }, []);
+    axios.get(`https://www.googleapis.com/books/v1/volumes?q=book`)
+      .then(({ data }) => setGoogleBooks(data));
+    dispatch(addBooks(userInfo));
+  }, [dispatch, userInfo]);
 
-  const handleSearchClick = () => {
-    let bookLinks = ` https://www.googleapis.com/books/v1/volumes?q=${input}`;
-    axios.get(bookLinks).then((res) => {
-      res.data.items === undefined
-        ? setGoogleBooks([])
-        : setGoogleBooks(res.data.items);
-    });
-  };
+  const handleSearchClick = () =>
+    axios.get(`https://www.googleapis.com/books/v1/volumes?q=${input.replace(/\s/g, "+")}`)
+      .then(({ data }) => { data.items !== undefined && setGoogleBooks(data) })
 
-  const handleBookClick = (shelf, apiBook) => {
-    let bookInfo = {
+
+  const handleBookClick = (shelf, { volumeInfo: { title, authors = [], imageLinks = "", categories = [] }, id }) => {
+
+    const bookInfo = {
       book: {
-        title: apiBook.volumeInfo.title,
-        author: apiBook.volumeInfo.authors.join(","),
+        title: title,
+        author: authors.join(","),
         shelf: shelf,
-        image_url: apiBook.volumeInfo.imageLinks.thumbnail,
+        image_url: imageLinks.thumbnail,
         grade: "",
-        categories: apiBook.volumeInfo.categories.join(","),
+        categories: categories.join(","),
         review: "",
-        google_book_id: apiBook.id,
+        google_book_id: id,
       },
     };
 
-    let filteredTitle = userBooks.filter(
-      (book) => book.title === bookInfo.book.title
-    );
+    const filteredTitle = userBooks.filter((book) => book.title === bookInfo.book.title);
 
     if (filteredTitle.length === 0) {
       api
@@ -58,27 +48,13 @@ const Search = () => {
           headers: { authorization: userInfo.token },
         })
         .catch((err) => console.log(err));
-      dispatch(getBooks(userInfo));
+      dispatch(addBooks(userInfo));
     } else {
-      let filteredShelf = filteredTitle.filter(
-        (book) => book.shelf === bookInfo.book.shelf
-      );
-
-      if (filteredShelf.length === 0) {
-        api.put(
-          `/users/${userInfo.user.id}/books/${filteredTitle[0].id}`,
-          { book: { shelf: shelf } },
-          {
-            headers: { authorization: userInfo.token },
-          }
-        );
-        dispatch(getBooks(userInfo));
-      } else {
-        console.log("Book already added");
-      }
+      updateBook({ book: { shelf: shelf } }, userInfo.user.id, filteredTitle[0].id)
+      dispatch(addBooks(userInfo));
     }
   };
-
+  //ARRUMAR O STYLE  DESCONSTRUÇÃO
   return (
     <>
       <StyledSearchField>
@@ -91,18 +67,22 @@ const Search = () => {
       <StyledSearch>
         <StyledSearch.Title>Search</StyledSearch.Title>
         <StyledSearch.Rows>
-          {googleBooks.length > 0 ? (
-            googleBooks.map((book) => {
+          {googleBooks.totalItems === 0
+            ? <StyledSearch.Book>No book found</StyledSearch.Book>
+            : googleBooks.items.map((book) => {
+              const { volumeInfo: { title, authors = [], imageLinks = "" }, id } = book
               return (
-                <StyledSearch.Book key={book.id}>
+                <StyledSearch.Book key={id}>
                   <StyledSearch.Book.Title>
-                    Book Title: {book.volumeInfo.title}
+                    Book Title: {title}
                   </StyledSearch.Book.Title>
 
                   <StyledSearch.Book.Image
-                    src={book.volumeInfo.imageLinks.thumbnail}
-                    alt={book.volumeInfo.authors[0]}
+                    src={imageLinks.thumbnail}
+                    alt={authors[0]}
                   />
+
+
                   <StyledAddButtonsDiv>
                     <StyledAddButton onClick={() => handleBookClick(1, book)}>
                       Quero Ler
@@ -117,9 +97,7 @@ const Search = () => {
                 </StyledSearch.Book>
               );
             })
-          ) : (
-            <StyledSearch.Book>No book found</StyledSearch.Book>
-          )}
+          }
         </StyledSearch.Rows>
       </StyledSearch>
     </>
@@ -127,3 +105,4 @@ const Search = () => {
 };
 
 export default Search;
+
