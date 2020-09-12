@@ -1,10 +1,10 @@
-import { GET_BOOKS } from "../actions/actions-type";
+import { ADD_BOOKS } from "../actions/actionsType";
 
 const defaultState = { books: [] };
 
 const books = (state = defaultState, { type, payload }) => {
   switch (type) {
-    case GET_BOOKS:
+    case ADD_BOOKS:
       return { ...state, books: payload };
 
     default:

@@ -1,6 +1,35 @@
 import React from "react";
 import { motion } from "framer-motion";
 
+const FramerLoading = () => {
+  return (
+    <motion.div
+      style={loadingContainer}
+      variants={loadingContainerVariants}
+      initial="start"
+      animate="end"
+    >
+      <motion.span
+        style={loadingCircle}
+        variants={loadingCircleVariants}
+        transition={loadingCircleTransition}
+      />
+      <motion.span
+        style={loadingCircle}
+        variants={loadingCircleVariants}
+        transition={loadingCircleTransition}
+      />
+      <motion.span
+        style={loadingCircle}
+        variants={loadingCircleVariants}
+        transition={loadingCircleTransition}
+      />
+    </motion.div>
+  );
+};
+
+export default FramerLoading;
+
 const loadingContainer = {
   width: "5rem",
   height: "5rem",
@@ -44,31 +73,3 @@ const loadingCircleTransition = {
   ease: "easeInOut",
 };
 
-const FramerLoading = () => {
-  return (
-    <motion.div
-      style={loadingContainer}
-      variants={loadingContainerVariants}
-      initial="start"
-      animate="end"
-    >
-      <motion.span
-        style={loadingCircle}
-        variants={loadingCircleVariants}
-        transition={loadingCircleTransition}
-      />
-      <motion.span
-        style={loadingCircle}
-        variants={loadingCircleVariants}
-        transition={loadingCircleTransition}
-      />
-      <motion.span
-        style={loadingCircle}
-        variants={loadingCircleVariants}
-        transition={loadingCircleTransition}
-      />
-    </motion.div>
-  );
-};
-
-export default FramerLoading;

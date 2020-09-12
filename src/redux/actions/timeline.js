@@ -1,5 +1,5 @@
 import api from "../../services/api";
-import { GET_BOOK_REVIEWS } from "../actions/actions-type";
+import { GET_BOOK_REVIEWS } from "../actions/actionsType";
 
 export const getBooksReviews = (token) => (dispatch) => {
   const headers = { headers: { authorization: token } };

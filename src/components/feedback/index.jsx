@@ -1,22 +1,17 @@
 import React from "react";
 import { Form, Input, Button, Rate } from "antd";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import { postFeedback } from "../../redux/actions/feedback.js";
+import updateBook from "../../utils/updateBook";
+import { useParams } from "react-router-dom";
 
-export default function Feedback({ book }) {
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.session);
+const Feedback = ({ book, setModal }) => {
+  const { id } = useParams()
+
 
   const onFinish = ({ review, grade }) => {
-    console.log("Success:", { review, grade });
-    const feedback = {
-      book: { review, grade },
-    };
-    dispatch(postFeedback(feedback, user, book));
-  };
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    const feedback = { book: { review, grade } };
+    updateBook(feedback, id, book)
+    setModal(false)
   };
 
   return (
@@ -29,7 +24,6 @@ export default function Feedback({ book }) {
         name="basic"
         initialValues={{ remember: true }}
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
       >
         <Form.Item
           label="Comment"
@@ -56,6 +50,8 @@ export default function Feedback({ book }) {
     </StyledModal>
   );
 }
+
+export default Feedback;
 
 const ShadowBox = styled.div`
   width: 100vw;

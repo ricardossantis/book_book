@@ -1,46 +1,25 @@
 import React from "react";
-import { message } from "antd";
 import { useHistory } from "react-router-dom";
+
+import { name, email, user, password, pass_confirm } from "./verifications.json";
+import pass_verify from "./password-verifications.js";
 import api from "../../services/api";
-import {
-  RegisterBox,
-  InputContainer,
-  StyledForm,
-  H2Form,
-  StyledButton,
-  LinkA,
-  StyledInput,
-} from "./styled-register.js";
 
-import {
-  name,
-  email,
-  user,
-  password,
-  password_confirmation,
-} from "./verifications.json";
-
-import password_verifications from "./password-verifications.js";
+import { message } from "antd";
+import { RegisterBox, InputContainer, StyledForm, H2Form, StyledButton, LinkA, StyledInput } from "./styled-register.js";
 
 const Register = () => {
   const history = useHistory();
 
-  const info = (infoMessage) => {
-    message.info(infoMessage);
-  };
+  const info = (infoMessage) => message.info(infoMessage);
 
-  const onFinish = (values) => {
-    let apiObject = { user: values };
-
-    api
-      .post("/users", apiObject)
-      .then((res) => {
+  const onFinish = (user) => {
+    api.post("/users", { user })
+      .then(() => {
         info("Register successful");
         history.push("/");
       })
-      .catch((err) => {
-        info("Register Failed, please verify your inputs");
-      });
+      .catch(() => info("Register Failed, please verify your inputs"))
   };
 
   return (
@@ -55,7 +34,9 @@ const Register = () => {
             rules={name}
           >
             <StyledInput placeholder="Nome" />
+
           </StyledForm.Item>
+
           <StyledForm.Item name="user" type="text" rules={user}>
             <StyledInput placeholder="Nome de usuário" />
           </StyledForm.Item>
@@ -71,12 +52,12 @@ const Register = () => {
           <StyledForm.Item
             name="confirmPassword"
             type="password"
-            rules={[password_confirmation, password_verifications]}
+            rules={[pass_confirm, pass_verify]}
           >
             <StyledInput.Password placeholder="Confirme sua senha" />
           </StyledForm.Item>
 
-          <LinkA to="/login">Voltar</LinkA>
+          <LinkA to="/logar">Voltar</LinkA>
           <StyledButton type="submit" htmlType="submit">
             Cadastrar
           </StyledButton>

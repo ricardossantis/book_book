@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT } from "../actions/actions-type";
+import { LOGIN, LOGOUT } from "../actions/actionsType";
 
 const defaultState = {
   status: "",
