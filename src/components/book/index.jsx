@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import updateBook from "../../utils/updateBook";
-import Feedback from "../feedback";
+import Feedback from "../modals/feedback";
 
 const Book = ({ book }) => {
   const [modal, setModal] = useState();

@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import ProfileModal from "../../components/modals/profile";
 import { updateSession } from "../../redux/actions/session";
 import addBooks from "../../redux/actions/addBook.js";
 import { Book } from "../../components/exports.js";
-
 import styled from "styled-components";
 
 const Shelves = () => {
@@ -13,6 +12,7 @@ const Shelves = () => {
     state.session,
     state.books.books,
   ]);
+  const [modal, setModal] = useState();
 
   useEffect(() => dispatch(updateSession()), [dispatch]);
   useEffect(() => dispatch(addBooks(userInfo)), [
@@ -29,7 +29,9 @@ const Shelves = () => {
   return (
     <Container>
       <Profile>
+        {modal && <ProfileModal setModal={setModal} />}
         <h2>Usuário: {userInfo.user.user}</h2>
+        <button onClick={() => setModal(!modal)}>Edit Profile</button>
       </Profile>
       <Shelf>{ShelvesFilter(1)}</Shelf>
       <Shelf>{ShelvesFilter(2)}</Shelf>
