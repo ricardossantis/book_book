@@ -1,17 +1,20 @@
 import React from "react";
 import { Form, Input, Button, Rate } from "antd";
 import styled from "styled-components";
-import updateBook from "../../utils/updateBook";
+import { useDispatch } from "react-redux";
+
+import { updateBook } from "../../redux/actions/books.js";
 import { useParams } from "react-router-dom";
 
 const Feedback = ({ book, setModal }) => {
-  const { id } = useParams()
-
+  const dispatch = useDispatch();
+  const user = useParams();
 
   const onFinish = ({ review, grade }) => {
     const feedback = { book: { review, grade } };
-    updateBook(feedback, id, book)
-    setModal(false)
+    console.log({ review, grade });
+    dispatch(updateBook(feedback, user, book));
+    setModal(false);
   };
 
   return (
@@ -20,13 +23,9 @@ const Feedback = ({ book, setModal }) => {
       <div>
         <h1>Feedback</h1>
       </div>
-      <Form
-        name="basic"
-        initialValues={{ remember: true }}
-        onFinish={onFinish}
-      >
+      <Form name="basic" initialValues={{ remember: true }} onFinish={onFinish}>
         <Form.Item
-          label="Comment"
+          label="Review"
           name="review"
           rules={[{ required: true, message: "Please input your comment!" }]}
         >
@@ -49,7 +48,7 @@ const Feedback = ({ book, setModal }) => {
       </Form>
     </StyledModal>
   );
-}
+};
 
 export default Feedback;
 

@@ -1,37 +1,37 @@
 import api from "../../services/api";
-import { LOGIN, LOGOUT } from "./actionsType";
+import { getUserAndToken } from "../../utils/getUsers.js";
+import { LOGIN, LOGOUT } from "./actionsType.js";
 
-export const postLogin = ({ username, password }) => (dispatch) => {
+const setTokenAndUserToLocalStorage = ({ auth_token, user }) => {
+  localStorage.setItem("token", auth_token);
+  localStorage.setItem("CurrentUser", JSON.stringify(user));
+};
+
+export const loginWithAPI = (info) => (dispatch) => {
   api
-    .post("/authenticate", { user: username, password })
-    .then((res) => {
-      dispatch(session(200, res.data.auth_token, res.data.user));
-      localStorage.setItem("token", res.data.auth_token);
-      localStorage.setItem("CurrentUser", JSON.stringify(res.data.user));
+    .post("/authenticate", info)
+    .then((response) => {
+      console.warn(`loginWithAPI Status:${response.status}`);
+      setTokenAndUserToLocalStorage(response.data);
+      dispatch(setLogged(200, response.data.auth_token, response.data.user));
     })
-    .catch(({ response }) => {
-      if (response.status === 401) {
-        dispatch(session(response.status));
-      }
-    });
+    .catch(
+      ({ response }) =>
+        response.status === 401 && dispatch(setLogged(response.status))
+    );
 };
 
 export const updateSession = () => (dispatch) => {
-  let token = localStorage.getItem("token")
-  let user = JSON.parse(localStorage.getItem("CurrentUser"))
-  dispatch(session(200, token, user));
+  const { user, token } = getUserAndToken();
+  dispatch(setLogged({ status: 200, token, user }));
 };
 
-const session = (status, token, user) => ({
-  type: LOGIN,
-  payload: { status, token, user },
-});
-
-const logout = (page, token, user) => ({
+export const logout = (page) => ({
   type: LOGOUT,
-  payload: { status: page, token, user },
+  payload: { status: page },
 });
 
-export const setLogout = (page) => (dispatch) => {
-  dispatch(logout(page));
-};
+const setLogged = (info) => ({
+  type: LOGIN,
+  payload: info,
+});

@@ -1,34 +1,32 @@
 import { motion } from "framer-motion";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+
 import styled from "styled-components";
-import updateBook from "../../utils/updateBook";
+import { deleteBook, updateBook } from "../../redux/actions/books";
 import Feedback from "../feedback";
 
-
-const Book = ({ book }) => {
+const Book = ({ book, showButtons }) => {
+  const dispatch = useDispatch();
   const [modal, setModal] = useState();
-  const { id } = useParams()
-
+  const user = useParams();
 
   const changeShelf = (shelf) => {
-
-    updateBook({ book: { shelf: shelf } }, id, book)
-
+    dispatch(updateBook({ book: { shelf: shelf } }, user, book));
   };
 
   return (
     <Box>
       <img src={book.image_url} alt="imagem do livro" />
       {modal && <Feedback book={book} setModal={setModal} />}
-      <BoxButton>
+      <BoxButton showButtons={showButtons}>
         <Button onClick={() => changeShelf(1)}>ler</Button>
         <Button onClick={() => changeShelf(2)}>lendo</Button>
         <Button onClick={() => changeShelf(3)}>lido</Button>
-        <Button
-          onClick={() => setModal(!modal)}
-        >
-          FeedBack
+        <Button onClick={() => setModal(!modal)}>FeedBack</Button>
+        <Button onClick={() => dispatch(deleteBook({ user, book }))}>
+          Remove
         </Button>
       </BoxButton>
     </Box>
@@ -63,4 +61,8 @@ const BoxButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  button {
+    visibility: ${(props) => (props.showButtons ? "visible" : "hidden")};
+  }
 `;

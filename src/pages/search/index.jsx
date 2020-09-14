@@ -1,32 +1,54 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import addBooks from "../../redux/actions/addBook.js";
 
 import axios from "axios";
 import api from "../../services/api.js";
 
-import { StyledSearch, StyledSearchField, StyledInput, StyledSearchButton, StyledAddButtonsDiv, StyledAddButton } from "./styled-search.js";
-import updateBook from "../../utils/updateBook.js";
+import {
+  StyledSearch,
+  StyledSearchField,
+  StyledInput,
+  StyledSearchButton,
+  StyledAddButtonsDiv,
+  StyledAddButton,
+} from "./styled-search.js";
+import { getBooks, updateBook } from "../../redux/actions/books.js";
 
 const Search = () => {
   const dispatch = useDispatch();
-  const [userInfo, userBooks] = useSelector((state) => [state.session, state.books.books]);
+  const [userInfo, userBooks] = useSelector((state) => [
+    state.session,
+    state.books.books,
+  ]);
   const [googleBooks, setGoogleBooks] = useState({ totalItems: 0, items: [] });
   const [input, setInput] = useState("");
 
   useEffect(() => {
-    axios.get(`https://www.googleapis.com/books/v1/volumes?q=book`)
+    axios
+      .get(`https://www.googleapis.com/books/v1/volumes?q=book`)
       .then(({ data }) => setGoogleBooks(data));
-    dispatch(addBooks(userInfo));
+    dispatch(getBooks(userInfo));
   }, [dispatch, userInfo]);
 
   const handleSearchClick = () =>
-    axios.get(`https://www.googleapis.com/books/v1/volumes?q=${input.replace(/\s/g, "+")}`)
-      .then(({ data }) => { data.items !== undefined && setGoogleBooks(data) })
+    axios
+      .get(
+        `https://www.googleapis.com/books/v1/volumes?q=${input.replace(
+          /\s/g,
+          "+"
+        )}`
+      )
+      .then(({ data }) => {
+        data.items !== undefined && setGoogleBooks(data);
+      });
 
-
-  const handleBookClick = (shelf, { volumeInfo: { title, authors = [], imageLinks = "", categories = [] }, id }) => {
-
+  const handleBookClick = (
+    shelf,
+    {
+      volumeInfo: { title, authors = [], imageLinks = "", categories = [] },
+      id,
+    }
+  ) => {
     const bookInfo = {
       book: {
         title: title,
@@ -40,7 +62,9 @@ const Search = () => {
       },
     };
 
-    const filteredTitle = userBooks.filter((book) => book.title === bookInfo.book.title);
+    const filteredTitle = userBooks.filter(
+      (book) => book.title === bookInfo.book.title
+    );
 
     if (filteredTitle.length === 0) {
       api
@@ -48,10 +72,12 @@ const Search = () => {
           headers: { authorization: userInfo.token },
         })
         .catch((err) => console.log(err));
-      dispatch(addBooks(userInfo));
+      dispatch(getBooks(userInfo));
     } else {
-      updateBook({ book: { shelf: shelf } }, userInfo.user.id, filteredTitle[0].id)
-      dispatch(addBooks(userInfo));
+      dispatch(
+        updateBook({ book: { shelf: shelf } }, userInfo.user, filteredTitle[0])
+      );
+      dispatch(getBooks(userInfo));
     }
   };
   //ARRUMAR O STYLE  DESCONSTRUÇÃO
@@ -67,10 +93,14 @@ const Search = () => {
       <StyledSearch>
         <StyledSearch.Title>Search</StyledSearch.Title>
         <StyledSearch.Rows>
-          {googleBooks.totalItems === 0
-            ? <StyledSearch.Book>No book found</StyledSearch.Book>
-            : googleBooks.items.map((book) => {
-              const { volumeInfo: { title, authors = [], imageLinks = "" }, id } = book
+          {googleBooks.totalItems === 0 ? (
+            <StyledSearch.Book>No book found</StyledSearch.Book>
+          ) : (
+            googleBooks.items.map((book) => {
+              const {
+                volumeInfo: { title, authors = [], imageLinks = "" },
+                id,
+              } = book;
               return (
                 <StyledSearch.Book key={id}>
                   <StyledSearch.Book.Title>
@@ -81,7 +111,6 @@ const Search = () => {
                     src={imageLinks.thumbnail}
                     alt={authors[0]}
                   />
-
 
                   <StyledAddButtonsDiv>
                     <StyledAddButton onClick={() => handleBookClick(1, book)}>
@@ -97,7 +126,7 @@ const Search = () => {
                 </StyledSearch.Book>
               );
             })
-          }
+          )}
         </StyledSearch.Rows>
       </StyledSearch>
     </>
@@ -105,4 +134,3 @@ const Search = () => {
 };
 
 export default Search;
-

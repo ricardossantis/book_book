@@ -1,5 +1,4 @@
 import { combineReducers } from "redux";
-import session from "./session";
-import timeline from "./timeline";
+import session from "./session.js";
 import books from "./books.js";
-export default combineReducers({ session, timeline, books });
+export default combineReducers({ session, books });

@@ -1,28 +1,48 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
-import { updateSession } from "../../redux/actions/session";
-import addBooks from "../../redux/actions/addBook.js";
-import { Book } from '../../components/exports.js'
+import { updateSession } from "../../redux/actions/session.js";
+import { Book } from "../../components/exports.js";
+import { getBooks } from "../../redux/actions/books.js";
 
 import styled from "styled-components";
+import getUsers from "../../utils/getUsers.js";
 
 const Shelves = () => {
-
   const dispatch = useDispatch();
-  const [userInfo, userBooks] = useSelector((state) => [state.session, state.books.books]);
+  const params = useParams();
+  const [showButtons, setShowButtons] = useState(true);
+  const [currentUser, setCurrentUser] = useState({ user: {}, books: [] });
+  const [{ user, token }, books] = useSelector(({ session, books }) => [
+    session,
+    books.books,
+  ]);
 
   useEffect(() => dispatch(updateSession()), [dispatch]);
-  useEffect(() => dispatch(addBooks(userInfo)), [dispatch, userInfo, userBooks]);
+  useEffect(() => dispatch(getBooks({ user, token })), [dispatch, token, user]);
 
-  const ShelvesFilter = (filterShelf) => userBooks
-    .filter(({ shelf }) => filterShelf === shelf)
-    .map((book) => <Book book={book} key={book.id} />);
+  useEffect(() => {
+    if (user.id !== undefined && user.id === Number(params.id)) {
+      setShowButtons(true);
+      setCurrentUser({ user, books });
+    } else {
+      setShowButtons(false);
+      getUsers(params, setCurrentUser);
+    }
+  }, [params, user, books]);
+
+  const ShelvesFilter = (filterShelf) =>
+    currentUser.books
+      .filter(({ shelf }) => filterShelf === shelf)
+      .map((book) => (
+        <Book book={book} key={book.id} showButtons={showButtons} />
+      ));
 
   return (
     <Container>
       <Profile>
-        <h2>Usuário: {userInfo.user.user}</h2>
+        <h2>Usuário: {currentUser.user && currentUser.user.user}</h2>
       </Profile>
       <Shelf>{ShelvesFilter(1)}</Shelf>
       <Shelf>{ShelvesFilter(2)}</Shelf>
