@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 
 import styled from "styled-components";
 import { deleteBook, updateBook } from "../../redux/actions/books";
-import Feedback from "../feedback";
+import Feedback from "../modals/feedback";
 
 const Book = ({ book, showButtons }) => {
   const dispatch = useDispatch();

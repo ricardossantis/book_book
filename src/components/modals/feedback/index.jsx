@@ -3,8 +3,9 @@ import { Form, Input, Button, Rate } from "antd";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 
-import { updateBook } from "../../redux/actions/books.js";
+import { updateBook } from "../../../redux/actions/books";
 import { useParams } from "react-router-dom";
+import { StyledModal, ShadowBox } from "../styled.js";
 
 const Feedback = ({ book, setModal }) => {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const Feedback = ({ book, setModal }) => {
 
   return (
     <StyledModal>
+      <Button onClick={() => setModal(false)}>X</Button>
       <ShadowBox />
       <div>
         <h1>Feedback</h1>
@@ -51,24 +53,3 @@ const Feedback = ({ book, setModal }) => {
 };
 
 export default Feedback;
-
-const ShadowBox = styled.div`
-  width: 100vw;
-  height: 100vh;
-  background-color: #0002;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
-
-const StyledModal = styled.div`
-  width: 500px;
-  height: 400px;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: grey;
-  padding: 30px;
-`;

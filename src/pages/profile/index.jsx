@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-
 import { updateSession } from "../../redux/actions/session.js";
 import { Book } from "../../components/exports.js";
 import { getBooks } from "../../redux/actions/books.js";
-
 import styled from "styled-components";
 import getUsers from "../../utils/getUsers.js";
+import ProfileModal from "../../components/modals/profile";
+import ProfilePic from "../../components/profilePic";
 
 const Shelves = () => {
   const dispatch = useDispatch();
   const params = useParams();
+  const [modal, setModal] = useState();
   const [showButtons, setShowButtons] = useState(true);
   const [currentUser, setCurrentUser] = useState({ user: {}, books: [] });
   const [{ user, token }, books] = useSelector(({ session, books }) => [
@@ -21,7 +22,6 @@ const Shelves = () => {
 
   useEffect(() => dispatch(updateSession()), [dispatch]);
   useEffect(() => dispatch(getBooks({ user, token })), [dispatch, token, user]);
-
   useEffect(() => {
     if (user.id !== undefined && user.id === Number(params.id)) {
       setShowButtons(true);
@@ -42,7 +42,10 @@ const Shelves = () => {
   return (
     <Container>
       <Profile>
+        {modal && <ProfileModal setModal={setModal} />}
         <h2>Usuário: {currentUser.user && currentUser.user.user}</h2>
+        <ProfilePic userInfo={currentUser} />
+        <button onClick={() => setModal(!modal)}>Edit Profile</button>
       </Profile>
       <Shelf>{ShelvesFilter(1)}</Shelf>
       <Shelf>{ShelvesFilter(2)}</Shelf>
@@ -61,7 +64,7 @@ const Container = styled.div`
 `;
 const Profile = styled.div`
   width: 70vw;
-  height: 100px;
+  height: 200px;
   background-color: #cccccc;
   border-radius: 6px;
   margin-bottom: 10px;

@@ -13,7 +13,7 @@ export const loginWithAPI = (info) => (dispatch) => {
     .then((response) => {
       console.warn(`loginWithAPI Status:${response.status}`);
       setTokenAndUserToLocalStorage(response.data);
-      dispatch(setLogged(200, response.data.auth_token, response.data.user));
+      dispatch(setLogged({ status: 200, token: response.data.auth_token, user: response.data.user }));
     })
     .catch(
       ({ response }) =>

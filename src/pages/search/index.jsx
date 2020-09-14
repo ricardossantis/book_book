@@ -77,7 +77,6 @@ const Search = () => {
       dispatch(
         updateBook({ book: { shelf: shelf } }, userInfo.user, filteredTitle[0])
       );
-      dispatch(getBooks(userInfo));
     }
   };
   //ARRUMAR O STYLE  DESCONSTRUÇÃO
@@ -96,37 +95,37 @@ const Search = () => {
           {googleBooks.totalItems === 0 ? (
             <StyledSearch.Book>No book found</StyledSearch.Book>
           ) : (
-            googleBooks.items.map((book) => {
-              const {
-                volumeInfo: { title, authors = [], imageLinks = "" },
-                id,
-              } = book;
-              return (
-                <StyledSearch.Book key={id}>
-                  <StyledSearch.Book.Title>
-                    Book Title: {title}
-                  </StyledSearch.Book.Title>
+              googleBooks.items.map((book) => {
+                const {
+                  volumeInfo: { title, authors = [], imageLinks = "" },
+                  id,
+                } = book;
+                return (
+                  <StyledSearch.Book key={id}>
+                    <StyledSearch.Book.Title>
+                      Book Title: {title}
+                    </StyledSearch.Book.Title>
 
-                  <StyledSearch.Book.Image
-                    src={imageLinks.thumbnail}
-                    alt={authors[0]}
-                  />
+                    <StyledSearch.Book.Image
+                      src={imageLinks.thumbnail}
+                      alt={authors[0]}
+                    />
 
-                  <StyledAddButtonsDiv>
-                    <StyledAddButton onClick={() => handleBookClick(1, book)}>
-                      Quero Ler
+                    <StyledAddButtonsDiv>
+                      <StyledAddButton onClick={() => handleBookClick(1, book)}>
+                        Quero Ler
                     </StyledAddButton>
-                    <StyledAddButton onClick={() => handleBookClick(2, book)}>
-                      Lendo
+                      <StyledAddButton onClick={() => handleBookClick(2, book)}>
+                        Lendo
                     </StyledAddButton>
-                    <StyledAddButton onClick={() => handleBookClick(3, book)}>
-                      Lido
+                      <StyledAddButton onClick={() => handleBookClick(3, book)}>
+                        Lido
                     </StyledAddButton>
-                  </StyledAddButtonsDiv>
-                </StyledSearch.Book>
-              );
-            })
-          )}
+                    </StyledAddButtonsDiv>
+                  </StyledSearch.Book>
+                );
+              })
+            )}
         </StyledSearch.Rows>
       </StyledSearch>
     </>

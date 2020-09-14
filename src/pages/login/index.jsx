@@ -15,13 +15,14 @@ const Login = () => {
 
   const onFinish = (values) => {
     dispatch(loginWithAPI(values));
-    history.push("/explorer");
   };
 
   useEffect(() => {
     token && history.push("/explorer");
     status === 401 && message.warning("Usuário ou senha inválidos!");
+    console.log(token, status)
   }, [status, token, history]);
+
 
   return (
     <LoginBox>
