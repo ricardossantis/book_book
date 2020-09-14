@@ -12,8 +12,12 @@ const Shelves = () => {
   const dispatch = useDispatch();
   const [userInfo, userBooks] = useSelector((state) => [state.session, state.books.books]);
 
-  useEffect(() => dispatch(updateSession()), [dispatch]);
-  useEffect(() => dispatch(addBooks(userInfo)), [dispatch, userInfo, userBooks]);
+  useEffect(() => {
+    userInfo.user.id === undefined
+      ? dispatch(updateSession())
+      : dispatch(addBooks(userInfo))
+    console.log("teste")
+  }, [dispatch, userInfo, userBooks])
 
   const ShelvesFilter = (filterShelf) => userBooks
     .filter(({ shelf }) => filterShelf === shelf)
