@@ -27,28 +27,32 @@ const Search = () => {
   const [input, setInput] = useState("");
 
   useEffect(() => {
-    if (userBooks.length === 0 && counter < 1) {
-      console.log(counter);
+    if (userBooks.length === 0 && counter < 2) {
       counter += 1;
       userInfo.user.id === undefined
         ? dispatch(updateSession())
         : dispatch(addBooks(userInfo));
+    } else {
+      console.log(userBooks);
+      let category = userBooks
+        .map((book) => (book = book.categories.split(" ")[0]))
+        .reduce(
+          (acc, cur, idx, arr) =>
+            arr.filter((val) => val === acc).length >=
+            arr.filter((val) => val === cur).length
+              ? acc
+              : cur,
+          null
+        );
+      console.log(category);
+      axios
+        .get(
+          `https://www.googleapis.com/books/v1/volumes?q=${
+            category === null ? "book" : category
+          }`
+        )
+        .then(({ data }) => setGoogleBooks(data));
     }
-    console.log(userBooks);
-    let category = userBooks
-      .map((book) => (book = book.categories.split(" ")[0]))
-      .reduce(
-        (acc, cur, idx, arr) =>
-          arr.filter((val) => val === acc).length >=
-          arr.filter((val) => val === cur).length
-            ? acc
-            : cur,
-        null
-      );
-    console.log(category);
-    axios
-      .get(`https://www.googleapis.com/books/v1/volumes?q=book`)
-      .then(({ data }) => setGoogleBooks(data));
   }, [dispatch, userInfo, userBooks]);
 
   const handleSearchClick = () =>
