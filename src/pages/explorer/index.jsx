@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
-import { getBooksReviews } from "../../redux/actions/timeline.js";
+import { getBooksReviews } from "../../redux/actions/books.js";
 import { updateSession } from "../../redux/actions/session.js";
 
 import { StyledTimeline, FramerLoading } from "./styled-timeline";
 
-const Timeline = () => {
+const Explorer = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
-  const [books, token] = useSelector((state) => [
-    state.timeline.books,
+  const [reviews, token] = useSelector((state) => [
+    state.books.reviews,
     state.session.token,
   ]);
 
@@ -26,15 +27,15 @@ const Timeline = () => {
   ) : (
     <StyledTimeline>
       <StyledTimeline.Rows>
-        {books.map((book) => (
+        {reviews.map((book) => (
           <StyledTimeline.Book key={book.id}>
             <StyledTimeline.Book.Title>{book.title}</StyledTimeline.Book.Title>
 
             <StyledTimeline.User>
               <StyledTimeline.User.Image src={book.creator.userImage} />
-
+              <Link to={`/perfil/${book.creator.id}`}>perfil do usuario </Link>
               <StyledTimeline.User.Name>
-                {book.creator.name}
+                {book.creator.user}
               </StyledTimeline.User.Name>
             </StyledTimeline.User>
 
@@ -55,4 +56,4 @@ const Timeline = () => {
   );
 };
 
-export default Timeline;
+export default Explorer;

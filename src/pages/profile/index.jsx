@@ -1,28 +1,61 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-import { updateSession } from "../../redux/actions/session";
-import addBooks from "../../redux/actions/addBook.js";
-import { Book } from '../../components/exports.js'
-
+import { useParams } from "react-router-dom";
+import { updateSession } from "../../redux/actions/session.js";
+import { Book } from "../../components/exports.js";
+import { getBooks } from "../../redux/actions/books.js";
 import styled from "styled-components";
+import getUsers from "../../utils/getUsers.js";
+import ProfileModal from "../../components/modals/profile";
+import ProfilePic from "../../components/profilePic";
+
+let counter = 0
 
 const Shelves = () => {
-
   const dispatch = useDispatch();
-  const [userInfo, userBooks] = useSelector((state) => [state.session, state.books.books]);
+  const params = useParams();
+  const [modal, setModal] = useState();
+  const [showButtons, setShowButtons] = useState(true);
+  const [currentUser, setCurrentUser] = useState({ user: {}, books: [] });
+  const [{ user, token }, books] = useSelector(({ session, books }) => [
+    session,
+    books.books,
+  ]);
 
-  useEffect(() => dispatch(updateSession()), [dispatch]);
-  useEffect(() => dispatch(addBooks(userInfo)), [dispatch, userInfo, userBooks]);
+  useEffect(() => {
+    if (user.id !== undefined && user.id === Number(params.id)) {
+      setShowButtons(true);
+      setCurrentUser({ user, books });
+    } else {
+      setShowButtons(false);
+      getUsers(params, setCurrentUser);
+    }
+  }, [params, user, books]);
 
-  const ShelvesFilter = (filterShelf) => userBooks
-    .filter(({ shelf }) => filterShelf === shelf)
-    .map((book) => <Book book={book} key={book.id} />);
+  useEffect(() => {
+    if (books.length === 0 && counter < 2) {
+      user.id === undefined
+        ? dispatch(updateSession())
+        : dispatch(getBooks({ user, token }));
+      counter++
+    }
+  }, [books, token, user, dispatch])
+
+
+  const ShelvesFilter = (filterShelf) =>
+    currentUser.books
+      .filter(({ shelf }) => filterShelf === shelf)
+      .map((book) => (
+        <Book book={book} key={book.id} showButtons={showButtons} />
+      ));
 
   return (
     <Container>
       <Profile>
-        <h2>Usuário: {userInfo.user.user}</h2>
+        {modal && <ProfileModal setModal={setModal} />}
+        <h2>Usuário: {currentUser.user && currentUser.user.user}</h2>
+        <ProfilePic userInfo={currentUser} />
+        {showButtons && <button onClick={() => setModal(!modal)}>Edit Profile</button>}
       </Profile>
       <Shelf>{ShelvesFilter(1)}</Shelf>
       <Shelf>{ShelvesFilter(2)}</Shelf>
@@ -41,7 +74,7 @@ const Container = styled.div`
 `;
 const Profile = styled.div`
   width: 70vw;
-  height: 100px;
+  height: 200px;
   background-color: #cccccc;
   border-radius: 6px;
   margin-bottom: 10px;

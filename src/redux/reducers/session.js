@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT } from "../actions/actionsType";
+import { LOGIN, LOGOUT } from "../actions/actionsType.js";
 
 const defaultState = {
   status: "",
@@ -9,23 +9,13 @@ const defaultState = {
 const session = (state = defaultState, { type, payload }) => {
   switch (type) {
     case LOGIN:
-      const { status, token, user } = payload;
-      return {
-        ...state,
-        status,
-        token,
-        user,
-      };
+      const { status, user, token } = payload;
+      return { ...state, status, user, token };
 
     case LOGOUT:
       localStorage.clear();
-      payload.status.push("/login");
-      return {
-        ...state,
-        status: 205,
-        token: "",
-        user: {},
-      };
+      payload.status.push("/logar");
+      return { ...state, status: 205, user: {}, token: "" };
 
     default:
       return state;
