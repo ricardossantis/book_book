@@ -1,4 +1,4 @@
-import { GET_BOOK_REVIEWS } from "../actions/actions-type";
+import { GET_BOOK_REVIEWS } from "../actions/actionsType";
 
 const initialState = {
   books: [],

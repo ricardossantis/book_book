@@ -59,7 +59,7 @@
       "message": "Senha deve conter um caractere especial!"
     }
   ],
-  "password_confirmation": {
+  "pass_confirm": {
     "required": true,
     "message": "Por favor, confirme sua senha",
     "whitespace": true

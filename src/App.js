@@ -1,10 +1,9 @@
 import React from "react";
-
-import { Menu } from "./components";
-import Routes from "./routes/routes";
+import { Menu } from "./components/exports.js";
+import Routes from "./routes/routes.js";
 import "./App.css";
 
-export default function App() {
+const App = () => {
   return (
     <div>
       <Menu />
@@ -14,3 +13,5 @@ export default function App() {
     </div>
   );
 }
+
+export default App;

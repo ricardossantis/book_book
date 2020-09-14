@@ -2,15 +2,14 @@ import React from "react";
 import { Link, useHistory } from "react-router-dom";
 
 import { StyledHeader, StyledMenu } from "./styledmenu";
-import { setLogout } from "../../redux/actions/sessionActions";
+import { setLogout } from "../../redux/actions/session";
 
 import { useDispatch, useSelector } from "react-redux";
 
-export default function Menu() {
+const Menu = () => {
   const history = useHistory();
-  const token = useSelector((state) => state.session.token);
+  const userInfo = useSelector((state) => state.session);
   const dispatch = useDispatch();
-
   const handleLogout = () => {
     dispatch(setLogout(history));
   };
@@ -21,42 +20,40 @@ export default function Menu() {
         <StyledMenu.Title>
           BookBook <p> MVC VERSION</p>
         </StyledMenu.Title>
-        {token ? (
+        {userInfo.token ? (
           <StyledMenu.Section>
             <StyledMenu.item>
-              <Link to="/search">Buscar</Link>
+              <Link to="/pesquisa">Buscar</Link>
             </StyledMenu.item>
 
             <StyledMenu.item>
-              <Link to="/shelves">Prateleiras</Link>
+              <Link to={`/perfil/${userInfo.user.id}`}>Prateleiras</Link>
             </StyledMenu.item>
 
             <StyledMenu.item>
-              <Link to="/timeline">Linha do Tempo</Link>
+              <Link to="/avaliacoes">Linha do Tempo</Link>
             </StyledMenu.item>
 
             <StyledMenu.item>
-              <Link to="/profile">Perfil</Link>
-            </StyledMenu.item>
-
-            <StyledMenu.item>
-              <Link to="/login" onClick={handleLogout}>
+              <Link to="/logar" onClick={handleLogout}>
                 | SAIR
               </Link>
             </StyledMenu.item>
           </StyledMenu.Section>
         ) : (
-            <StyledMenu.Section>
-              <StyledMenu.item>
-                <Link to="/login">Login</Link>
-              </StyledMenu.item>
+          <StyledMenu.Section>
+            <StyledMenu.item>
+              <Link to="/logar">Login</Link>
+            </StyledMenu.item>
 
-              <StyledMenu.item>
-                <Link to="/register">Cadastro</Link>
-              </StyledMenu.item>
-            </StyledMenu.Section>
-          )}
+            <StyledMenu.item>
+              <Link to="/cadastro">Cadastro</Link>
+            </StyledMenu.item>
+          </StyledMenu.Section>
+        )}
       </StyledMenu>
     </StyledHeader>
   );
-}
+};
+
+export default Menu;

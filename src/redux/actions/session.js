@@ -1,5 +1,5 @@
 import api from "../../services/api";
-import { LOGIN, LOGOUT } from "./actions-type";
+import { LOGIN, LOGOUT } from "./actionsType";
 
 export const postLogin = ({ username, password }) => (dispatch) => {
   api
@@ -16,7 +16,9 @@ export const postLogin = ({ username, password }) => (dispatch) => {
     });
 };
 
-export const updateSession = (token, user) => (dispatch) => {
+export const updateSession = () => (dispatch) => {
+  let token = localStorage.getItem("token")
+  let user = JSON.parse(localStorage.getItem("CurrentUser"))
   dispatch(session(200, token, user));
 };
 
