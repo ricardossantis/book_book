@@ -20,7 +20,6 @@ const Login = () => {
   useEffect(() => {
     token && history.push("/explorer");
     status === 401 && message.warning("Usuário ou senha inválidos!");
-    console.log(token, status)
   }, [status, token, history]);
 
 

@@ -9,6 +9,8 @@ import getUsers from "../../utils/getUsers.js";
 import ProfileModal from "../../components/modals/profile";
 import ProfilePic from "../../components/profilePic";
 
+let counter = 0
+
 const Shelves = () => {
   const dispatch = useDispatch();
   const params = useParams();
@@ -20,8 +22,6 @@ const Shelves = () => {
     books.books,
   ]);
 
-  useEffect(() => dispatch(updateSession()), [dispatch]);
-  useEffect(() => dispatch(getBooks({ user, token })), [dispatch, token, user]);
   useEffect(() => {
     if (user.id !== undefined && user.id === Number(params.id)) {
       setShowButtons(true);
@@ -31,6 +31,16 @@ const Shelves = () => {
       getUsers(params, setCurrentUser);
     }
   }, [params, user, books]);
+
+  useEffect(() => {
+    if (books.length === 0 && counter < 2) {
+      user.id === undefined
+        ? dispatch(updateSession())
+        : dispatch(getBooks({ user, token }));
+      counter++
+    }
+  }, [books, token, user, dispatch])
+
 
   const ShelvesFilter = (filterShelf) =>
     currentUser.books
@@ -45,7 +55,7 @@ const Shelves = () => {
         {modal && <ProfileModal setModal={setModal} />}
         <h2>Usuário: {currentUser.user && currentUser.user.user}</h2>
         <ProfilePic userInfo={currentUser} />
-        <button onClick={() => setModal(!modal)}>Edit Profile</button>
+        {showButtons && <button onClick={() => setModal(!modal)}>Edit Profile</button>}
       </Profile>
       <Shelf>{ShelvesFilter(1)}</Shelf>
       <Shelf>{ShelvesFilter(2)}</Shelf>

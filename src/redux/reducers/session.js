@@ -9,7 +9,6 @@ const defaultState = {
 const session = (state = defaultState, { type, payload }) => {
   switch (type) {
     case LOGIN:
-      console.log(type, payload)
       const { status, user, token } = payload;
       return { ...state, status, user, token };
 

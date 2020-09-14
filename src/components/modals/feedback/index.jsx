@@ -13,7 +13,6 @@ const Feedback = ({ book, setModal }) => {
 
   const onFinish = ({ review, grade }) => {
     const feedback = { book: { review, grade } };
-    console.log({ review, grade });
     dispatch(updateBook(feedback, user, book));
     setModal(false);
   };

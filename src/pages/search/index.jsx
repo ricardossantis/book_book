@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import { updateSession } from "../../redux/actions/session";
 import axios from "axios";
 import api from "../../services/api.js";
 
@@ -14,6 +14,8 @@ import {
 } from "./styled-search.js";
 import { getBooks, updateBook } from "../../redux/actions/books.js";
 
+let counter = 0;
+
 const Search = () => {
   const dispatch = useDispatch();
   const [userInfo, userBooks] = useSelector((state) => [
@@ -24,11 +26,32 @@ const Search = () => {
   const [input, setInput] = useState("");
 
   useEffect(() => {
-    axios
-      .get(`https://www.googleapis.com/books/v1/volumes?q=book`)
-      .then(({ data }) => setGoogleBooks(data));
-    dispatch(getBooks(userInfo));
-  }, [dispatch, userInfo]);
+    if (userBooks.length === 0 && counter < 2) {
+      counter += 1;
+      userInfo.user.id === undefined
+        ? dispatch(updateSession())
+        : dispatch(getBooks(userInfo));
+    } else {
+
+      let category = userBooks
+        .map((book) => (book = book.categories.split(" ")[0]))
+        .reduce(
+          (acc, cur, idx, arr) =>
+            arr.filter((val) => val === acc).length >=
+              arr.filter((val) => val === cur).length
+              ? acc
+              : cur,
+          null
+        );
+
+      axios
+        .get(
+          `https://www.googleapis.com/books/v1/volumes?q=${category === null ? "book" : category
+          }`
+        )
+        .then(({ data }) => setGoogleBooks(data));
+    }
+  }, [dispatch, userInfo, userBooks]);
 
   const handleSearchClick = () =>
     axios
