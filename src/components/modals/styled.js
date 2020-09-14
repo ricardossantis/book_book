@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Select from "react-select";
 
 export const ShadowBox = styled.div`
   width: 100vw;
@@ -13,11 +14,18 @@ export const ShadowBox = styled.div`
 
 export const StyledModal = styled.div`
   width: 500px;
-  height: 400px;
+  height: fit-content;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: grey;
   padding: 30px;
+`;
+
+export const StyledSelect = styled(Select)`
+  .css-g1d714-ValueContainer {
+    height: 55px;
+    justify-content: center;
+  }
 `;

@@ -5,6 +5,7 @@ import { updateSession } from "../../redux/actions/session";
 import addBooks from "../../redux/actions/addBook.js";
 import { Book } from "../../components/exports.js";
 import styled from "styled-components";
+import ProfilePic from "../../components/profilePic";
 
 const Shelves = () => {
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ const Shelves = () => {
       <Profile>
         {modal && <ProfileModal setModal={setModal} />}
         <h2>Usuário: {userInfo.user.user}</h2>
+        <ProfilePic userInfo={userInfo} />
         <button onClick={() => setModal(!modal)}>Edit Profile</button>
       </Profile>
       <Shelf>{ShelvesFilter(1)}</Shelf>
@@ -50,7 +52,7 @@ const Container = styled.div`
 `;
 const Profile = styled.div`
   width: 70vw;
-  height: 100px;
+  height: 200px;
   background-color: #cccccc;
   border-radius: 6px;
   margin-bottom: 10px;
