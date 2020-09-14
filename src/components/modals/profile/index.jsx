@@ -73,9 +73,6 @@ const Feedback = ({ setModal }) => {
           />
         </Form.Item>
 
-        <div>
-          <p> </p>
-        </div>
         <Form.Item name="about" label="Bio">
           <Input.TextArea allowClear={true} rows={3} />
         </Form.Item>
