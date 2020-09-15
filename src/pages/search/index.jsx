@@ -4,15 +4,9 @@ import { updateSession } from "../../redux/actions/session";
 import axios from "axios";
 import api from "../../services/api.js";
 
-import {
-  StyledSearch,
-  StyledSearchField,
-  StyledInput,
-  StyledSearchButton,
-  StyledAddButtonsDiv,
-  StyledAddButton,
-} from "./styled-search.js";
 import { getBooks, updateBook } from "../../redux/actions/books.js";
+import styled from "styled-components";
+import Book from "../../components/book";
 
 let counter = 0;
 
@@ -105,18 +99,20 @@ const Search = () => {
   //ARRUMAR O STYLE  DESCONSTRUÇÃO
   return (
     <>
-      <StyledSearchField>
-        <StyledInput onChange={({ target: { value } }) => setInput(value)} />
-        <StyledSearchButton onClick={handleSearchClick}>
+      <div>
+        <input onChange={({ target: { value } }) => setInput(value)} />
+        <button onClick={handleSearchClick}>
           Search
-        </StyledSearchButton>
-      </StyledSearchField>
+        </button>
+      </div>
 
-      <StyledSearch>
-        <StyledSearch.Title>Search</StyledSearch.Title>
-        <StyledSearch.Rows>
+
+      <Container>
+        <Title>Search</Title>
+
+        <Rows>
           {googleBooks.totalItems === 0 ? (
-            <StyledSearch.Book>No book found</StyledSearch.Book>
+            <Title>No book found</Title>
           ) : (
               googleBooks.items.map((book) => {
                 const {
@@ -124,35 +120,92 @@ const Search = () => {
                   id,
                 } = book;
                 return (
-                  <StyledSearch.Book key={id}>
-                    <StyledSearch.Book.Title>
+                  <CardBook key={id}>
+                    <Title>
                       Book Title: {title}
-                    </StyledSearch.Book.Title>
-
-                    <StyledSearch.Book.Image
-                      src={imageLinks.thumbnail}
-                      alt={authors[0]}
-                    />
-
-                    <StyledAddButtonsDiv>
-                      <StyledAddButton onClick={() => handleBookClick(1, book)}>
+                    </Title>
+                    <Book book={book} />
+                    <BoxButton>
+                      <AddButton onClick={() => handleBookClick(1, book)}>
                         Quero Ler
-                    </StyledAddButton>
-                      <StyledAddButton onClick={() => handleBookClick(2, book)}>
+                    </AddButton>
+                      <AddButton onClick={() => handleBookClick(2, book)}>
                         Lendo
-                    </StyledAddButton>
-                      <StyledAddButton onClick={() => handleBookClick(3, book)}>
+                    </AddButton>
+                      <AddButton onClick={() => handleBookClick(3, book)}>
                         Lido
-                    </StyledAddButton>
-                    </StyledAddButtonsDiv>
-                  </StyledSearch.Book>
+                    </AddButton>
+                    </BoxButton>
+                  </CardBook>
                 );
               })
             )}
-        </StyledSearch.Rows>
-      </StyledSearch>
+        </Rows>
+      </Container>
     </>
   );
 };
 
 export default Search;
+
+
+const Container = styled.h4`
+  margin: 0;
+`;
+
+const Text = styled.p`
+
+`
+const Title = styled.h4`
+  margin: 0;
+`;
+
+const Image = styled.img`
+  width: 130px;
+  height: 200px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const Rows = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+`;
+
+const CardBook = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px;
+  width: 500px;
+  background-color: #cccccc;
+  border-radius: 8px;
+`;
+const Description = styled.p``;
+
+
+// const StyledInput = styled.input`
+//   color: #000000;
+// `;
+
+// const inputButton = styled.button`
+//   background-color: #666;
+//   &:hover {
+//     cursor: pointer;
+//   }
+// `;
+
+const BoxButton = styled.div`
+  display: flex;
+  flex-wrap: nowrap;
+`;
+
+const AddButton = styled.button`
+  background-color: #666;
+  &:hover {
+    cursor: pointer;
+  }
+`;

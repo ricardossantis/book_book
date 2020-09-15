@@ -18,8 +18,7 @@ const Routes = () => {
     if (!token) {
       setAuthorized(false);
     } else {
-      api
-        .get("/users", { headers: { Authorization: token } })
+      api.get("/users", { headers: { Authorization: token } })
         .then(() => setAuthorized(true))
         .catch(() => setAuthorized(false));
     }

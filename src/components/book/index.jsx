@@ -8,6 +8,9 @@ import { deleteBook, updateBook } from "../../redux/actions/books";
 import Feedback from "../modals/feedback";
 
 const Book = ({ book, showButtons }) => {
+
+  const image = book.image_url !== undefined ? book.image_url : book.volumeInfo.imageLinks.thumbnail;
+
   const dispatch = useDispatch();
   const [modal, setModal] = useState();
   const user = useParams();
@@ -18,7 +21,7 @@ const Book = ({ book, showButtons }) => {
 
   return (
     <Box>
-      <img src={book.image_url} alt="imagem do livro" />
+      <img src={image} alt="imagem do livro" />
       {modal && <Feedback book={book} setModal={setModal} />}
       <BoxButton showButtons={showButtons}>
         <Button onClick={() => changeShelf(1)}>ler</Button>
