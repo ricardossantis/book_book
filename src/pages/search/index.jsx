@@ -165,7 +165,7 @@ const Text = styled.p`
 `
 const Title = styled.h4`
   margin: 0;
-  font-size:1rem;
+  font-size:0.8rem;
   font-weight:bold;
 `;
 

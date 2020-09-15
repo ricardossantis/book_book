@@ -106,27 +106,27 @@ const ChartPie = ({ books }) => {
                         id: 'lines'
                     }
                 ]}
-                legends={[
-                    {
-                        anchor: 'right',
-                        direction: 'column',
-                        translateY: 0,
-                        translateX: 20,
-                        itemWidth: 100,
-                        itemHeight: 18,
-                        itemTextColor: '#999',
-                        symbolSize: 18,
-                        symbolShape: 'circle',
-                        effects: [
-                            {
-                                on: 'hover',
-                                style: {
-                                    itemTextColor: '#000'
-                                }
-                            }
-                        ]
-                    }
-                ]}
+            //     legends={[
+            //         {
+            //             anchor: 'right',
+            //             direction: 'column',
+            //             translateY: 0,
+            //             translateX: 20,
+            //             itemWidth: 100,
+            //             itemHeight: 18,
+            //             itemTextColor: '#999',
+            //             symbolSize: 18,
+            //             symbolShape: 'circle',
+            //             effects: [
+            //                 {
+            //                     on: 'hover',
+            //                     style: {
+            //                         itemTextColor: '#000'
+            //                     }
+            //                 }
+            //             ]
+            //         }
+            //     ]}
             />
         </ChartBox>
     )
