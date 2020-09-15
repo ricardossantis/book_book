@@ -9,7 +9,10 @@ import Feedback from "../modals/feedback";
 
 const Book = ({ book, showButtons }) => {
 
-  const image = book.image_url !== undefined ? book.image_url : book.volumeInfo.imageLinks.thumbnail;
+  //para teste
+  const image = book.image_url !== undefined
+    ? book.image_url
+    : book.volumeInfo.imageLinks.thumbnail !== undefined ? book.volumeInfo.imageLinks.thumbnail : "";
 
   const dispatch = useDispatch();
   const [modal, setModal] = useState();

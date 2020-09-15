@@ -16,44 +16,45 @@ const Menu = () => {
 
   return (
     <StyledHeader>
-      <StyledMenu>
-        <StyledMenu.Title>
-          BookBook <p> MVC VERSION</p>
-        </StyledMenu.Title>
-        {session.token ? (
-          <StyledMenu.Section>
-            <StyledMenu.item>
-              <Link to="/explorer">Linha do Tempo</Link>
-            </StyledMenu.item>
-
-            <StyledMenu.item>
-              <Link to="/pesquisa">Buscar</Link>
-            </StyledMenu.item>
-
-            <StyledMenu.item>
-              <Link to={`/perfil/${session.user.id}`}>Perfil</Link>
-            </StyledMenu.item>
-
-            <StyledMenu.item>
-              <Link to="/logar" onClick={handleLogout}>
-                | SAIR
-              </Link>
-            </StyledMenu.item>
-          </StyledMenu.Section>
-        ) : (
-          <StyledMenu.Section>
-            <StyledMenu.item>
-              <Link to="/logar">Login</Link>
-            </StyledMenu.item>
-
-            <StyledMenu.item>
-              <Link to="/cadastro">Cadastro</Link>
-            </StyledMenu.item>
-          </StyledMenu.Section>
-        )}
-      </StyledMenu>
     </StyledHeader>
   );
 };
 
 export default Menu;
+
+//   <StyledMenu>
+//     <StyledMenu.Title>
+//       BookBook <p> MVC VERSION</p>
+//     </StyledMenu.Title>
+//     {session.token ? (
+//       <StyledMenu.Section>
+//         <StyledMenu.item>
+//           <Link to="/explorer">Linha do Tempo</Link>
+//         </StyledMenu.item>
+
+//         <StyledMenu.item>
+//           <Link to="/pesquisa">Buscar</Link>
+//         </StyledMenu.item>
+
+//         <StyledMenu.item>
+//           <Link to={`/perfil/${session.user.id}`}>Perfil</Link>
+//         </StyledMenu.item>
+
+//         <StyledMenu.item>
+//           <Link to="/logar" onClick={handleLogout}>
+//             | SAIR
+//           </Link>
+//         </StyledMenu.item>
+//       </StyledMenu.Section>
+//     ) : (
+//       <StyledMenu.Section>
+//         <StyledMenu.item>
+//           <Link to="/logar">Login</Link>
+//         </StyledMenu.item>
+
+//         <StyledMenu.item>
+//           <Link to="/cadastro">Cadastro</Link>
+//         </StyledMenu.item>
+//       </StyledMenu.Section>
+//     )}
+//   </StyledMenu>

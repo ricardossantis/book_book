@@ -51,20 +51,6 @@ Somos uma escola norte-americana que veio para o Brasil com o objetivo de oferta
 
 
 
-// 1 - fazer updateBook com os api.put's , lembrar de tirar o set auth -FEITO
-//  2 - fazer as desconstruções - ALGUMAS
-// 3 - colocar na prateleira/perfil o id na rota,FEITO 
-// 3.2 -  quando reinicia server da pra entrar nos menus com id undefined
-// 3.1 -  tirar os dois useEffects e passar o id do usuario no shelves REVER COM JOÃO
-// 4 - mudar os estilos na timeline DESCONSTRUIR - AINDA NÃO
-// 5 - OLHAR AS MUDANÇAS DO SEARCH -Feito - perguntar para maicon
-//6 - APLICAR ARROW FUNCTION EM TUDO - feito
+//Parte de buscas
 
-
-alterar o reducer para helper - feito
-
-ERROS Econtrados
-
-1 - quando usar palavras que não existem na api separadamente da erro - FEITO
-2 - totalItems no search - solucionando alguns bugs
-3 -  bug do useInfo  getBooks - se id undefined não faz requisição
+- o livro pode virar e as letras sairem de tras dele para mostrar descrição etc

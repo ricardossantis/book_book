@@ -99,15 +99,18 @@ const Search = () => {
   //ARRUMAR O STYLE  DESCONSTRUÇÃO
   return (
     <>
-      <div>
-        <input onChange={({ target: { value } }) => setInput(value)} />
-        <button onClick={handleSearchClick}>
-          Search
-        </button>
-      </div>
+
 
 
       <Container>
+
+        <div>
+          <input onChange={({ target: { value } }) => setInput(value)} />
+          <button onClick={handleSearchClick}>
+            Search
+        </button>
+        </div>
+
         <Title>Search</Title>
 
         <Rows>
@@ -122,7 +125,7 @@ const Search = () => {
                 return (
                   <CardBook key={id}>
                     <Title>
-                      Book Title: {title}
+                      {title}
                     </Title>
                     <Book book={book} />
                     <BoxButton>
@@ -151,6 +154,10 @@ export default Search;
 
 const Container = styled.h4`
   margin: 0;
+  display: flex;
+  flex-flow:column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Text = styled.p`
@@ -158,11 +165,13 @@ const Text = styled.p`
 `
 const Title = styled.h4`
   margin: 0;
+  font-size:1rem;
+  font-weight:bold;
 `;
 
 const Image = styled.img`
-  width: 130px;
-  height: 200px;
+  width: 20%;
+  height: 30%;
   &:hover {
     cursor: pointer;
   }
@@ -170,8 +179,9 @@ const Image = styled.img`
 
 const Rows = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  align-items:center;
 `;
 
 const CardBook = styled.div`
@@ -179,10 +189,10 @@ const CardBook = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  margin: 5px;
-  width: 500px;
+  margin: 0.5rem 1rem;
+  width:30%;
   background-color: #cccccc;
-  border-radius: 8px;
+  border-radius: 0.5rem;
 `;
 const Description = styled.p``;
 
@@ -199,11 +209,20 @@ const Description = styled.p``;
 // `;
 
 const BoxButton = styled.div`
+width:100%;
   display: flex;
+  justify-content:center;
+  align-items:center;
   flex-wrap: nowrap;
 `;
 
 const AddButton = styled.button`
+box-sizing: border-box;
+width:2rem;
+height: 1.5rem;
+margin:5px;
+font-size:0.5rem;
+border-radius:2px;
   background-color: #666;
   &:hover {
     cursor: pointer;
