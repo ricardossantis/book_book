@@ -27,6 +27,11 @@ export const loginWithAPI = (info) => (dispatch) => {
     );
 };
 
+const setLogged = (info) => ({
+  type: LOGIN,
+  payload: info,
+});
+
 export const updateSession = () => (dispatch) => {
   const { user, token } = getUserAndToken();
   dispatch(setLogged({ status: 200, token, user }));
@@ -44,11 +49,6 @@ const clearBooksState = () => ({
 const logout = (page) => ({
   type: LOGOUT,
   payload: { status: page },
-});
-
-const setLogged = (info) => ({
-  type: LOGIN,
-  payload: info,
 });
 
 export const addFriend = ({ id, user }) => ({
