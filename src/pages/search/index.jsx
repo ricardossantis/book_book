@@ -3,16 +3,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateSession } from "../../redux/actions/session";
 import axios from "axios";
 import api from "../../services/api.js";
-
+import { getBooks, updateBook } from "../../redux/actions/books.js";
 import {
   StyledSearch,
   StyledSearchField,
   StyledInput,
   StyledSearchButton,
-  StyledAddButtonsDiv,
-  StyledAddButton,
+  StyledContainer,
+  StyledTitle,
+  StyledBox,
 } from "./styled-search.js";
-import { getBooks, updateBook } from "../../redux/actions/books.js";
+import Carousel from "../../components/carousel";
+import SearchCard from "../../components/searchCard";
 
 let counter = 0;
 
@@ -22,8 +24,34 @@ const Search = () => {
     state.session,
     state.books.books,
   ]);
-  const [googleBooks, setGoogleBooks] = useState({ totalItems: 0, items: [] });
+  const [googleBooksSearch, setGoogleBooksSearch] = useState({
+    totalItems: 0,
+    items: [],
+  });
+  const [googleBooksSugestion, setGoogleBooksSugestion] = useState({
+    totalItems: 0,
+    items: [],
+  });
+  const [googleBooksFixed1, setGoogleBooksFixed1] = useState({
+    totalItems: 0,
+    items: [],
+  });
+  const [googleBooksFixed2, setGoogleBooksFixed2] = useState({
+    totalItems: 0,
+    items: [],
+  });
   const [input, setInput] = useState("");
+  const [category, setCategory] = useState("initial");
+
+  useEffect(() => {
+    axios
+      .get(`https://www.googleapis.com/books/v1/volumes?q=${"cooking"}`)
+      .then(({ data }) => setGoogleBooksFixed1(data));
+
+    axios
+      .get(`https://www.googleapis.com/books/v1/volumes?q=${"beach"}`)
+      .then(({ data }) => setGoogleBooksFixed2(data));
+  }, []);
 
   useEffect(() => {
     if (userBooks.length === 0 && counter < 2) {
@@ -32,26 +60,30 @@ const Search = () => {
         ? dispatch(updateSession())
         : dispatch(getBooks(userInfo));
     } else {
-
-      let category = userBooks
-        .map((book) => (book = book.categories.split(" ")[0]))
-        .reduce(
-          (acc, cur, idx, arr) =>
-            arr.filter((val) => val === acc).length >=
-              arr.filter((val) => val === cur).length
-              ? acc
-              : cur,
-          null
+      if (category === "initial") {
+        setCategory(
+          userBooks
+            .map((book) => (book = book.categories.split(" ")[0]))
+            .filter((el) => el !== "")
+            .reduce(
+              (acc, cur, idx, arr) =>
+                arr.filter((val) => val === acc).length >=
+                arr.filter((val) => val === cur).length
+                  ? acc
+                  : cur,
+              null
+            )
         );
-
-      axios
-        .get(
-          `https://www.googleapis.com/books/v1/volumes?q=${category === null ? "book" : category
-          }`
-        )
-        .then(({ data }) => setGoogleBooks(data));
+        console.log(googleBooksSugestion);
+      } else if (category === null && googleBooksSugestion.items.length === 0) {
+        setGoogleBooksSugestion({ totalItems: 0, items: [] });
+      } else {
+        axios
+          .get(`https://www.googleapis.com/books/v1/volumes?q=${category}`)
+          .then(({ data }) => setGoogleBooksSugestion(data));
+      }
     }
-  }, [dispatch, userInfo, userBooks]);
+  }, [dispatch, userInfo, userBooks, category]);
 
   const handleSearchClick = () =>
     axios
@@ -62,7 +94,7 @@ const Search = () => {
         )}`
       )
       .then(({ data }) => {
-        data.items !== undefined && setGoogleBooks(data);
+        data.items !== undefined && setGoogleBooksSearch(data);
       });
 
   const handleBookClick = (
@@ -88,7 +120,7 @@ const Search = () => {
     const filteredTitle = userBooks.filter(
       (book) => book.title === bookInfo.book.title
     );
-
+    console.log(bookInfo);
     if (filteredTitle.length === 0) {
       api
         .post(`/users/${userInfo.user.id}/books/`, bookInfo, {
@@ -97,11 +129,23 @@ const Search = () => {
         .catch((err) => console.log(err));
       dispatch(getBooks(userInfo));
     } else {
-      dispatch(
-        updateBook({ book: { shelf: shelf } }, userInfo.user, filteredTitle[0])
+      let filteredShelf = filteredTitle.filter(
+        (book) => book.shelf === bookInfo.book.shelf
       );
+      if (filteredShelf.length === 0) {
+        dispatch(
+          updateBook(
+            { book: { shelf: shelf } },
+            userInfo.user,
+            filteredTitle[0]
+          )
+        );
+      } else {
+        console.log("book already added");
+      }
     }
   };
+
   //ARRUMAR O STYLE  DESCONSTRUÇÃO
   return (
     <>
@@ -113,43 +157,56 @@ const Search = () => {
       </StyledSearchField>
 
       <StyledSearch>
-        <StyledSearch.Title>Search</StyledSearch.Title>
-        <StyledSearch.Rows>
-          {googleBooks.totalItems === 0 ? (
-            <StyledSearch.Book>No book found</StyledSearch.Book>
+        <StyledContainer>
+          <StyledTitle>Search</StyledTitle>
+          {googleBooksSearch.totalItems === 0 ? (
+            <StyledBox>Please, search a book</StyledBox>
           ) : (
-              googleBooks.items.map((book) => {
-                const {
-                  volumeInfo: { title, authors = [], imageLinks = "" },
-                  id,
-                } = book;
+            <Carousel>
+              {googleBooksSearch.items.map((book, key) => {
                 return (
-                  <StyledSearch.Book key={id}>
-                    <StyledSearch.Book.Title>
-                      Book Title: {title}
-                    </StyledSearch.Book.Title>
-
-                    <StyledSearch.Book.Image
-                      src={imageLinks.thumbnail}
-                      alt={authors[0]}
-                    />
-
-                    <StyledAddButtonsDiv>
-                      <StyledAddButton onClick={() => handleBookClick(1, book)}>
-                        Quero Ler
-                    </StyledAddButton>
-                      <StyledAddButton onClick={() => handleBookClick(2, book)}>
-                        Lendo
-                    </StyledAddButton>
-                      <StyledAddButton onClick={() => handleBookClick(3, book)}>
-                        Lido
-                    </StyledAddButton>
-                    </StyledAddButtonsDiv>
-                  </StyledSearch.Book>
+                  <SearchCard
+                    handleBookClick={handleBookClick}
+                    book={book}
+                    key={key}
+                  />
                 );
-              })
-            )}
-        </StyledSearch.Rows>
+              })}
+            </Carousel>
+          )}
+          <StyledTitle>Sugestion</StyledTitle>
+          {googleBooksSugestion.totalItems === 0 ? (
+            <StyledBox>No sugestions, add books</StyledBox>
+          ) : (
+            <Carousel>
+              {googleBooksSugestion.items.map((book, key) => {
+                return (
+                  <SearchCard
+                    handleBookClick={handleBookClick}
+                    book={book}
+                    key={key}
+                  />
+                );
+              })}
+            </Carousel>
+          )}
+          {[googleBooksFixed1, googleBooksFixed2].map((el) => (
+            <>
+              <StyledTitle>Diverse Books</StyledTitle>
+              <Carousel>
+                {el.items.map((book, key) => {
+                  return (
+                    <SearchCard
+                      handleBookClick={handleBookClick}
+                      book={book}
+                      key={key}
+                    />
+                  );
+                })}
+              </Carousel>
+            </>
+          ))}
+        </StyledContainer>
       </StyledSearch>
     </>
   );
