@@ -16,7 +16,7 @@ const Feedback = ({ setModal }) => {
           <img
             style={{ width: "50px", height: "50px" }}
             src={profilePicMale}
-            alt=""
+            alt="profile-icon"
           />
         </div>
       ),
@@ -28,7 +28,7 @@ const Feedback = ({ setModal }) => {
           <img
             style={{ width: "50px", height: "50px" }}
             src={profilePicFemale}
-            alt=""
+            alt="profile-icon"
           />
         </div>
       ),

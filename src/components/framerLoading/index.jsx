@@ -72,4 +72,3 @@ const loadingCircleTransition = {
   yoyo: Infinity,
   ease: "easeInOut",
 };
-

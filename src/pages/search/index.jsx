@@ -86,7 +86,7 @@ const Search = () => {
           .then(({ data }) => setGoogleBooksSugestion(data));
       }
     }
-  }, [dispatch, userInfo, userBooks, category]);
+  }, [dispatch, userInfo, userBooks, category, googleBooksSugestion]);
 
   const handleSearchClick = () =>
     axios
@@ -193,8 +193,8 @@ const Search = () => {
               })}
             </Carousel>
           )}
-          {[googleBooksFixed1, googleBooksFixed2].map((el) => (
-            <>
+          {[googleBooksFixed1, googleBooksFixed2].map((el, key) => (
+            <React.Fragment key={key}>
               <StyledTitle>Diverse Books</StyledTitle>
               <Carousel>
                 {el.items.map((book, key) => {
@@ -207,7 +207,7 @@ const Search = () => {
                   );
                 })}
               </Carousel>
-            </>
+            </React.Fragment>
           ))}
         </StyledContainer>
       </StyledSearch>

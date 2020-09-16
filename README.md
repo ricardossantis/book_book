@@ -49,22 +49,10 @@ A empresa BookBook está com uma ideia ousada para competir de frente com grande
 
 Somos uma escola norte-americana que veio para o Brasil com o objetivo de ofertar ensino de qualidade para quem deseja trabalhar na área da tecnologia. Temos como foco o aprendizado do aluno, desde o nível técnico de um programador full stack, até soft-skills para entrar no mercado de trabalho.
 
+## REVISAR
 
+# Cor sidebox da homepage.
 
-// 1 - fazer updateBook com os api.put's , lembrar de tirar o set auth -FEITO
-//  2 - fazer as desconstruções - ALGUMAS
-// 3 - colocar na prateleira/perfil o id na rota,FEITO 
-// 3.2 -  quando reinicia server da pra entrar nos menus com id undefined
-// 3.1 -  tirar os dois useEffects e passar o id do usuario no shelves REVER COM JOÃO
-// 4 - mudar os estilos na timeline DESCONSTRUIR - AINDA NÃO
-// 5 - OLHAR AS MUDANÇAS DO SEARCH -Feito - perguntar para maicon
-//6 - APLICAR ARROW FUNCTION EM TUDO - feito
+# cor da page info
 
-
-alterar o reducer para helper - feito
-
-ERROS Econtrados
-
-1 - quando usar palavras que não existem na api separadamente da erro - FEITO
-2 - totalItems no search - solucionando alguns bugs
-3 -  bug do useInfo  getBooks - se id undefined não faz requisição
+# arrumar border input

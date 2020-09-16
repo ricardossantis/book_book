@@ -9,7 +9,6 @@ import {
 function SearchCard({ book, handleBookClick }) {
   const {
     volumeInfo: { title, authors = [], imageLinks = "" },
-    id,
   } = book;
   return (
     <div>
