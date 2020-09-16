@@ -2,36 +2,14 @@ import styled from "styled-components";
 
 export const StyledSearch = styled.section``;
 
-StyledSearch.Title = styled.h1`
+export const StyledTitle = styled.h1`
   margin: 0;
-`;
-StyledSearch.Rows = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
 `;
 
-StyledSearch.Book = styled.div`
+export const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  margin: 5px;
-  width: 500px;
-  background-color: #cccccc;
-  border-radius: 8px;
 `;
-StyledSearch.Book.Title = styled.h4`
-  margin: 0;
-`;
-StyledSearch.Book.Image = styled.img`
-  width: 130px;
-  height: 200px;
-  &:hover {
-    cursor: pointer;
-  }
-`;
-StyledSearch.Book.Description = styled.p``;
 
 export const StyledSearchField = styled.div``;
 
@@ -46,14 +24,12 @@ export const StyledSearchButton = styled.button`
   }
 `;
 
-export const StyledAddButtonsDiv = styled.div`
+export const StyledBox = styled.div`
+  width: 100%;
+  height: 200px;
+  background-color: #0003;
   display: flex;
-  flex-wrap: nowrap;
-`;
-
-export const StyledAddButton = styled.button`
-  background-color: #666;
-  &:hover {
-    cursor: pointer;
-  }
+  justify-content: center;
+  align-items: center;
+  margin: 50px auto;
 `;
