@@ -1,6 +1,5 @@
 import React from "react";
 import { Form, Input, Button, Rate } from "antd";
-import styled from "styled-components";
 import { useDispatch } from "react-redux";
 
 import { updateBook } from "../../../redux/actions/books";

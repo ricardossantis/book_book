@@ -35,7 +35,7 @@ const Routes = () => {
           <Route path="/perfil/:id">
             <Profile />
           </Route>
-          <Route path="/explorer">
+          <Route path="/explorar">
             <Explorer />
           </Route>
         </Switch>

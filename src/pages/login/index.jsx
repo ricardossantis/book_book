@@ -18,10 +18,9 @@ const Login = () => {
   };
 
   useEffect(() => {
-    token && history.push("/explorer");
+    token && history.push("/explorar");
     status === 401 && message.warning("Usuário ou senha inválidos!");
   }, [status, token, history]);
-
 
   return (
     <LoginBox>

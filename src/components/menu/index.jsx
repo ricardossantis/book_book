@@ -23,7 +23,7 @@ const Menu = () => {
         {session.token ? (
           <StyledMenu.Section>
             <StyledMenu.item>
-              <Link to="/explorer">Linha do Tempo</Link>
+              <Link to="/explorar">Linha do Tempo</Link>
             </StyledMenu.item>
 
             <StyledMenu.item>
