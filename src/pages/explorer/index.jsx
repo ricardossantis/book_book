@@ -6,6 +6,7 @@ import { getBooksReviews } from "../../redux/actions/books.js";
 import { updateSession, addFriend } from "../../redux/actions/session.js";
 
 import { StyledTimeline, FramerLoading } from "./styled-timeline";
+import { filterBooks, JsonKeys } from "./filterBooks.js";
 
 const Explorer = () => {
   const dispatch = useDispatch();
@@ -94,34 +95,17 @@ const Explorer = () => {
   ) : (
     <StyledTimeline>
       <div style={{ color: "black" }}>
-        <input
-          type="button"
-          value="sem filtro"
-          onClick={() => setFilteredBook("default")}
-        />
-        <input
-          type="button"
-          value="mais lidos"
-          onClick={() => setFilteredBook("read")}
-        />
-        <input
-          type="button"
-          value="mais comentados"
-          onClick={() => setFilteredBook("commented")}
-        />
-        <input
-          type="button"
-          value="votados"
-          onClick={() => setFilteredBook("voted")}
-        />
-        <input
-          type="button"
-          value="friends"
-          onClick={() => setFilteredBook("fiends")}
-        />
+        {JsonKeys.map(({ value, key }, index) => (
+          <input
+            key={index}
+            type="button"
+            value={value}
+            onClick={() => setFilteredBook(key)}
+          />
+        ))}
       </div>
       <StyledTimeline.Rows>
-        {filterBook(reviews).map((book) => (
+        {filterBooks(reviews, filteredBook, friends).map((book) => (
           <StyledTimeline.Book key={book.id}>
             <StyledTimeline.Book.Title>{book.title}</StyledTimeline.Book.Title>
 
@@ -153,6 +137,7 @@ const Explorer = () => {
                       ? "Amigo"
                       : "Adicionar Amigo"
                   }
+                  style={{ color: "black" }}
                 />
               )}
             </StyledTimeline.Rows>
