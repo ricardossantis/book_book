@@ -16,42 +16,33 @@ const Menu = () => {
   return (
     <Header>
       <BoxMenu  >
-        <DropMenu menuActive={menuActive}>
-          <BoxIcon onClick={() => setMenuActive(!menuActive)} >
-            <Hamburguer menuActive={menuActive}></Hamburguer>
-          </BoxIcon>
-        </DropMenu>
+        {session.token ?
+          (
+            <>
+              <DropMenu menuActive={menuActive}>
+                <BoxIcon onClick={() => setMenuActive(!menuActive)} >
+                  <Hamburguer menuActive={menuActive}></Hamburguer>
+                </BoxIcon>
+                <DropDiv menuActive={menuActive}>
+                  {session.token &&
+                    <>
+                      <DropLink menuActive={menuActive} to="/explorer">Explorar</DropLink>
+                      <DropLink menuActive={menuActive} to="/pesquisa">Buscar</DropLink>
+                      <DropLink menuActive={menuActive} to={`/perfil/${session.user.id}`}>Perfil</DropLink>
+                    </>
+                  }
+                </DropDiv>
+              </DropMenu>
 
-        {session.token ? (
-          <ContainerLinks>
-            <BoxLink>
-              <Link to="/explorer">Explorar</Link>
-            </BoxLink>
-
-            <BoxLink>
-              <Link to="/pesquisa">Buscar</Link>
-            </BoxLink>
-
-            <BoxLink>
-              <Link to={`/perfil/${session.user.id}`}>Perfil</Link>
-            </BoxLink>
-
-            <BoxLink>
               <Link to="/logar" onClick={handleLogout}>
                 | SAIR
           </Link>
-            </BoxLink>
-          </ContainerLinks>
-        ) : (
-            <ContainerLinks>
-              <BoxLink>
-                <Link to="/logar">Login</Link>
-              </BoxLink>
-
-              <BoxLink>
-                <Link to="/cadastro">Cadastro</Link>
-              </BoxLink>
-            </ContainerLinks>
+            </>
+          ) : (
+            <>
+              <Link to="/logar">Login</Link>
+              <Link to="/cadastro">Cadastro</Link>
+            </>
           )}
       </BoxMenu>
     </Header>
@@ -63,13 +54,40 @@ export default Menu;
 const DropMenu = styled.div`
 width:80px;
 height:50px;
-background-color: blue;
 transition: 0.3s;
+/* ${({ menuActive }) => menuActive && `
+height:500px;
+width:200px;
+position:absolute;
+`} */
+
+`
+const DropDiv = styled.div`
+width:1px;
+height:1px;
+background:black;
+transition: 0.3s ;
+visibility:hidden;
+background:green;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-flow:column;
+
 ${({ menuActive }) => menuActive && `
-height:400px;
+visibility:visible;
+height:500px;
+width:200px;
 position:absolute;
 `}
+`
+const DropLink = styled(Link)`
+visibility:hidden;
 
+${({ menuActive }) => menuActive && `
+visibility:visible;
+
+`}
 `
 
 const BoxIcon = styled.div`
@@ -83,7 +101,6 @@ cursor:pointer;
 `
 
 const Hamburguer = styled.div`
-
 position:absolute;
 width:40%;
 height:4px;
@@ -93,12 +110,14 @@ ${({ menuActive }) => menuActive && `
 background: rgba(0,0,0,0) !important;
 box-shadow:0 2px 5px rgba(0,0,0,0) !important;
 `}
-transition:0.7s ;
+transition:background 0.5s ;
 
 &:before,&:after{
 content:"";
 position:absolute;
 width:100%;
+transition:transform 0.7s ;
+
 ${({ menuActive }) => menuActive && `
  width:80%;
 `}
@@ -129,7 +148,7 @@ transition: .5s;
 `
 
 const Header = styled.header`
-  background-color:rgb(195,195,195);
+background-image: linear-gradient(to right, #1A2980 0%, #26D0CE 51%, #1A2980 100%);
   width: 100%;
   height: 50px;
   
