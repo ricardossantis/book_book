@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { logout } from "../../redux/actions/session";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,16 +8,20 @@ const Menu = () => {
   const history = useHistory();
   const session = useSelector((state) => state.session);
   const dispatch = useDispatch();
+  const [menuActive, setMenuActive] = useState(false)
   const handleLogout = () => {
     dispatch(logout(history));
   };
 
   return (
     <Header>
-      <BoxMenu>
-        <Title>
-          BookBook <p> MVC VERSION</p>
-        </Title>
+      <BoxMenu  >
+        <DropMenu menuActive={menuActive}>
+          <BoxIcon onClick={() => setMenuActive(!menuActive)} >
+            <Hamburguer menuActive={menuActive}></Hamburguer>
+          </BoxIcon>
+        </DropMenu>
+
         {session.token ? (
           <ContainerLinks>
             <BoxLink>
@@ -55,6 +59,74 @@ const Menu = () => {
 };
 
 export default Menu;
+
+const DropMenu = styled.div`
+width:80px;
+height:50px;
+background-color: blue;
+transition: 0.3s;
+${({ menuActive }) => menuActive && `
+height:400px;
+position:absolute;
+`}
+
+`
+
+const BoxIcon = styled.div`
+width: 80px;
+height: 100%;
+display:flex;
+justify-content:center;
+align-items:center;
+position:relative;
+cursor:pointer;
+`
+
+const Hamburguer = styled.div`
+
+position:absolute;
+width:40%;
+height:4px;
+background:#fff;
+box-shadow:0 2px 5px rgba(0,0,0,.2);
+${({ menuActive }) => menuActive && `
+background: rgba(0,0,0,0) !important;
+box-shadow:0 2px 5px rgba(0,0,0,0) !important;
+`}
+transition:0.7s ;
+
+&:before,&:after{
+content:"";
+position:absolute;
+width:100%;
+${({ menuActive }) => menuActive && `
+ width:80%;
+`}
+height: 4px;
+background: #fff;
+box-shadow:0 2px 5px rgba(0,0,0,.2);
+transition: .5s;
+};
+
+&:before{
+  top:-10px;
+  ${({ menuActive }) => menuActive && `
+  top:0px;
+   transform:rotate(45deg);
+`}
+};
+
+&:after{
+  bottom:-10px;
+  ${({ menuActive }) => menuActive && `
+    bottom:0px;
+   transform:rotate(-45deg);
+`}
+};
+
+
+
+`
 
 const Header = styled.header`
   background-color:rgb(195,195,195);
