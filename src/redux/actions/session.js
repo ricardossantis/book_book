@@ -1,6 +1,6 @@
 import api from "../../services/api";
 import { getUserAndToken } from "../../utils/getUsers.js";
-import { LOGIN, LOGOUT, ADD_FRIEND } from "./actionsType.js";
+import { LOGIN, LOGOUT, ADD_FRIEND, CLEAR_BOOKS } from "./actionsType.js";
 
 const setTokenAndUserToLocalStorage = ({ auth_token, user }) => {
   localStorage.setItem("token", auth_token);
@@ -32,7 +32,16 @@ export const updateSession = () => (dispatch) => {
   dispatch(setLogged({ status: 200, token, user }));
 };
 
-export const logout = (page) => ({
+export const clearAllState = (page) => (dispatch) => {
+  dispatch(clearBooksState());
+  dispatch(logout(page));
+};
+
+const clearBooksState = () => ({
+  type: CLEAR_BOOKS,
+});
+
+const logout = (page) => ({
   type: LOGOUT,
   payload: { status: page },
 });
