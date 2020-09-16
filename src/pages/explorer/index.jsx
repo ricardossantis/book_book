@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { getBooksReviews } from "../../redux/actions/books.js";
-import { updateSession } from "../../redux/actions/session.js";
+import { updateSession, addFriend } from "../../redux/actions/session.js";
 
 import { StyledTimeline, FramerLoading } from "./styled-timeline";
 
@@ -11,9 +11,9 @@ const Explorer = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const [filteredBook, setFilteredBook] = useState("read");
-  const [reviews, token] = useSelector((state) => [
+  const [reviews, { user, friends, token }] = useSelector((state) => [
     state.books.reviews,
-    state.session.token,
+    state.session,
   ]);
 
   const filterBook = (arr) => {
@@ -73,11 +73,15 @@ const Explorer = () => {
         return arr
           .filter((book) => book.grade >= 5)
           .sort((a, b) => b.grade - a.grade);
+      case "fiends":
+        return arr.filter(
+          (book) =>
+            friends && Object.keys(friends).includes(book.creator.id.toString())
+        );
       default:
         return arr;
     }
   };
-
   useEffect(() => {
     dispatch(getBooksReviews(token));
     dispatch(updateSession());
@@ -110,6 +114,11 @@ const Explorer = () => {
           value="votados"
           onClick={() => setFilteredBook("voted")}
         />
+        <input
+          type="button"
+          value="friends"
+          onClick={() => setFilteredBook("fiends")}
+        />
       </div>
       <StyledTimeline.Rows>
         {filterBook(reviews).map((book) => (
@@ -119,6 +128,7 @@ const Explorer = () => {
             <StyledTimeline.User>
               <StyledTimeline.User.Image src={book.creator.userImage} />
               <Link to={`/perfil/${book.creator.id}`}>perfil do usuario </Link>
+
               <StyledTimeline.User.Name>
                 {book.creator.user}
               </StyledTimeline.User.Name>
@@ -133,6 +143,18 @@ const Explorer = () => {
               <StyledTimeline.User.Review>
                 Review: {book.review}
               </StyledTimeline.User.Review>
+              {book.creator.id !== user.id && (
+                <input
+                  disabled={friends && friends[book.creator.id] ? true : false}
+                  type="button"
+                  onClick={() => dispatch(addFriend(book.creator))}
+                  value={
+                    friends && friends[book.creator.id]
+                      ? "Amigo"
+                      : "Adicionar Amigo"
+                  }
+                />
+              )}
             </StyledTimeline.Rows>
           </StyledTimeline.Book>
         ))}

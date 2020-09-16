@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { updateSession } from "../../redux/actions/session.js";
 import { Book } from "../../components/exports.js";
 import { getBooks } from "../../redux/actions/books.js";
@@ -9,7 +9,7 @@ import getUsers from "../../utils/getUsers.js";
 import ProfileModal from "../../components/modals/profile";
 import ProfilePic from "../../components/profilePic";
 
-let counter = 0
+let counter = 0;
 
 const Shelves = () => {
   const dispatch = useDispatch();
@@ -17,10 +17,10 @@ const Shelves = () => {
   const [modal, setModal] = useState();
   const [showButtons, setShowButtons] = useState(true);
   const [currentUser, setCurrentUser] = useState({ user: {}, books: [] });
-  const [{ user, token }, books] = useSelector(({ session, books }) => [
-    session,
-    books.books,
-  ]);
+  const [
+    { user, token, friends },
+    books,
+  ] = useSelector(({ session, books }) => [session, books.books]);
 
   useEffect(() => {
     if (user.id !== undefined && user.id === Number(params.id)) {
@@ -37,10 +37,9 @@ const Shelves = () => {
       user.id === undefined
         ? dispatch(updateSession())
         : dispatch(getBooks({ user, token }));
-      counter++
+      counter++;
     }
-  }, [books, token, user, dispatch])
-
+  }, [books, token, user, dispatch]);
 
   const ShelvesFilter = (filterShelf) =>
     currentUser.books
@@ -54,8 +53,23 @@ const Shelves = () => {
       <Profile>
         {modal && <ProfileModal setModal={setModal} />}
         <h2>Usuário: {currentUser.user && currentUser.user.user}</h2>
+
         <ProfilePic userInfo={currentUser} />
-        {showButtons && <button onClick={() => setModal(!modal)}>Edit Profile</button>}
+        {showButtons && (
+          <button onClick={() => setModal(!modal)}>Edit Profile</button>
+        )}
+        <section>
+          Amigos:
+          {Object.values(friends).map((friend) => (
+            <Link
+              key={friend.id}
+              to={`/perfil/${friend.id}`}
+              style={{ margin: "0 5px" }}
+            >
+              {friend.user}
+            </Link>
+          ))}
+        </section>
       </Profile>
       <Shelf>{ShelvesFilter(1)}</Shelf>
       <Shelf>{ShelvesFilter(2)}</Shelf>

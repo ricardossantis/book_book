@@ -1,6 +1,6 @@
 import api from "../../services/api";
 import { getUserAndToken } from "../../utils/getUsers.js";
-import { LOGIN, LOGOUT } from "./actionsType.js";
+import { LOGIN, LOGOUT, ADD_FRIEND } from "./actionsType.js";
 
 const setTokenAndUserToLocalStorage = ({ auth_token, user }) => {
   localStorage.setItem("token", auth_token);
@@ -13,7 +13,13 @@ export const loginWithAPI = (info) => (dispatch) => {
     .then((response) => {
       console.warn(`loginWithAPI Status:${response.status}`);
       setTokenAndUserToLocalStorage(response.data);
-      dispatch(setLogged({ status: 200, token: response.data.auth_token, user: response.data.user }));
+      dispatch(
+        setLogged({
+          status: 200,
+          token: response.data.auth_token,
+          user: response.data.user,
+        })
+      );
     })
     .catch(
       ({ response }) =>
@@ -34,4 +40,9 @@ export const logout = (page) => ({
 const setLogged = (info) => ({
   type: LOGIN,
   payload: info,
+});
+
+export const addFriend = ({ id, user }) => ({
+  type: ADD_FRIEND,
+  payload: { [id]: { id, user } },
 });
