@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useHistory } from "react-router-dom";
 
 import { StyledHeader, StyledMenu } from "./styledmenu";
-import { logout } from "../../redux/actions/session";
+import { clearAllState } from "../../redux/actions/session";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -11,7 +11,7 @@ const Menu = () => {
   const session = useSelector((state) => state.session);
   const dispatch = useDispatch();
   const handleLogout = () => {
-    dispatch(logout(history));
+    dispatch(clearAllState(history));
   };
 
   return (

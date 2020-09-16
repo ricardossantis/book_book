@@ -63,7 +63,10 @@ const Search = () => {
       if (category === "initial") {
         setCategory(
           userBooks
-            .map((book) => (book = book.categories.split(" ")[0]))
+            .map(
+              (book) =>
+                (book = book.categories && book.categories.split(" ")[0])
+            )
             .filter((el) => el !== "")
             .reduce(
               (acc, cur, idx, arr) =>
