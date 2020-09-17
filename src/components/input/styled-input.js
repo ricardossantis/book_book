@@ -79,12 +79,17 @@ export const StyledInput = styled(Input)`
   color: #555;
   margin-top: 14px;
   margin-left: 10px;  ​
-
-  text-decoration: none;
+  box-shadow: none !important;
+  text-decoration:none;
   outline: none;
   background: none;
   background-color: none;
   border: none;
+
+&:focus{
+  box-shadow: none !important;
+  
+}
 
   @media (min-width: 550px) {
     margin-top: 0px;

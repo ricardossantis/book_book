@@ -8,7 +8,7 @@ import styled from "styled-components";
 
 import ProfileImg from '../../assets/img/cardProfile.svg'
 
-const Menu = () => {
+const Menu = ({ children }) => {
   const history = useHistory();
   const session = useSelector((state) => state.session);
 
@@ -19,33 +19,31 @@ const Menu = () => {
   };
 
   return (
-    <Header>
-      <BoxMenu onMouseLeave={() => setMenuActive(false)} onMouseEnter={() => setMenuActive(true)} >
-        {session.token &&
-          <>
-            <DropMenu menuActive={menuActive}>
-              <BoxIcon onClick={() => setMenuActive(!menuActive)} >
-                <Hamburguer menuActive={menuActive}></Hamburguer>
-              </BoxIcon>
-              <DropDiv menuActive={menuActive}>
-                <DropLink menuActive={menuActive} to="/explorar">Explorar</DropLink>
-                <DropLink menuActive={menuActive} to="/pesquisa">Buscar</DropLink>
-                <DropLink menuActive={menuActive} to={`/perfil/${session.user.id}`}>Perfil</DropLink>
-              </DropDiv>
-            </DropMenu>
-            <ProfileBox>
-              <Profile>
-                <ProfilePic />
-              </Profile>
-              <Logout to="/" onClick={handleLogout}>
-                <IoIosLogOut />
-              </Logout>
-            </ProfileBox>
-          </>
-        }
-      </BoxMenu>
-
-    </Header>
+    <>
+      <Header>
+        <BoxMenu onMouseLeave={() => setMenuActive(false)} onMouseEnter={() => setMenuActive(true)} >
+          <DropMenu menuActive={menuActive}>
+            <BoxIcon onClick={() => setMenuActive(!menuActive)} >
+              <Hamburguer menuActive={menuActive}></Hamburguer>
+            </BoxIcon>
+            <DropDiv menuActive={menuActive}>
+              <DropLink menuActive={menuActive} to="/explorar">Explorar</DropLink>
+              <DropLink menuActive={menuActive} to="/pesquisa">Buscar</DropLink>
+              <DropLink menuActive={menuActive} to={`/perfil/${session.user.id}`}>Perfil</DropLink>
+            </DropDiv>
+          </DropMenu>
+          <ProfileBox>
+            <Profile>
+              <ProfilePic />
+            </Profile>
+            <Logout to="/" onClick={handleLogout}>
+              <IoIosLogOut />
+            </Logout>
+          </ProfileBox>
+        </BoxMenu>
+      </Header>
+      { children}
+    </>
   );
 };
 
@@ -112,10 +110,10 @@ const Header = styled.header`
 
 const BoxMenu = styled.div`
     height: 50px;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-
   `;
 
 const DropMenu = styled.div`

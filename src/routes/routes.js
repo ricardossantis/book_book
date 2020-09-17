@@ -3,6 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import { Home, Profile, Search, Explorer } from "../pages/exports.js";
 import { useSelector } from "react-redux";
 import api from "../services/api";
+import { Menu } from "../components/exports.js";
 
 const Routes = () => {
   const token = useSelector((state) => state.session.token);
@@ -21,17 +22,19 @@ const Routes = () => {
   switch (authorized) {
     case true:
       return (
-        <Switch>
-          <Route path="/pesquisa">
-            <Search />
-          </Route>
-          <Route path="/perfil/:id">
-            <Profile />
-          </Route>
-          <Route path="/explorar">
-            <Explorer />
-          </Route>
-        </Switch>
+        <Menu>
+          <Switch>
+            <Route path="/pesquisa">
+              <Search />
+            </Route>
+            <Route path="/perfil/:id">
+              <Profile />
+            </Route>
+            <Route path="/explorar">
+              <Explorer />
+            </Route>
+          </Switch>
+        </Menu>
       );
 
     case false:
