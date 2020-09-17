@@ -26,7 +26,6 @@ const Menu = () => {
                 <BoxIcon onClick={() => setMenuActive(!menuActive)} >
                   <Hamburguer menuActive={menuActive}></Hamburguer>
                 </BoxIcon>
-                <div id="triagle" />
                 <DropDiv menuActive={menuActive}>
                   {session.token &&
                     <>
@@ -95,8 +94,6 @@ text-decoration:none;
 color: white;
 &:hover{
   color: rgb(30,180,140);
-  
-
 }
 svg{
   transition:0.2s;
@@ -134,23 +131,9 @@ const DropMenu = styled.div`
 width:80px;
 height:50px;
 transition: 0.3s;
-margin-left: 10%;
-
-#triagle{
-  width: 30px;
-  height: 0px;
-  margin-left: 20px;
-  background-image:linear-gradient( rgb(70,70,70) 40% ,rgb(35,35,35) 90%);
-  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-visibility:hidden;
-transition: 0.3s 0s;
-
-  ${({ menuActive }) => menuActive && `
-visibility:visible;
-width: 30px;
-  height: 9px;
-left:30px;
-`}
+margin-left: 10px;
+@media(min-width:600px){
+margin-left: 95px;
 }
 
 `
@@ -159,13 +142,14 @@ display:flex;
 justify-content:center;
 align-items:center;
 flex-flow:column;
-width:200px;
+width:18%;
+max-width:200px;
 height:0px;
 margin-right:250px;
 visibility:hidden;
 left:30px;
 position:absolute;
-
+clip-path: polygon(100% 100%, 0% 100%, 0 6%, 0% 6%, 7.5% 0, 15% 6%, 100% 6%);
 background-image:radial-gradient( rgb(70,70,70) ,rgb(22,22,22) );
 transition: 0.4s 0s;
 border-radius: 4px;
@@ -173,11 +157,13 @@ ${({ menuActive }) => menuActive && `
 visibility:visible;
 height:250px;
 width:200px;
+
 left:30px;
 `}
 
-
-
+@media(min-width:600px){
+  clip-path: polygon(100% 100%, 0% 100%, 0 6%, 35% 6%, 50% 0, 65% 6%, 100% 6%);
+}
 `
 const DropLink = styled(Link)`
 font-weight:bold;
