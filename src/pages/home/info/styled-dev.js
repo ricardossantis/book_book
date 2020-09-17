@@ -11,7 +11,7 @@ export const DevCard = styled.div`
   align-items: flex-start;
   justify-content: space-between;
   color: #000;
-  box-shadow: 2px 2px 8px #0066ff;
+  box-shadow: 3px 3px 10px #cc8c68;
   margin: 16px 0;
 
   @media (min-width: 550px) {

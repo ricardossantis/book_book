@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import api from "../../../services/api";
 import { useDispatch } from "react-redux";
@@ -7,6 +7,7 @@ import pass_verify from "./password-verifications.js";
 import { loginWithAPI } from "../../../redux/actions/session.js";
 import BookIcon from "../../../assets/icons/books-icon.png";
 import StylezedInput from "../../../components/input";
+import Recaptcha from "react-recaptcha";
 import { message } from "antd";
 import {
   name,
@@ -22,6 +23,7 @@ import {
   RegisterContainer,
   StyledForm,
   Title,
+  Captcha,
   StyledButton,
   LinkA,
   Info,
@@ -31,24 +33,42 @@ const Register = ({ onHandle }) => {
   const history = useHistory();
   const info = (infoMessage) => message.info(infoMessage);
   const dispatch = useDispatch();
+  const [verified, setVerified] = useState(false);
+
+  const recaptchaLoaded = () => {
+    // console.log("Captcha carregou com sucesso!");
+  };
+
+  const verifyReCaptchaV2 = (response) => {
+    if (response) {
+      setVerified(true);
+    } else {
+      setVerified(false);
+    }
+  };
 
   const onFinish = (user) => {
     onHandle("loading");
-    api
-      .post("/users", { user })
-      .then(() => {
-        info("Cadastro efetuado com sucesso!");
-        setTimeout(
-          () =>
-            dispatch(
-              loginWithAPI({ user: user.user, password: user.password })
-            ),
-          2500
+    if (verified) {
+      api
+        .post("/users", { user })
+        .then(() => {
+          info("Cadastro efetuado com sucesso!");
+          setTimeout(
+            () =>
+              dispatch(
+                loginWithAPI({ user: user.user, password: user.password })
+              ),
+            2500
+          );
+          history.push("/explorar");
+        })
+        .catch(() =>
+          info("Cadastro falhou, por favor verifique suas entradas.")
         );
-
-        history.push("/explorar");
-      })
-      .catch(() => info("Cadastro falhou, por favor verifique suas entradas."));
+    } else {
+      message.warning("Complete o reCAPTCHA para efetuar login!");
+    }
   };
 
   return (
@@ -119,7 +139,17 @@ const Register = ({ onHandle }) => {
                 type="password"
                 rules={[pass_confirm, pass_verify]}
               />
-
+              {/* NÃO APAGAR ESTES COMENTÁRIOS! */}
+              {/* USAR ESTÁ CHAVE DEPOIS DO DEPLOY ->  6LfpLc0ZAAAAAL7mJZpq3ZAc_b6mK7Dgx0akx7mg */}
+              <Captcha>
+                <Recaptcha
+                  sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+                  render="explicit"
+                  hl="pt-BR"
+                  onloadCallback={recaptchaLoaded}
+                  verifyCallback={verifyReCaptchaV2}
+                />
+              </Captcha>
               <motion.div
                 whileHover={{ scale: 1.2 }}
                 transition={{ duration: 0.3 }}
@@ -139,7 +169,7 @@ const Register = ({ onHandle }) => {
             </StyledForm>
           </RegisterContainer>
 
-          <motion.div whileHover={{ scale: 1.6 }} whileTap={{ scale: 0.6 }}>
+          <motion.div whileHover={{ scale: 1.6 }}>
             <Info
               onClick={() => {
                 onHandle("info");
