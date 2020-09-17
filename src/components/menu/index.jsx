@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { logout } from "../../redux/actions/session";
+import { clearAllState } from "../../redux/actions/session";
+
 import { useDispatch, useSelector } from "react-redux";
 import { IoIosLogOut } from "react-icons/io"
 import styled from "styled-components";
@@ -10,50 +11,40 @@ import ProfileImg from '../../assets/img/cardProfile.svg'
 const Menu = () => {
   const history = useHistory();
   const session = useSelector((state) => state.session);
+
   const dispatch = useDispatch();
   const [menuActive, setMenuActive] = useState(false)
   const handleLogout = () => {
-    dispatch(logout(history));
+    dispatch(clearAllState(history));
   };
 
   return (
     <Header>
       <BoxMenu onMouseLeave={() => setMenuActive(false)} onMouseEnter={() => setMenuActive(true)} >
-        {session.token ?
-          (
-            <>
-              <DropMenu menuActive={menuActive}>
-                <BoxIcon onClick={() => setMenuActive(!menuActive)} >
-                  <Hamburguer menuActive={menuActive}></Hamburguer>
-                </BoxIcon>
-                <DropDiv menuActive={menuActive}>
-                  {session.token &&
-                    <>
-                      <DropLink menuActive={menuActive} to="/explorer">Explorar</DropLink>
-                      <DropLink menuActive={menuActive} to="/pesquisa">Buscar</DropLink>
-                      <DropLink menuActive={menuActive} to={`/perfil/${session.user.id}`}>Perfil</DropLink>
-                    </>
-                  }
-                </DropDiv>
-              </DropMenu>
-
-
-            </>
-          ) : (
-            <>
-              <Link to="/logar">Login</Link>
-              <Link to="/cadastro">Cadastro</Link>
-            </>
-          )}
+        {session.token &&
+          <>
+            <DropMenu menuActive={menuActive}>
+              <BoxIcon onClick={() => setMenuActive(!menuActive)} >
+                <Hamburguer menuActive={menuActive}></Hamburguer>
+              </BoxIcon>
+              <DropDiv menuActive={menuActive}>
+                <DropLink menuActive={menuActive} to="/explorar">Explorar</DropLink>
+                <DropLink menuActive={menuActive} to="/pesquisa">Buscar</DropLink>
+                <DropLink menuActive={menuActive} to={`/perfil/${session.user.id}`}>Perfil</DropLink>
+              </DropDiv>
+            </DropMenu>
+            <ProfileBox>
+              <Profile>
+                <ProfilePic />
+              </Profile>
+              <Logout to="/" onClick={handleLogout}>
+                <IoIosLogOut />
+              </Logout>
+            </ProfileBox>
+          </>
+        }
       </BoxMenu>
-      <ProfileBox>
-        <Profile>
-          <ProfilePic />
-        </Profile>
-        <Logout to="/logar" onClick={handleLogout}>
-          <IoIosLogOut />
-        </Logout>
-      </ProfileBox>
+
     </Header>
   );
 };

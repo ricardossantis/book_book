@@ -49,8 +49,12 @@ A empresa BookBook está com uma ideia ousada para competir de frente com grande
 
 Somos uma escola norte-americana que veio para o Brasil com o objetivo de ofertar ensino de qualidade para quem deseja trabalhar na área da tecnologia. Temos como foco o aprendizado do aluno, desde o nível técnico de um programador full stack, até soft-skills para entrar no mercado de trabalho.
 
+## REVISAR
+
+# Cor sidebox da homepage.
+
+# cor da page info
+
+# arrumar border input
 
 
-//Parte de buscas
-
-- o livro pode virar e as letras sairem de tras dele para mostrar descrição etc

@@ -1,6 +1,6 @@
 import api from "../../services/api";
 import { getUserAndToken } from "../../utils/getUsers.js";
-import { LOGIN, LOGOUT } from "./actionsType.js";
+import { LOGIN, LOGOUT, ADD_FRIEND, CLEAR_BOOKS } from "./actionsType.js";
 
 const setTokenAndUserToLocalStorage = ({ auth_token, user }) => {
   localStorage.setItem("token", auth_token);
@@ -13,7 +13,13 @@ export const loginWithAPI = (info) => (dispatch) => {
     .then((response) => {
       console.warn(`loginWithAPI Status:${response.status}`);
       setTokenAndUserToLocalStorage(response.data);
-      dispatch(setLogged({ status: 200, token: response.data.auth_token, user: response.data.user }));
+      dispatch(
+        setLogged({
+          status: 200,
+          token: response.data.auth_token,
+          user: response.data.user,
+        })
+      );
     })
     .catch(
       ({ response }) =>
@@ -21,17 +27,31 @@ export const loginWithAPI = (info) => (dispatch) => {
     );
 };
 
+const setLogged = (info) => ({
+  type: LOGIN,
+  payload: info,
+});
+
 export const updateSession = () => (dispatch) => {
   const { user, token } = getUserAndToken();
   dispatch(setLogged({ status: 200, token, user }));
 };
 
-export const logout = (page) => ({
+export const clearAllState = (page) => (dispatch) => {
+  dispatch(clearBooksState());
+  dispatch(logout(page));
+};
+
+const clearBooksState = () => ({
+  type: CLEAR_BOOKS,
+});
+
+const logout = (page) => ({
   type: LOGOUT,
   payload: { status: page },
 });
 
-const setLogged = (info) => ({
-  type: LOGIN,
-  payload: info,
+export const addFriend = ({ id, user }) => ({
+  type: ADD_FRIEND,
+  payload: { [id]: { id, user } },
 });

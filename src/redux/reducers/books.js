@@ -2,6 +2,7 @@ import {
   ADD_BOOKS,
   REMOVE_BOOK,
   ADD_BOOKS_REVIEWS,
+  CLEAR_BOOKS,
 } from "../actions/actionsType.js";
 
 const defaultState = { books: [], reviews: [] };
@@ -19,6 +20,9 @@ const books = (state = defaultState, { type, payload }) => {
         ...state,
         books: state.books.filter((book) => book !== payload),
       };
+
+    case CLEAR_BOOKS:
+      return defaultState;
 
     default:
       return state;

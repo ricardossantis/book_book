@@ -13,7 +13,11 @@ const Feedback = ({ setModal }) => {
       value: "male",
       label: (
         <div>
-          <img style={{ width: "50px", height: "50px" }} src={profilePicMale} />
+          <img
+            style={{ width: "50px", height: "50px" }}
+            src={profilePicMale}
+            alt="profile-icon"
+          />
         </div>
       ),
     },
@@ -24,6 +28,7 @@ const Feedback = ({ setModal }) => {
           <img
             style={{ width: "50px", height: "50px" }}
             src={profilePicFemale}
+            alt="profile-icon"
           />
         </div>
       ),
@@ -47,11 +52,11 @@ const Feedback = ({ setModal }) => {
       }
     )
       .then((res) => {
-        console.log(res);
+        console.warn("Edit User Status:", res);
         setModal(false);
       })
       .catch((err) => {
-        console.log("Edit failed");
+        console.error("Edit failed", err);
       });
   };
 

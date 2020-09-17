@@ -12,6 +12,7 @@ function ProfilePic({ userInfo }) {
             ? profilePicFemale
             : profilePicMale
         }
+        alt="profile-pic"
       />
     </PictureDiv>
   );
