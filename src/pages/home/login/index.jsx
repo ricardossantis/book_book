@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { message } from "antd";
 import { motion } from "framer-motion";
 import { useHistory } from "react-router-dom";
@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginWithAPI } from "../../../redux/actions/session.js";
 import StylezedInput from "../../../components/input";
 import BookIcon from "../../../assets/icons/books-icon.png";
+import Recaptcha from "react-recaptcha";
 import quotes from "../helper";
 import {
   LoginBox,
@@ -16,20 +17,39 @@ import {
   Container,
   LoginContainer,
   StyledForm,
+  Captcha,
   StyledButton,
   LinkA,
   Info,
 } from "./styled-login";
 
+const random = Math.floor(Math.random() * (quotes.length - 1));
+
 const Login = ({ onHandle }) => {
-  const random = Math.floor(Math.random() * (quotes.length - 1)) + 0;
   let history = useHistory();
   const dispatch = useDispatch();
   const { token, status } = useSelector((state) => state.session);
+  const [verified, setVerified] = useState(false);
+
+  const recaptchaLoaded = () => {
+    // console.log("Captcha carregou com sucesso!");
+  };
+
+  const verifyReCaptchaV2 = (response) => {
+    if (response) {
+      setVerified(true);
+    } else {
+      setVerified(false);
+    }
+  };
 
   const onFinish = (values) => {
-    dispatch(loginWithAPI(values));
-    history.push("/explorar");
+    if (verified) {
+      dispatch(loginWithAPI(values));
+      // token && history.push("/explorar");
+    } else {
+      message.warning("Complete o reCAPTCHA para efetuar login!");
+    }
   };
 
   useEffect(() => {
@@ -80,6 +100,17 @@ const Login = ({ onHandle }) => {
                 type="password"
                 rules={password}
               />
+              {/* NÃO APAGAR ESTES COMENTÁRIOS! */}
+              {/* USAR ESTÁ CHAVE DEPOIS DO DEPLOY ->  6LfpLc0ZAAAAAL7mJZpq3ZAc_b6mK7Dgx0akx7mg */}
+              <Captcha>
+                <Recaptcha
+                  sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+                  render="explicit"
+                  hl="pt-BR"
+                  onloadCallback={recaptchaLoaded}
+                  verifyCallback={verifyReCaptchaV2}
+                />
+              </Captcha>
               ​
               <motion.div
                 whileHover={{ scale: 1.2 }}
@@ -94,9 +125,10 @@ const Login = ({ onHandle }) => {
               </LinkA>
             </StyledForm>
           </LoginContainer>
+
           <Quote>{quotes[random]}</Quote>
 
-          <motion.div whileHover={{ scale: 1.6 }} whileTap={{ scale: 0.6 }}>
+          <motion.div whileHover={{ scale: 1.6 }}>
             <Info
               onClick={() => onHandle("info")}
               className="fas fa-info-circle"

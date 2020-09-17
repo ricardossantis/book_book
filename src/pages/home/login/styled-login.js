@@ -9,7 +9,7 @@ export const LoginBox = styled.div`
 
   @media (min-width: 550px) {
     margin-bottom: 74px;
-    height: 116vh;
+    height: 126vh;
   }
 
   @media (min-width: 768px) {
@@ -37,9 +37,13 @@ export const Title = styled.h1`
   font-size: 1.2rem;
   margin: 14px;
 
+  @media (max-width: 380px) {
+    margin-bottom: 6vh;
+  }
+
   @media (min-width: 550px) {
     margin: 0;
-    margin-bottom: 30px;
+    margin-bottom: 80px;
   }
 
   @media (min-width: 768px) {
@@ -92,6 +96,10 @@ export const LoginContainer = styled.div`
   display: flex;
   align-items: center;
   text-align: center;
+
+  @media (max-width: 550px) {
+    position: relative;
+  }
 `;
 
 export const StyledForm = styled(Form)`
@@ -99,13 +107,38 @@ export const StyledForm = styled(Form)`
 
   @media (min-width: 550px) {
     width: 50vw;
-    margin: 5vh 0;
+    margin: 4vh 0;
   }
 
   @media (min-width: 768px) {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     width: 22vw;
+  }
+`;
+
+export const Captcha = styled.div`
+  @media (max-width: 380px) {
+    div {
+      position: absolute;
+      left: -2vw;
+    }
+  }
+
+  @media (min-width: 550px) {
+    div {
+      width: 50vw;
+      height: 14vh;
+    }
+  }
+  @media (min-width: 768px) {
+    margin: 0 auto;
+    margin-top: 20px;
+    div {
+      width: 304px;
+      height: 78px;
+    }
   }
 `;
 
@@ -128,13 +161,17 @@ export const StyledButton = styled(Button)`
     font-size: 1.3rem;
   }
 
+  @media (max-width: 380px) {
+    margin-top: 12vh;
+  }
+
   ​ @media (min-width: 550px) {
     margin: 0.6rem 0;
   }
 
   @media (min-width: 768px) {
     margin: 16px auto;
-    width: 8vw;
+    width: 160px;
   }
 `;
 

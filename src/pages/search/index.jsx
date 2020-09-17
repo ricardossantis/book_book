@@ -86,7 +86,7 @@ const Search = () => {
           .then(({ data }) => setGoogleBooksSugestion(data));
       }
     }
-  }, [dispatch, userInfo, userBooks, category, googleBooksSugestion]);
+  }, [dispatch, userInfo, userBooks, category]);
 
   const handleSearchClick = () =>
     axios
