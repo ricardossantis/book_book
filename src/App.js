@@ -1,5 +1,4 @@
 import React from "react";
-import { Menu } from "./components/exports.js";
 import Routes from "./routes/routes.js";
 import "./App.css";
 

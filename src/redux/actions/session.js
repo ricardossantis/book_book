@@ -11,7 +11,7 @@ export const loginWithAPI = (info) => (dispatch) => {
   api
     .post("/authenticate", info)
     .then((response) => {
-      console.warn(`loginWithAPI Status:${response.status}`);
+      // console.warn(`loginWithAPI Status:${response.status}`);
       setTokenAndUserToLocalStorage(response.data);
       dispatch(
         setLogged({
@@ -21,10 +21,17 @@ export const loginWithAPI = (info) => (dispatch) => {
         })
       );
     })
-    .catch(
-      ({ response }) =>
-        response.status === 401 && dispatch(setLogged(response.status))
-    );
+    .catch(({ response }) => {
+      if (response.status === 401) {
+        dispatch(
+          setLogged({
+            status: 401,
+            token: false,
+            user: false,
+          })
+        );
+      }
+    });
 };
 
 const setLogged = (info) => ({

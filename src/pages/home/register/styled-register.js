@@ -2,13 +2,13 @@ import styled from "styled-components";
 import { Form, Button } from "antd";
 
 export const RegisterBox = styled.div`
-  height: 105vh;
+  height: 125vh;
   display: flex;
   flex-direction: column;
   align-items: center;
 
   @media (min-width: 550px) {
-    height: 180vh;
+    height: 190vh;
   }
 
   @media (min-width: 768px) {
@@ -32,6 +32,10 @@ export const Title = styled.h1`
   font-size: 1.2rem;
   margin: 14px;
   margin-bottom: 60px;
+
+  @media (max-width: 380px) {
+    margin-bottom: 15vh;
+  }
 
   @media (min-width: 550px) {
     margin: 0;
@@ -67,6 +71,9 @@ export const RegisterContainer = styled.div`
   display: flex;
   align-items: center;
   text-align: center;
+  @media (max-width: 550px) {
+    position: relative;
+  }
 `;
 
 export const StyledForm = styled(Form)`
@@ -80,6 +87,30 @@ export const StyledForm = styled(Form)`
     display: flex;
     flex-direction: column;
     width: 22vw;
+  }
+`;
+
+export const Captcha = styled.div`
+  @media (max-width: 380px) {
+    div {
+      position: absolute;
+      left: -2vw;
+    }
+  }
+
+  @media (min-width: 550px) {
+    div {
+      width: 50vw;
+      height: 14vh;
+    }
+  }
+  @media (min-width: 768px) {
+    margin: 0 auto;
+    margin-top: 20px;
+    div {
+      width: 304px;
+      height: 78px;
+    }
   }
 `;
 
@@ -102,13 +133,17 @@ export const StyledButton = styled(Button)`
     font-size: 1.2rem;
   }
 
+  @media (max-width: 380px) {
+    margin-top: 13vh;
+  }
+
   @media (min-width: 550px) {
     margin: 0.6rem 0;
   }
 
   @media (min-width: 768px) {
     margin: 16px auto;
-    width: 10vw;
+    width: 160px;
   }
 `;
 

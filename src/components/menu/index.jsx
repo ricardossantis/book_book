@@ -21,15 +21,15 @@ const Menu = ({ children }) => {
   return (
     <>
       <Header>
-        <BoxMenu onMouseLeave={() => setMenuActive(false)} onMouseEnter={() => setMenuActive(true)} >
-          <DropMenu menuActive={menuActive}>
-            <BoxIcon onClick={() => setMenuActive(!menuActive)} >
-              <Hamburguer menuActive={menuActive}></Hamburguer>
+        <BoxMenu>
+          <DropMenu menuActive={menuActive} onMouseLeave={() => setMenuActive(false)} onMouseEnter={() => setMenuActive(true)}>
+            <BoxIcon onClick={() => setMenuActive(true)} >
+              <Hamburguer menuactive={menuActive}></Hamburguer>
             </BoxIcon>
-            <DropDiv menuActive={menuActive}>
-              <DropLink menuActive={menuActive} to="/explorar">Explorar</DropLink>
-              <DropLink menuActive={menuActive} to="/pesquisa">Buscar</DropLink>
-              <DropLink menuActive={menuActive} to={`/perfil/${session.user.id}`}>Perfil</DropLink>
+            <DropDiv menuactive={menuActive}>
+              <DropLink menuactive={menuActive} to="/explorar">Explorar</DropLink>
+              <DropLink menuactive={menuActive} to="/pesquisa">Buscar</DropLink>
+              <DropLink menuactive={menuActive} to={`/perfil/${session.user.id}`}>Perfil</DropLink>
             </DropDiv>
           </DropMenu>
           <ProfileBox>
@@ -121,11 +121,8 @@ width:80px;
 height:50px;
 transition: 0.3s;
 margin-left: 10px;
-@media(min-width:600px){
-margin-left: 95px;
-}
-
 `
+
 const DropDiv = styled.div`
 display:flex;
 justify-content:center;
@@ -134,25 +131,18 @@ flex-flow:column;
 width:18%;
 max-width:200px;
 height:0px;
-margin-right:250px;
-visibility:hidden;
 left:30px;
+visibility:hidden;
 position:absolute;
-clip-path: polygon(100% 100%, 0% 100%, 0 6%, 0% 6%, 7.5% 0, 15% 6%, 100% 6%);
+clip-path: polygon(100% 100%, 0% 100%, 0 6%, -1% 6%, 7.5% 0, 20% 6%, 100% 6%);
 background-image:radial-gradient( rgb(70,70,70) ,rgb(22,22,22) );
 transition: 0.4s 0s;
 border-radius: 4px;
-${({ menuActive }) => menuActive && `
+${({ menuactive }) => menuactive && `
 visibility:visible;
 height:250px;
 width:200px;
-
-left:30px;
 `}
-
-@media(min-width:600px){
-  clip-path: polygon(100% 100%, 0% 100%, 0 6%, 35% 6%, 50% 0, 65% 6%, 100% 6%);
-}
 `
 const DropLink = styled(Link)`
 font-weight:bold;
@@ -167,7 +157,7 @@ display:flex;
 justify-content:center;
 align-items:center;
 transition: 0.1s;
-${({ menuActive }) => menuActive && `
+${({ menuactive }) => menuactive && `
 visibility:visible;
 height: 40px;
 font-size:20px;
@@ -177,6 +167,8 @@ font-size:20px;
   border-top:4px solid rgba(10,10,10,0.2);
   border-bottom:4px solid rgba(80,80,80,0.2);
   background:rgba(20,20,20,0.2);
+font-size:25px;
+
 }
 `
 const BoxIcon = styled.div`
@@ -194,10 +186,10 @@ width:40%;
 height:4px;
 background:#fff;
 box-shadow:0 2px 5px rgba(0,0,0,.2);
-${({ menuActive }) => menuActive && `
+text-align: initial;
+${({ menuactive }) => menuactive && `
 background: rgba(0,0,0,0) !important;
 box-shadow:0 2px 5px rgba(0,0,0,0) !important;
-
 `}
 transition:background 0.5s ;
 
@@ -208,7 +200,7 @@ width:100%;
 transition:transform 0.7s ;
 background:white;
 
-${({ menuActive }) => menuActive && `
+${({ menuactive }) => menuactive && `
  width:80%;
  background:rgb(30,180,140);
 `}
@@ -219,7 +211,7 @@ transition: .5s;
 
 &:before{
   top:-10px;
-  ${({ menuActive }) => menuActive && `
+  ${({ menuactive }) => menuactive && `
   top:0px;
    transform:rotate(45deg);
 `}
@@ -227,7 +219,7 @@ transition: .5s;
 
 &:after{
   bottom:-10px;
-  ${({ menuActive }) => menuActive && `
+  ${({ menuactive }) => menuactive && `
     bottom:0px;
    transform:rotate(-45deg);
 `}

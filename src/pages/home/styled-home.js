@@ -109,7 +109,15 @@ export const Slogan = styled.div`
 `;
 
 export const FormBox = styled.div`
-  background-image: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
+  // background-image: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
+  background-image: linear-gradient(
+    to top,
+    #d5d4d0 0%,
+    #d6d3c8 1%,
+    #eeeeec 31%,
+    #efeeec 75%,
+    #e9e9e7 100%
+  );
   margin: 1vh 2vw;
   border-radius: 8px;
   display: flex;

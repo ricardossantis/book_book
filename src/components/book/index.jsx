@@ -7,13 +7,17 @@ import styled from "styled-components";
 import { deleteBook, updateBook } from "../../redux/actions/books";
 import Feedback from "../modals/feedback";
 
-const Book = ({ book, showButtons }) => {
+import { usePalette } from 'react-palette'
 
+
+const Book = ({ book, showButtons }) => {
   //para teste
   const image = book.image_url !== undefined
     ? book.image_url
     : book.volumeInfo.imageLinks.thumbnail !== undefined ? book.volumeInfo.imageLinks.thumbnail : "";
 
+  const { data, loading, error } = usePalette(image)
+  console.log(error)
   const dispatch = useDispatch();
   const [modal, setModal] = useState();
   const user = useParams();
@@ -23,7 +27,7 @@ const Book = ({ book, showButtons }) => {
   };
 
   return (
-    <Container>
+    <Container style={{ background: `${data.vibrant} !important` }}>
       <BookContainer>
         <BookBox image={image}>
           <img src={image} alt="imagem do livro" />
@@ -80,12 +84,12 @@ transition: 1s cubic-bezier(0.23, 1, 0.32, 1);
 transform:rotateY(45deg);
 box-shadow:0px 20px 20px rgba(0,0,0,0.2);
 }
-
+@media(min-width:600px){
 &:active{
 transform:rotateY(180deg);
 box-shadow:0px 20px 20px rgba(0,0,0,0.2);
 }
-
+}
 &:before{
     content:"";
     position:absolute;

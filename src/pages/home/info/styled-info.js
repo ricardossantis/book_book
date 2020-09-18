@@ -3,7 +3,16 @@ import styled from "styled-components";
 export const InfoBox = styled.div`
   width: 94vw;
   height: 180vh;
-  background-color: #c8c7c7;
+  // background-color: #c8c7c7;
+  background-image: linear-gradient(
+    to top,
+    #d5d4d0 0%,
+    #d6d3c8 1%,
+    #eeeeec 31%,
+    #efeeec 75%,
+    #e9e9e7 100%
+  );
+
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -13,7 +22,6 @@ export const InfoBox = styled.div`
   @media (min-width: 550px) {
     height: 240vh;
   }
-
   @media (min-width: 768px) {
     height: 100vh;
     width: 44vw;

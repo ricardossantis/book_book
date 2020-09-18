@@ -4,7 +4,6 @@ import { updateSession } from "../../redux/actions/session";
 import axios from "axios";
 import api from "../../services/api.js";
 import { getBooks, updateBook } from "../../redux/actions/books.js";
-import styled from 'styled-components'
 import {
   StyledSearch,
   StyledSearchField,
@@ -14,7 +13,7 @@ import {
   StyledTitle,
   StyledBox,
 } from "./styled-search.js";
-import Carousel from "../../components/carousel";
+import Carousel from "../../components/framerCarousel/index";
 import SearchCard from "../../components/searchCard";
 
 let counter = 0;
@@ -87,7 +86,7 @@ const Search = () => {
           .then(({ data }) => setGoogleBooksSugestion(data));
       }
     }
-  }, [dispatch, userInfo, userBooks, category, googleBooksSugestion]);
+  }, [dispatch, userInfo, userBooks, category]);
 
   const handleSearchClick = () =>
     axios
@@ -163,44 +162,25 @@ const Search = () => {
       <StyledSearch>
         <StyledContainer>
           <StyledTitle>Search</StyledTitle>
-          {/* googleBooksSearch.totalItems === 0 ? */ false ? (
+          {googleBooksSearch.totalItems === 0 ? (
             <StyledBox>Please, search a book</StyledBox>
           ) : (
-              <StyledBox>TESTANDO</StyledBox>
+              <Carousel books={googleBooksSearch.items} />
+
             )}
           <StyledTitle>Sugestion</StyledTitle>
           {
             googleBooksSugestion.totalItems === 0 ? (
               <StyledBox>No sugestions, add books</StyledBox>
             ) : (
-                <Carousel>
-                  {googleBooksSugestion.items.map((book, key) => {
-                    return (
-                      <SearchCard
-                        handleBookClick={handleBookClick}
-                        book={book}
-                        key={key}
-                      />
-                    );
-                  })}
-                </Carousel>
+                <Carousel books={googleBooksSugestion.items} />
               )
           }
           {
             [googleBooksFixed1, googleBooksFixed2].map((el, key) => (
               <React.Fragment key={key}>
                 <StyledTitle>Diverse Books</StyledTitle>
-                <Carousel>
-                  {el.items.map((book, key) => {
-                    return (
-                      <SearchCard
-                        handleBookClick={handleBookClick}
-                        book={book}
-                        key={key}
-                      />
-                    );
-                  })}
-                </Carousel>
+                <Carousel books={el.items} />
               </React.Fragment>
             ))
           }
