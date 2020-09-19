@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Switch, Route, useHistory } from "react-router-dom";
-import { Home, Profile, Search, Explorer } from "../pages/exports.js";
+import {
+  Home,
+  Profile,
+  Search,
+  Explorer,
+  Chat,
+  Join,
+} from "../pages/exports.js";
 import { useSelector } from "react-redux";
 import api from "../services/api";
 import { Menu } from "../components/exports.js";
@@ -24,19 +31,21 @@ const Routes = () => {
   switch (authorized) {
     case true:
       return (
-        <Menu>
-          <Switch>
-            <Route path="/pesquisa">
-              <Search />
-            </Route>
-            <Route path="/perfil/:id">
-              <Profile />
-            </Route>
-            <Route path="/explorar">
-              <Explorer />
-            </Route>
-          </Switch>
-        </Menu>
+        <Switch>
+          <Route path="/pesquisa">
+            <Search />
+          </Route>
+          <Route path="/perfil/:id">
+            <Profile />
+          </Route>
+          <Route path="/explorar">
+            <Explorer />
+          </Route>
+          <Route path="/join">
+            <Join />
+          </Route>
+          <Route path="/chat/:name/:room" component={Chat}></Route>
+        </Switch>
       );
 
     case false:
