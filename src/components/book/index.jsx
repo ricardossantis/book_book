@@ -11,13 +11,11 @@ import { usePalette } from 'react-palette'
 
 
 const Book = ({ book, showButtons }) => {
-  //para teste
+
   const image = book.image_url !== undefined
     ? book.image_url
     : book.volumeInfo.imageLinks.thumbnail !== undefined ? book.volumeInfo.imageLinks.thumbnail : "";
 
-  const { data, loading, error } = usePalette(image)
-  console.log(error)
   const dispatch = useDispatch();
   const [modal, setModal] = useState();
   const user = useParams();
@@ -27,7 +25,7 @@ const Book = ({ book, showButtons }) => {
   };
 
   return (
-    <Container style={{ background: `${data.vibrant} !important` }}>
+    <Container>
       <BookContainer>
         <BookBox image={image}>
           <img src={image} alt="imagem do livro" />

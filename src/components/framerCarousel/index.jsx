@@ -3,15 +3,17 @@ import styled from "styled-components";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Navigation, Pagination } from "swiper"
 import 'swiper/swiper.scss';
-import SearchCard from "../searchCard";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io"
 import Book from "../book";
 
 
 
-const Carousel = ({ books }) => {
+const Carousel = ({ goBookInfo }) => {
 
-    books = books ? books : [];
+    let { totalItems, items } = goBookInfo
+
+    items = items ? items : [];
+
     SwiperCore.use([Navigation, Pagination])
 
     return (
@@ -31,13 +33,12 @@ const Carousel = ({ books }) => {
                     <IoIosArrowForward />
                 </Button>
             </BoxButton>
-            {books.map((book, i) => {
-                return (<SwiperSlide
 
-                    key={i}>
-                    <Book
-                        book={book} />
-                </SwiperSlide>)
+            {totalItems !== 0 && items.map((book, i) => {
+                return (
+                    <SwiperSlide key={i}>
+                        <Book book={book} />
+                    </SwiperSlide>)
             })}
         </StyledSwiper>
 

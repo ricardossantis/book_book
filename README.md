@@ -58,3 +58,22 @@ Somos uma escola norte-americana que veio para o Brasil com o objetivo de oferta
 # arrumar border input
 
 
+## TodoList
+
+### menu
+- passar barra de pesquisa para menu
+- estilizar barra de pesquisa
+- fazer redux da barra de pesquisa
+
+### Search
+- usar o selector para pegar o valor do input
+- arrumar responsividade do carrocel
+
+### Chart
+- fazer os dados do grafico 
+
+### Profile
+- colocar instante no profile
+- aplicar carrocel 
+- estilizar profile e arrumar as posições
+- responsividade do profile

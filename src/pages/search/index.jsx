@@ -14,7 +14,6 @@ import {
   StyledBox,
 } from "./styled-search.js";
 import Carousel from "../../components/framerCarousel/index";
-import SearchCard from "../../components/searchCard";
 
 let counter = 0;
 
@@ -103,7 +102,7 @@ const Search = () => {
   const handleBookClick = (
     shelf,
     {
-      volumeInfo: { title, authors = [], imageLinks = "", categories = [] },
+      volumeInfo: { title, authors = ["Desconhecido"], imageLinks = "", categories = [] },
       id,
     }
   ) => {
@@ -165,7 +164,7 @@ const Search = () => {
           {googleBooksSearch.totalItems === 0 ? (
             <StyledBox>Please, search a book</StyledBox>
           ) : (
-              <Carousel books={googleBooksSearch.items} />
+              <Carousel goBookInfo={googleBooksSearch} />
 
             )}
           <StyledTitle>Sugestion</StyledTitle>
@@ -173,14 +172,14 @@ const Search = () => {
             googleBooksSugestion.totalItems === 0 ? (
               <StyledBox>No sugestions, add books</StyledBox>
             ) : (
-                <Carousel books={googleBooksSugestion.items} />
+                <Carousel goBookInfo={googleBooksSugestion} />
               )
           }
           {
             [googleBooksFixed1, googleBooksFixed2].map((el, key) => (
               <React.Fragment key={key}>
                 <StyledTitle>Diverse Books</StyledTitle>
-                <Carousel books={el.items} />
+                <Carousel goBookInfo={el} />
               </React.Fragment>
             ))
           }
