@@ -73,7 +73,7 @@ Somos uma escola norte-americana que veio para o Brasil com o objetivo de oferta
 - arrumar responsividade do carrocel - PARCIAL 
    - BUG: se entrar no modo mobile ele buga, porem aparetemnte somente no devtools, porque se diminuir na mão, funciona normalmente
 - Card do carrocel
-- fazer a div aparecer abaixo quando clicar em uma livro
+- fazer a div aparecer abaixo quando clicar em uma livro - N
 
 ### Search 
 - estilizar melhor a search 
@@ -85,7 +85,7 @@ Somos uma escola norte-americana que veio para o Brasil com o objetivo de oferta
 - authors
 
 ### Chart
-- fazer os dados do grafico 
+- fazer os dados do grafico - reduce 
 
 ### Profile
 - colocar instante no profile

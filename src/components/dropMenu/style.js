@@ -9,6 +9,8 @@ margin-left: 10px;
 `
 
 export const DropDiv = styled.div`
+position:absolute;
+z-index:10;
 display:flex;
 justify-content:center;
 align-items:center;
@@ -18,11 +20,11 @@ max-width:200px;
 height:0px;
 left:30px;
 visibility:hidden;
-position:absolute;
 clip-path: polygon(100% 100%, 0% 100%, 0 6%, -1% 6%, 7.5% 0, 20% 6%, 100% 6%);
 background-image:radial-gradient( rgb(70,70,70) ,rgb(22,22,22) );
 transition: 0.4s 0s;
 border-radius: 4px;
+
 ${({ menuactive }) => menuactive && `
 visibility:visible;
 height:250px;

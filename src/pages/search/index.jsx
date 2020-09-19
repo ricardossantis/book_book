@@ -154,7 +154,7 @@ const Search = () => {
           {googleBooksSearch.totalItems === 0 ? (
             <StyledBox>Please, search a book</StyledBox>
           ) : (
-              <Carousel goBookInfo={googleBooksSearch} />
+              <Carousel books={googleBooksSearch.items} />
 
             )}
           <StyledTitle>Sugestion</StyledTitle>
@@ -162,14 +162,14 @@ const Search = () => {
             googleBooksSugestion.totalItems === 0 ? (
               <StyledBox>No sugestions, add books</StyledBox>
             ) : (
-                <Carousel goBookInfo={googleBooksSugestion} />
+                <Carousel books={googleBooksSugestion.items} />
               )
           }
           {
             [googleBooksFixed1, googleBooksFixed2].map((el, key) => (
               <React.Fragment key={key}>
                 <StyledTitle>Diverse Books</StyledTitle>
-                <Carousel goBookInfo={el} />
+                <Carousel books={el.items} />
               </React.Fragment>
             ))
           }

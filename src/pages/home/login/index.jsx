@@ -111,7 +111,7 @@ const Login = ({ onHandle }) => {
                   verifyCallback={verifyReCaptchaV2}
                 />
               </Captcha>
-              ​
+
               <motion.div
                 whileHover={{ scale: 1.2 }}
                 transition={{ duration: 0.3 }}
