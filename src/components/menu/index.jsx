@@ -36,6 +36,10 @@ const Menu = () => {
               </StyledMenu.item>
 
               <StyledMenu.item>
+                <Link to="/join">Chat</Link>
+              </StyledMenu.item>
+
+              <StyledMenu.item>
                 <Link to="/" onClick={handleLogout}>
                   | SAIR
                 </Link>
