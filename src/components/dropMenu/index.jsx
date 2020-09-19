@@ -15,7 +15,7 @@ const DropDownMenu = () => {
 
     return (
         <DropMenu menuActive={menuActive} onMouseLeave={() => setMenuActive(false)} onMouseEnter={() => setMenuActive(true)}>
-            <BoxIcon onClick={() => setMenuActive(true)} >
+            <BoxIcon onClick={() => setMenuActive(!menuActive)} >
                 <Hamburguer menuactive={menuActive}></Hamburguer>
             </BoxIcon>
             <DropDiv menuactive={menuActive}>

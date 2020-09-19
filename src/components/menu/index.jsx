@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { clearAllState } from "../../redux/actions/session";
 import { useDispatch } from "react-redux";
 import { IoIosLogOut } from "react-icons/io"
@@ -13,17 +13,19 @@ import SearchInput from "../SearchInput";
 const Menu = ({ children }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-
+  const { pathname } = useLocation()
   const handleLogout = () => {
     dispatch(clearAllState(history));
   };
-
+  console.log(pathname.match("perfil"))
   return (
     <>
       <Header>
         <BoxMenu>
           <DropDownMenu />
-          <SearchInput />
+          {!pathname.match("perfil") &&
+            <SearchInput />
+          }
           <ProfileBox>
             <Profile>
               <ProfilePic />
@@ -42,11 +44,14 @@ const Menu = ({ children }) => {
 export default Menu;
 
 const ProfileBox = styled.div`
-width: 200px;
+width: 150px;
 height: 100%;
 display: flex;
 align-items: center;
 justify-content:space-between;
+@media(min-width:600px){
+  width: 200px;
+}
 `
 const Profile = styled.div`
 position:relative;
@@ -64,6 +69,10 @@ height:35px;
 background-image: url(${ProfileImg});
 background-size:102%;
 background-position:center;
+transition:0.2s;
+&:hover{
+  transform:scale(1.2)
+}
 `
 const Logout = styled(Link)`
 flex:1;

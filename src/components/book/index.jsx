@@ -7,9 +7,6 @@ import styled from "styled-components";
 import { deleteBook, updateBook } from "../../redux/actions/books";
 import Feedback from "../modals/feedback";
 
-import { usePalette } from 'react-palette'
-
-
 const Book = ({ book, showButtons }) => {
 
   const image = book.image_url !== undefined
@@ -77,7 +74,7 @@ height:6em;
 box-shadow:20px 20px 20px rgba(0,0,0,0.2);
 transform-style:preserve-3d;
 transition: 1s cubic-bezier(0.23, 1, 0.32, 1);
-
+background-repeat:no-repeat;
 &:hover{
 transform:rotateY(45deg);
 box-shadow:0px 20px 20px rgba(0,0,0,0.2);

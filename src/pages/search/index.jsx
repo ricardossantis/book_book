@@ -6,14 +6,11 @@ import api from "../../services/api.js";
 import { getBooks, updateBook } from "../../redux/actions/books.js";
 import {
   StyledSearch,
-  StyledSearchField,
-  StyledInput,
-  StyledSearchButton,
   StyledContainer,
   StyledTitle,
   StyledBox,
 } from "./styled-search.js";
-import Carousel from "../../components/framerCarousel/index";
+import Carousel from "../../components/swiperCarousel/index";
 
 let counter = 0;
 
@@ -39,7 +36,7 @@ const Search = () => {
     totalItems: 0,
     items: [],
   });
-  const [input, setInput] = useState("");
+  const input = useSelector((state) => state.inputValue.inputValue)
   const [category, setCategory] = useState("initial");
 
   useEffect(() => {
@@ -76,7 +73,6 @@ const Search = () => {
               null
             )
         );
-        console.log(googleBooksSugestion);
       } else if (category === null && googleBooksSugestion.items.length === 0) {
         setGoogleBooksSugestion({ totalItems: 0, items: [] });
       } else {
@@ -87,7 +83,7 @@ const Search = () => {
     }
   }, [dispatch, userInfo, userBooks, category]);
 
-  const handleSearchClick = () =>
+  useEffect(() => {
     axios
       .get(
         `https://www.googleapis.com/books/v1/volumes?q=${input.replace(
@@ -97,7 +93,9 @@ const Search = () => {
       )
       .then(({ data }) => {
         data.items !== undefined && setGoogleBooksSearch(data);
-      });
+      })
+  }, [input]);
+
 
   const handleBookClick = (
     shelf,
@@ -151,16 +149,8 @@ const Search = () => {
   //ARRUMAR O STYLE  DESCONSTRUÇÃO
   return (
     <>
-      <StyledSearchField>
-        <StyledInput onChange={({ target: { value } }) => setInput(value)} />
-        <StyledSearchButton onClick={handleSearchClick}>
-          Search
-        </StyledSearchButton>
-      </StyledSearchField>
-
       <StyledSearch>
         <StyledContainer>
-          <StyledTitle>Search</StyledTitle>
           {googleBooksSearch.totalItems === 0 ? (
             <StyledBox>Please, search a book</StyledBox>
           ) : (

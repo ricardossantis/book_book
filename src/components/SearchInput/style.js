@@ -21,11 +21,10 @@ pointer-events:none;
 }
 `
 
-
 export const SearchBox = styled.div`
 box-sizing:content-box;
 position: absolute;
-right:200px;
+right:150px;
 width: 40px;
 height: 30px;
 display: flex;
@@ -39,14 +38,23 @@ ${({ hover }) => hover && `
 border-radius:40px;
 background:rgb(255,255,255,1);
 margin-left:0px;
-width: 20%;
+width: 40%;
 height: 30px;
+@media(min-width:600px){
+  width: 20%;
+
+}
 `}
 ${({ focus }) => focus && `
 border:3px solid rgba(10,100,40,0.5);
 border-right: 4px solid rgba(10,100,40,0.5); 
 
 `}
+@media(min-width:600px){
+  right:200px;
+
+
+}
 `
 export const SearchButton = styled.div`
 
