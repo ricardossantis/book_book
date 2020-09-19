@@ -31,21 +31,23 @@ const Routes = () => {
   switch (authorized) {
     case true:
       return (
-        <Switch>
-          <Route path="/pesquisa">
-            <Search />
-          </Route>
-          <Route path="/perfil/:id">
-            <Profile />
-          </Route>
-          <Route path="/explorar">
-            <Explorer />
-          </Route>
-          <Route path="/join">
-            <Join />
-          </Route>
-          <Route path="/chat/:name/:room" component={Chat}></Route>
-        </Switch>
+        <Menu>
+          <Switch>
+            <Route path="/pesquisa">
+              <Search />
+            </Route>
+            <Route path="/perfil/:id">
+              <Profile />
+            </Route>
+            <Route path="/explorar">
+              <Explorer />
+            </Route>
+            <Route path="/join">
+              <Join />
+            </Route>
+            <Route path="/chat/:name/:room" component={Chat}></Route>
+          </Switch>
+        </Menu>
       );
 
     case false:
