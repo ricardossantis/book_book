@@ -3,6 +3,9 @@ import styled from "styled-components";
 export const StyledSearch = styled.section``;
 
 export const StyledTitle = styled.h1`
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  font-size: 2rem;
   margin: 0;
 `;
 

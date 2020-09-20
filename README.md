@@ -56,3 +56,44 @@ Somos uma escola norte-americana que veio para o Brasil com o objetivo de oferta
 # cor da page info
 
 # arrumar border input
+
+
+## TodoList
+
+### menu
+- passar barra de pesquisa para menu - FEITO
+- fazer redux da barra de pesquisa - FEITO
+
+### Search - SearchInput
+- usar o selector para pegar o valor do input -FEITO
+- estilizar barra de pesquisa - FEITO
+
+### Carousel
+- arrumar os botões - FEITO
+- arrumar responsividade do carrocel - PARCIAL 
+   - BUG: se entrar no modo mobile ele buga, porem aparetemnte somente no devtools, porque se diminuir na mão, funciona normalmente
+- Card do carrocel
+- fazer a div aparecer abaixo quando clicar em uma livro - N
+
+### Search 
+- estilizar melhor a search 
+
+#### Card
+- title
+- publishDate
+- description
+- authors
+- arrumar os botões
+
+### Chart
+- fazer os dados do grafico - reduce 
+
+### Profile
+- colocar instante no profile
+- aplicar carrocel 
+- estilizar profile e arrumar as posições
+- responsividade do profile
+
+2 branchs 
+feat/Responsive... passara para feat/CarouselCard
+feat/profileStyle

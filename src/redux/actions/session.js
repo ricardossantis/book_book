@@ -11,7 +11,6 @@ export const loginWithAPI = (info) => (dispatch) => {
   api
     .post("/authenticate", info)
     .then((response) => {
-      // console.warn(`loginWithAPI Status:${response.status}`);
       setTokenAndUserToLocalStorage(response.data);
       dispatch(
         setLogged({

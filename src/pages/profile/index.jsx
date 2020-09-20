@@ -8,6 +8,8 @@ import styled from "styled-components";
 import getUsers from "../../utils/getUsers.js";
 import ProfileModal from "../../components/modals/profile";
 import ProfilePic from "../../components/profilePic";
+import PageTransition from "../../components/pageTransition";
+import ChartPie from "../../components/chart/index.jsx";
 
 let counter = 0;
 
@@ -49,32 +51,36 @@ const Shelves = () => {
       ));
 
   return (
-    <Container>
-      <Profile>
-        {modal && <ProfileModal setModal={setModal} />}
-        <h2>Usuário: {currentUser.user && currentUser.user.user}</h2>
+    <PageTransition>
+      <Container>
+        <Profile>
+          {modal && <ProfileModal setModal={setModal} />}
+          <h2>Usuário: {currentUser.user && currentUser.user.user}</h2>
 
-        <ProfilePic userInfo={currentUser} />
-        {showButtons && (
-          <button onClick={() => setModal(!modal)}>Edit Profile</button>
-        )}
-        <section>
-          Amigos:
-          {Object.values(friends).map((friend) => (
-            <Link
-              key={friend.id}
-              to={`/perfil/${friend.id}`}
-              style={{ margin: "0 5px" }}
-            >
-              {friend.user}
-            </Link>
-          ))}
-        </section>
-      </Profile>
-      <Shelf>{ShelvesFilter(1)}</Shelf>
-      <Shelf>{ShelvesFilter(2)}</Shelf>
-      <Shelf>{ShelvesFilter(3)}</Shelf>
-    </Container>
+          <ProfilePic userInfo={currentUser} />
+          {showButtons && (
+            <button onClick={() => setModal(!modal)}>Edit Profile</button>
+          )}
+          <section>
+            Amigos:
+            {Object.values(friends).map((friend) => (
+              <Link
+                key={friend.id}
+                to={`/perfil/${friend.id}`}
+                style={{ margin: "0 5px" }}
+              >
+                {friend.user}
+              </Link>
+            ))}
+          </section>
+          <ChartPie />
+        </Profile>
+
+        <Shelf>{ShelvesFilter(1)}</Shelf>
+        <Shelf>{ShelvesFilter(2)}</Shelf>
+        <Shelf>{ShelvesFilter(3)}</Shelf>
+      </Container>
+    </PageTransition>
   );
 };
 
@@ -84,7 +90,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 `;
 const Profile = styled.div`
   width: 70vw;
@@ -92,6 +98,9 @@ const Profile = styled.div`
   background-color: #cccccc;
   border-radius: 6px;
   margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   h2 {
     text-align: left;

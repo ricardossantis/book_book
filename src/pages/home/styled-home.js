@@ -65,7 +65,7 @@ export const Logo = styled.div`
 
 export const Title = styled.h1`
   font-family: "Scada", sans-serif;
-  font-size: 4.7rem;
+  font-size: 380%;
   height: 6rem;
   font-weight: bold;
   color: #fff;
@@ -74,7 +74,7 @@ export const Title = styled.h1`
 
   @media (min-width: 768px) {
     height: auto;
-    font-size: 8rem;
+    font-size: 9vw;
     margin: 10px;
   }
 `;

@@ -5,6 +5,7 @@ import Register from "./register";
 import { motion } from "framer-motion";
 import FramerLoading from "../../components/framerLoading";
 import { HomePage, Logo, Title, Slogan, FormBox } from "./styled-home";
+import PageTransition from "../../components/pageTransition";
 
 const Home = () => {
   const [page, setPage] = useState("login");
@@ -32,59 +33,61 @@ const Home = () => {
   };
 
   return (
-    <HomePage>
-      <Logo>
-        <motion.div
-          whileHover={{ scale: 1.1 }}
-          transition={{ duration: 0.5 }}
-          initial="hidden"
-          animate="visible"
-          variants={{
-            hidden: {
-              scale: 0.8,
-              opacity: 0,
-            },
-            visible: {
-              scale: 1,
-              opacity: 1,
-              transition: {
-                delay: 0.6,
+    <PageTransition>
+      <HomePage>
+        <Logo>
+          <motion.div
+            whileHover={{ scale: 1.1 }}
+            transition={{ duration: 0.5 }}
+            initial="hidden"
+            animate="visible"
+            variants={{
+              hidden: {
+                scale: 0.8,
+                opacity: 0,
               },
-            },
-          }}
-        >
-          <Title>BookBook</Title>
-        </motion.div>
-
-        <motion.div
-          whileHover={{ scale: 1.1 }}
-          transition={{ duration: 0.5 }}
-          initial="hidden"
-          animate="visible"
-          variants={{
-            hidden: {
-              scale: 0.8,
-              opacity: 0,
-            },
-            visible: {
-              scale: 1,
-              opacity: 1,
-              transition: {
-                delay: 0.6,
+              visible: {
+                scale: 1,
+                opacity: 1,
+                transition: {
+                  delay: 0.6,
+                },
               },
-            },
-          }}
-        >
-          <Slogan>
-            <p>Explore, </p>
-            <p>compartilhe,</p>
-            <p>inspire-se!</p>
-          </Slogan>
-        </motion.div>
-      </Logo>
+            }}
+          >
+            <Title>BookBook</Title>
+          </motion.div>
 
-      <FormBox>{handlePage()}</FormBox>
-    </HomePage>
+          <motion.div
+            whileHover={{ scale: 1.1 }}
+            transition={{ duration: 0.5 }}
+            initial="hidden"
+            animate="visible"
+            variants={{
+              hidden: {
+                scale: 0.8,
+                opacity: 0,
+              },
+              visible: {
+                scale: 1,
+                opacity: 1,
+                transition: {
+                  delay: 0.6,
+                },
+              },
+            }}
+          >
+            <Slogan>
+              <p>Explore, </p>
+              <p>compartilhe,</p>
+              <p>inspire-se!</p>
+            </Slogan>
+          </motion.div>
+        </Logo>
+
+        <FormBox>{handlePage()}</FormBox>
+      </HomePage>
+    </PageTransition>
   );
 };
 

@@ -10,6 +10,7 @@ import {
 } from "../pages/exports.js";
 import { useSelector } from "react-redux";
 import api from "../services/api";
+import { Menu } from "../components/exports.js";
 
 const Routes = () => {
   let history = useHistory();
@@ -21,8 +22,7 @@ const Routes = () => {
       setAuthorized(false);
       history.push("/");
     } else {
-      api
-        .get("/users", { headers: { Authorization: token } })
+      api.get("/users", { headers: { Authorization: token } })
         .then(() => setAuthorized(true))
         .catch(() => setAuthorized(false));
     }
@@ -31,21 +31,23 @@ const Routes = () => {
   switch (authorized) {
     case true:
       return (
-        <Switch>
-          <Route path="/pesquisa">
-            <Search />
-          </Route>
-          <Route path="/perfil/:id">
-            <Profile />
-          </Route>
-          <Route path="/explorar">
-            <Explorer />
-          </Route>
-          <Route path="/join">
-            <Join />
-          </Route>
-          <Route path="/chat/:name/:room" component={Chat}></Route>
-        </Switch>
+        <Menu>
+          <Switch>
+            <Route path="/pesquisa">
+              <Search />
+            </Route>
+            <Route path="/perfil/:id">
+              <Profile />
+            </Route>
+            <Route path="/explorar">
+              <Explorer />
+            </Route>
+            <Route path="/join">
+              <Join />
+            </Route>
+            <Route path="/chat/:name/:room" component={Chat}></Route>
+          </Switch>
+        </Menu>
       );
 
     case false:
