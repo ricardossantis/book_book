@@ -14,7 +14,7 @@ const Carousel = ({ books = [], friends, user }) => {
     return (
         <StyledSwiper
             spaceBetween={0}
-            slidesPerView={pathname.match("explorar") ? 8 : 3}
+            slidesPerView={4}
             navigation
             onSlideChange={() => console.log('slide change')}
             onSwiper={({ slides }) => console.log(slides)}

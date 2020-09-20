@@ -33,7 +33,7 @@ const Explorer = () => {
           <Title>
             <h1>Novidades</h1>
           </Title>
-          <Carousel books={reviews} friends={friends} user={user} />
+          <Carousel books={reviews.slice(0, 20)} friends={friends} user={user} />
         </Set>
 
         {/* MAIS COMENTADOS ----------------------------------------------------------*/}
