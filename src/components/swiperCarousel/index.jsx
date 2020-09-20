@@ -12,12 +12,13 @@ const Carousel = ({
   friends,
   user,
   carousel = [],
-  setCurrentBooks = () => { },
-  getMoreBooks = () => { },
+  setCurrentBooks = () => {},
+  getMoreBooks = () => {},
 }) => {
   const { pathname } = useLocation();
   const [loadedBooks, setLoadedBooks] = useState(0);
   const [totalBooks, setTotalBooks] = useState(books.length);
+
   useEffect(() => {
     getMoreBooks(
       loadedBooks,
@@ -27,6 +28,7 @@ const Carousel = ({
       setCurrentBooks
     );
   }, [loadedBooks]);
+
   return (
     <StyledSwiper
       spaceBetween={0}
@@ -34,7 +36,7 @@ const Carousel = ({
       navigation
       pagination={{ clickable: true }}
       onSlideChange={(evt) => setLoadedBooks(evt.activeIndex)}
-      onSwiper={({ slides }) => { }}
+      onSwiper={({ slides }) => {}}
     >
       {books.map((book, index) => {
         return (
@@ -49,25 +51,26 @@ const Carousel = ({
     </StyledSwiper>
   );
 };
+
 export default Carousel;
+
 const StyledSwiper = styled(Swiper)`
   width: 95vw;
-  margin: auto 0;
   margin-left: 5vw;
-  height: 360px;
-  padding-top: 50px;
+  height: 410px;
+  padding: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: 0.2s;
   .swiper-slide {
     transition: 0.3s;
+
     &:hover ~ div {
       transform: translate(-25%);
     }
     &:hover {
-      transform: scale(1.3);
-      box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.3);
+      transform: scale(1.2);
       z-index: 10;
       border-radius: 2px;
     }
