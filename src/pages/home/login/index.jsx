@@ -31,9 +31,7 @@ const Login = ({ onHandle }) => {
   const { token, status } = useSelector((state) => state.session);
   const [verified, setVerified] = useState(false);
 
-  const recaptchaLoaded = () => {
-    console.log("Captcha carregou com sucesso!");
-  };
+  const recaptchaLoaded = () => {};
 
   const verifyReCaptchaV2 = (response) => {
     if (response) {
@@ -102,7 +100,6 @@ const Login = ({ onHandle }) => {
                 type="password"
                 rules={password}
               />
-              {/* NÃO APAGAR ESTES COMENTÁRIOS! */}
               {/* USAR ESTÁ CHAVE DEPOIS DO DEPLOY ->  6LfpLc0ZAAAAAL7mJZpq3ZAc_b6mK7Dgx0akx7mg */}
               <Captcha>
                 <Recaptcha

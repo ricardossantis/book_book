@@ -1,54 +1,66 @@
 import styled from "styled-components";
-import { motion } from "framer-motion";
-import { Rate } from "antd";
 import { Link } from "react-router-dom";
+import { Button, Rate } from "antd";
 
-export const Book = styled(motion.div)`
-  margin: 6px 5px;
-  background-color: #000;
+export const BookContainer = styled.div`
+  position: relative;
+`;
+
+export const Book = styled.div`
+  width: 200px;
+  height: 310px;
+  background: #222222;
+  border-radius: 4px;
+`;
+
+export const BookImg = styled.img`
+  width: 200px;
+  height: 310px;
+  background: #222222;
+  border-radius: 4px;
+`;
+
+export const FallBackContent = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #181818;
+  border-radius: 5px;
+  width: 200px;
+  height: 310px;
   display: flex;
-  border-radius: 1px;
+  opacity: 0;
+  transition: 0.2s;
 
-  @media (min-width: 550px) {
-    max-width: 55%;
-  }
-
-  @media (min-width: 768px) {
-    align-items: center;
-    justify-content: flex-start;
-    margin: 5px;
-    -webkit-align-items: flex-start;
+  &:hover {
+    transition: 0.2 0.4s;
+    opacity: 1;
+    width: 560px;
+    height: 320px;
   }
 `;
 
-export const BookImage = styled.img`
-  width: 145px;
-  height: 240px;
-  box-shadow: 4px 4px 10px #363636;
-
-  @media (min-width: 550px) {
-    width: 134px;
-    height: 210px;
-  }
-
-  @media (min-width: 768px) {
-    width: 210px;
-    height: 310px;
-  }
+export const InnerImage = styled.img`
+  min-width: 200px;
+  height: 310px;
+  background: #222222;
+  border-radius: 4px;
+  margin: 6px;
 `;
 
-export const Content = styled(motion.div)`
-  width: 58%;
+export const Content = styled.div`
+  width: 100%;
+
   display: flex;
+  height: 100%;
   flex-direction: column;
-  align-items: center;
-  // justify-content: space-evenly;
+  align-self: flex-start;
 `;
 
-export const BookTitle = styled.h4`
+export const Title = styled.p`
   font-family: "Inter", sans-serif;
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   color: #fff;
   line-height: 1.6rem;
   display: -webkit-box;
@@ -72,7 +84,6 @@ export const Rating = styled(Rate)`
   display: flex;
   align-items: center;
   justify-content: center;
-
   margin-bottom: 20px;
 
   .anticon svg {
@@ -84,28 +95,45 @@ export const Rating = styled(Rate)`
   }
 `;
 
+export const Description = styled.p`
+  max-width: 90%;
+  font-family: "Inter", sans-serif;
+  font-size: 0.9rem;
+  color: #fff;
+  line-height: 0.9rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+  margin: 6px 20px;
+  margin-bottom: 1px;
+  margin-left: 10px;
+  align-self: flex-start;
+`;
+
 export const User = styled(Link)`
+  max-width: 90%;
   margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   align-self: flex-start;
-
-  margin-left: 10px;
   text-align: left;
-
-  margin-top: 110px;
+  margin-top: auto;
 `;
 
 export const UserImage = styled.img`
-  width: 25px;
-  height: 25px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
+  margin-left: 8px;
 `;
 
 export const UserReview = styled.p`
-  font-size: 0.7rem;
-  line-height: 0.7rem;
+  font-size: 0.9rem;
+  line-height: 0.9rem;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -113,7 +141,7 @@ export const UserReview = styled.p`
   text-overflow: ellipsis;
   text-align: left;
   margin-bottom: 1px;
-  margin-left: 10px;
+  margin-left: 4px;
 `;
 
 export const UserName = styled(Link)`
@@ -121,42 +149,46 @@ export const UserName = styled(Link)`
   display: flex;
   align-items: center;
   align-self: flex-start;
-
   text-align: left;
   color: #fff;
-  margin-left: 40px;
+  margin-left: 8px;
 
   p {
-    font-size: 0.6rem;
+    font-size: 0.8rem;
     margin-right: 4px;
   }
 
   h2 {
-    font-size: 0.8rem;
+    font-size: 1.1rem;
+    font-weight: 900;
     color: #fff;
   }
 `;
 
-export const BookDescription = styled.p`
-  font-size: 1rem;
-`;
-
-export const Button = styled.div`
+export const BtnContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   align-self: flex-start;
   margin-left: 10px;
+`;
 
-  button {
-    font-family: "Scada", sans-serif;
-    font-weight: bold;
-    font-size: 1rem;
-    color: #000;
-    border: none;
-    border-radius: 2px;
-    box-shadow: 4px 4xp 8px #fff8e5;
-    background: #fff;
+export const AddButton = styled(Button)`
+  width: 100%;
+  height: 40px;
+  border-radius: 6px;
+  border: none;
+  margin: 1rem 0;
+  outline: none;
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  transition-duration: 0.5s;
+  box-shadow: 0 0 6px #c0c0c0;
+
+  ​ &:hover {
+    font-size: 1.1rem;
   }
 `;

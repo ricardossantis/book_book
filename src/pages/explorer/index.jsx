@@ -15,15 +15,43 @@ const Explorer = () => {
   ]);
 
   const AllBooksPages = reviews;
+  const [currentAllPageBooks, setCurrentAllPageBooks] = useState([]);
+
   const MostComtdPages = filterBooks(reviews, "commented", friends);
+  const [currentComPageBooks, setCurrentComPageBooks] = useState([]);
+
   const MostVotedPages = filterBooks(reviews, "voted", friends);
+  const [currentVotPage, setCurrentVotPage] = useState([]);
+
   const MostReadPages = filterBooks(reviews, "read", friends);
+  const [currentReadPage, setCurrentReadPage] = useState([]);
+
   const ByFriendsPages = filterBooks(reviews, "friends", friends);
+  const [currentFriendPage, setCurrentFriendPage] = useState([]);
+
+  useEffect(() => {
+    setCurrentAllPageBooks(AllBooksPages.slice(0, 40));
+    setCurrentComPageBooks(MostComtdPages.slice(0, 40));
+    setCurrentVotPage(MostVotedPages.slice(0, 40));
+    setCurrentReadPage(MostReadPages.slice(0, 40));
+    setCurrentFriendPage(ByFriendsPages.slice(0, 40));
+  }, [reviews]);
 
   useEffect(() => {
     dispatch(getBooksReviews(token));
     dispatch(updateSession());
   }, [dispatch, token]);
+
+  const getMoreBooks = (loadedBooks, carousel, total, setTotal, setBooks) => {
+    if (total === 0) {
+      setTotal(40);
+    }
+
+    if (loadedBooks > total / 2) {
+      setBooks(carousel.slice(0, loadedBooks + 20));
+      setTotal(total + 20);
+    }
+  };
 
   return (
     <PageTransition>
@@ -32,7 +60,14 @@ const Explorer = () => {
           <Title>
             <h1>Novidades</h1>
           </Title>
-          <Carousel books={AllBooksPages} />
+          <Carousel
+            books={currentAllPageBooks}
+            friends={friends}
+            user={user}
+            carousel={AllBooksPages}
+            setCurrentBooks={setCurrentAllPageBooks}
+            getMoreBooks={getMoreBooks}
+          />
         </Set>
 
         {/* MAIS COMENTADOS ------------------------------------------------------*/}
@@ -41,7 +76,14 @@ const Explorer = () => {
           <Title>
             <h1>Mais comentados</h1>
           </Title>
-          <Carousel books={MostComtdPages} />
+          <Carousel
+            books={currentComPageBooks}
+            friends={friends}
+            user={user}
+            carousel={MostComtdPages}
+            setCurrentBooks={setCurrentComPageBooks}
+            getMoreBooks={getMoreBooks}
+          />
         </Set>
 
         {/* MAIS VOTADOS --------------------------------------------------------- */}
@@ -50,7 +92,14 @@ const Explorer = () => {
           <Title>
             <h1>Mais Votados</h1>
           </Title>
-          <Carousel books={MostVotedPages} />
+          <Carousel
+            books={currentVotPage}
+            friends={friends}
+            user={user}
+            carousel={MostVotedPages}
+            setCurrentBooks={setCurrentVotPage}
+            getMoreBooks={getMoreBooks}
+          />
         </Set>
 
         {/* MAIS LIDOS ------------------------------------------------------------*/}
@@ -59,7 +108,14 @@ const Explorer = () => {
           <Title>
             <h1>Mais Lidos</h1>
           </Title>
-          <Carousel books={MostReadPages} />
+          <Carousel
+            books={currentReadPage}
+            friends={friends}
+            user={user}
+            carousel={MostReadPages}
+            setCurrentBooks={setCurrentReadPage}
+            getMoreBooks={getMoreBooks}
+          />
         </Set>
 
         {/* POR AMIGOS ------------------------------------------------------------*/}
@@ -68,7 +124,14 @@ const Explorer = () => {
           <Title>
             <h1> Por Amigos </h1>
           </Title>
-          <Carousel books={ByFriendsPages} />
+          <Carousel
+            books={currentFriendPage}
+            friends={friends}
+            user={user}
+            carousel={ByFriendsPages}
+            setCurrentBooks={setCurrentFriendPage}
+            getMoreBooks={getMoreBooks}
+          />
         </Set>
       </ExplorerContainer>
     </PageTransition>
@@ -85,7 +148,6 @@ export const ExplorerContainer = styled.div`
   scroll-behavior: smooth;
 `;
 
-// O Set engloba o titulo e a seção com os livros
 export const Set = styled.div`
   position: relative;
   width: 100%;
@@ -111,10 +173,8 @@ export const Title = styled.div`
   }
 `;
 
-// Controla como os livros são mostrados dentro da seção, 8 livros por vez;
 export const BookSection = styled.section`
   scroll-behavior: smooth;
-
   position: relative;
   width: 100%;
   height: 315px;
@@ -124,7 +184,6 @@ export const BookSection = styled.section`
   grid-template-rows: 310px;
 `;
 
-// Botões para passar para os próximos livros do array +8, ou para os anteriores -8
 export const Btn = styled.button`
   position: absolute;
   width: 100px;
@@ -134,7 +193,6 @@ export const Btn = styled.button`
   font-size: 6em;
   border-radius: 3px;
   background: rgb(0, 0, 0);
-
   border: none;
   text-decoration: none;
   padding: 0;
@@ -158,10 +216,6 @@ export const Btn = styled.button`
       rgba(0, 0, 0, 0) 0%,
       rgba(0, 0, 0, 1) 100%
     );
-
-    svg {
-      // margin-right: 15px;
-    }
   }
   &:nth-of-type(2) {
     top: 0;
