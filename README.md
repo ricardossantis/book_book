@@ -77,18 +77,18 @@ Somos uma escola norte-americana que veio para o Brasil com o objetivo de oferta
 
 ### Search 
 - estilizar melhor a search 
-
-#### Card
-- title
-- publishDate
-- description
-- authors
+  - mudar cores das letras
 
 ### Chart
-- fazer os dados do grafico - reduce 
+- fazer os dados do grafico 
+  - reduce 
 
 ### Profile
 - colocar instante no profile
 - aplicar carrocel 
 - estilizar profile e arrumar as posições
 - responsividade do profile
+  - Cards não estão com os botões
+#### Feadback
+- arrumar estilo e verificar responsividade
+- 

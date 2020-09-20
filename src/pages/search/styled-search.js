@@ -3,6 +3,8 @@ import styled from "styled-components";
 export const StyledSearch = styled.section``;
 
 export const StyledTitle = styled.h1`
+  color: #fff;
+
   font-family: "Roboto", sans-serif;
   font-weight: bold;
   font-size: 2rem;
@@ -17,7 +19,7 @@ export const StyledContainer = styled.div`
 export const StyledSearchField = styled.div``;
 
 export const StyledInput = styled.input`
-  color: #000000;
+  color: #fff;
 `;
 
 export const StyledSearchButton = styled.button`
@@ -31,6 +33,7 @@ export const StyledBox = styled.div`
   width: 100%;
   height: 200px;
   background-color: #0003;
+  color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;

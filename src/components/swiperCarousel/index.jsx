@@ -6,9 +6,10 @@ import 'swiper/swiper.scss';
 import { useLocation } from "react-router-dom"
 import 'swiper/components/navigation/navigation.scss';
 import CardExplorer from "./bookExplorer"
+import Book from "../book";
 SwiperCore.use([Navigation]);
 const Carousel = ({ books = [], friends, user }) => {
-    console.log(books)
+
     const { pathname } = useLocation()
     return (
         <StyledSwiper
@@ -24,6 +25,7 @@ const Carousel = ({ books = [], friends, user }) => {
                 return (
                     <SwiperSlide key={i}>
                         {/* <CardExplorer book={book} friends={friends} user={user} /> */}
+                        <Book book={book}></Book>
                     </SwiperSlide>)
             })}
         </StyledSwiper>

@@ -120,7 +120,6 @@ const Search = () => {
     const filteredTitle = userBooks.filter(
       (book) => book.title === bookInfo.book.title
     );
-    console.log(bookInfo);
     if (filteredTitle.length === 0) {
       api
         .post(`/users/${userInfo.user.id}/books/`, bookInfo, {
