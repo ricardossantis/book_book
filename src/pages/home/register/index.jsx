@@ -48,24 +48,24 @@ const Register = ({ onHandle }) => {
   };
 
   const onFinish = (user) => {
-    onHandle("loading");
     if (verified) {
+      onHandle("loading");
       api
         .post("/users", { user })
         .then(() => {
           info("Cadastro efetuado com sucesso!");
-          setTimeout(
-            () =>
-              dispatch(
-                loginWithAPI({ user: user.user, password: user.password })
-              ),
-            2500
-          );
+          setTimeout(() => {
+            onHandle("login");
+            dispatch(
+              loginWithAPI({ user: user.user, password: user.password })
+            );
+          }, 3000);
           history.push("/explorar");
         })
-        .catch(() =>
-          info("Cadastro falhou, por favor verifique suas entradas.")
-        );
+        .catch(() => {
+          onHandle("register");
+          info("Cadastro falhou, por favor verifique suas entradas.");
+        });
     } else {
       message.warning("Complete o reCAPTCHA para efetuar login!");
     }

@@ -60,23 +60,25 @@ export const filterBooks = (arr, filteredBook, friends) => {
 
 export const JsonKeys = [
   {
-    value: "Sem Filtro",
-    key: "default",
+    value: "Mais comentados",
+    key: "commented",
+  },
+
+  {
+    value: "Mais votados",
+    key: "voted",
+  },
+
+  {
+    value: "Por amigos",
+    key: "friends",
   },
   {
-    value: "Mais Lidos",
+    value: "Mais lidos",
     key: "read",
   },
   {
-    value: "Mais Comentados",
-    key: "commented",
-  },
-  {
-    value: "Votados",
-    key: "voted",
-  },
-  {
-    value: "Por Amigos",
-    key: "friends",
+    value: "Sem filtro",
+    key: "default",
   },
 ];

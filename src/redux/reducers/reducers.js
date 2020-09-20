@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
 import session from "./session.js";
 import books from "./books.js";
-export default combineReducers({ session, books });
+import inputValue from "./input"
+export default combineReducers({ session, books, inputValue });
