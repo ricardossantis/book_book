@@ -61,12 +61,7 @@ export const Logout = styled(Link)`
   }
 `;
 export const Header = styled.header`
-  background-image: linear-gradient(
-    to right,
-    var(--color-secondary-1-4) 0%,
-    var(--color-secondary-1-3) 51%,
-    var(--color-secondary-1-4) 100%
-  );
+  background: var(--color-secondary-2-2);
   width: 100%;
   height: 50px;
   display: flex;

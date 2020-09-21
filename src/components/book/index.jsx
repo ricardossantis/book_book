@@ -7,17 +7,11 @@ import styled from "styled-components";
 import { deleteBook, updateBook } from "../../redux/actions/books";
 import Feedback from "../modals/feedback";
 
-const Book3D = ({ book, showButtons, image }) => {
-
-
+const Book3D = ({ book, image }) => {
 
   const dispatch = useDispatch();
   const [modal, setModal] = useState();
   const user = useParams();
-
-  const changeShelf = (shelf) => {
-    dispatch(updateBook({ book: { shelf: shelf } }, user, book));
-  };
 
   return (
     <Container>
@@ -25,18 +19,7 @@ const Book3D = ({ book, showButtons, image }) => {
         <BookBox image={image}>
           <img src={image} alt="imagem do livro" />
         </BookBox>
-        {modal && <Feedback book={book} setModal={setModal} />}
       </BookContainer>
-
-      <BoxButton showButtons={showButtons}>
-        <Button onClick={() => changeShelf(1)}>quero ler</Button>
-        <Button onClick={() => changeShelf(2)}>lendo</Button>
-        <Button onClick={() => changeShelf(3)}>lido</Button>
-        <Button onClick={() => setModal(!modal)}>FeedBack</Button>
-        <Button onClick={() => dispatch(deleteBook({ user, book }))}>
-          Remove
-        </Button>
-      </BoxButton>
     </Container>
   );
 };
@@ -137,7 +120,5 @@ const BoxButton = styled.div`
   justify-content: center;
   align-items: center;
 
-  button {
-    visibility: ${(props) => (props.showButtons ? "visible" : "hidden")};
-  }
+  
 `;

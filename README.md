@@ -93,6 +93,8 @@ Somos uma escola norte-americana que veio para o Brasil com o objetivo de oferta
 - aplicar carrocel - FEITO  20
 - estilizar detalhes profile e arrumar as posições - FEITO  20
 - refazer responsividade do profile - FEITO  20
-- fazer amigos com scroll estilizado - AINDA NÃO
+- fazer amigos com scroll estilizado -FEITO - FALTA ALGUNS AJUSTES
 - colocar instante no profile - AINDA NÃO  20
-- reajustar carrocel - AINDA NÃO 
+- reajustar carrocel - AINDA NÃO
+  - SE PASSAR O BOOK PROVAVELMENTE JA FUNCIONE, POREM FALTA OU FAZER A BUSCA COM ID DO LIVRO
+  OU FAZER OUTRO CARD 

@@ -9,6 +9,7 @@ import Carousel from "../../components/swiperCarousel/index.jsx";
 
 const Explorer = () => {
   const dispatch = useDispatch();
+
   const [reviews, { user, friends, token }] = useSelector((state) => [
     state.books.reviews,
     state.session,
