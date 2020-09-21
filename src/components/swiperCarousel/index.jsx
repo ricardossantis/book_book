@@ -53,8 +53,8 @@ const Carousel = ({
         return (
           <SwiperSlide key={index}>
             {pathname.match("explorar")
-              ? <CardExplorer book={book} friends={friends} user={user} />
-              : <CardSearch book={book} />
+              && <CardExplorer book={book} friends={friends} user={user} />
+              // : <CardSearch book={book} />
             }
           </SwiperSlide>
         );

@@ -144,3 +144,17 @@ h1 {
   color: red;
   text-align: center;
 }
+
+::-webkit-scrollbar {
+  width: 12px;
+  background: rgba(24, 33, 58, 0.966);
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb {
+  background-image: radial-gradient(#d6a082 60%, #722b04);
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-image: radial-gradient(#f3b796 50%, #b85f2f);
+}

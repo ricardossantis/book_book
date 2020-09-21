@@ -67,8 +67,6 @@ const CardSearch = ({ book }) => {
     publisher,
     description,
     authors = [],
-    pageCount,
-    language,
     infoLink,
     imageLinks = { thumbnail: BookBlank } }
     = book.volumeInfo
@@ -82,15 +80,11 @@ const CardSearch = ({ book }) => {
         />
       </Book>
       <ContentBox infos={infos} >
-        {/* <InnerImage
-            src={imageLinks.thumbnail ? imageLinks.thumbnail : BookBlank}
-            alt="book"
-          /> */}
+
         {infos && window.innerWidth > 732 &&
           <Book3D
             book={book}
             image={imageLinks.thumbnail ? imageLinks.thumbnail : BookBlank}
-
           />
         }
         <Content infos={infos}>

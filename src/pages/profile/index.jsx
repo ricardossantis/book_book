@@ -43,7 +43,7 @@ const Shelves = () => {
   }, [books, token, user, dispatch]);
   const ShelvesFilter = (filterShelf) =>
     currentUser.books.filter(({ shelf }) => filterShelf === shelf)
-
+  console.log(ShelvesFilter(1))
   return (
     <Container>
       <Profile>
@@ -60,16 +60,20 @@ const Shelves = () => {
             </StyledButton>
           )}
         </BoxInfos>
+        <TitleFriends>{Object.values(friends).length} Amigos</TitleFriends>
         <FriendBox>
-          Amigos:{Object.values(friends).length}
+
           {Object.values(friends).map((friend) => (
-            <Link
-              key={friend.id}
-              to={`/perfil/${friend.id}`}
-              style={{ margin: "0 5px" }}
-            >
-              {friend.user}
-            </Link>
+            <>
+              <StyledLink
+                key={friend.id}
+                to={`/perfil/${friend.id}`}
+                style={{ margin: "0 5px" }}
+              >
+                {friend.user}
+              </StyledLink>
+            </>
+
           ))}
 
         </FriendBox>
@@ -87,6 +91,16 @@ const Shelves = () => {
 
 export default Shelves;
 
+const TitleFriends = styled.p`
+margin:10px 0 0 0;
+@media(min-width:731px){
+  margin:0 0 0 10px;
+}
+`;
+const StyledLink = styled(Link)`
+
+display:block;
+`;
 const ChartBox = styled.div`
 width: 300px;
 height: 200px;
@@ -103,8 +117,9 @@ justify-content:center;
 align-items:center;
 flex-flow:column;
 height: 200px;
-background:rgb(0,0,0,0.1);
 padding:5px;
+background:rgb(0,0,0,0.1);
+
 h2,h3{
   margin:0 !important;
   font-family:"Archivo",sans-serif;
@@ -121,15 +136,33 @@ div {
   width:50px;
   height: 50px;
 }
-@media(min-width:600px){
-height: 100%;
-  width: 300px;
+@media(min-width:731px){
+  height: 100%;
+  width: 400px;
 }
 `
 const FriendBox = styled.div`
+height:400px;
+width: 100%;
 color:black;
 font-family:"Archivo",sans-serif;
-  font-weight:bold;
+font-weight:bold;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-flow: row ;
+overflow-y:hidden;
+overflow-x:scroll;
+margin: 10px 10px 10px 10px;
+background:rgb(0,0,0,0.1);
+@media(min-width:731px){
+  height: 100%;
+  width: 400px;
+  flex-flow: column;
+  overflow-y:scroll;
+  overflow-x:hidden;
+}
+
 `
 const StyledButton = styled.div`
 display:flex;
@@ -159,6 +192,9 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  color:black;
+  font-family:"Archivo",sans-serif;
+  font-weight:bold;
 `;
 const Profile = styled.div`
   width: 90%;
