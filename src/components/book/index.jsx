@@ -7,11 +7,9 @@ import styled from "styled-components";
 import { deleteBook, updateBook } from "../../redux/actions/books";
 import Feedback from "../modals/feedback";
 
-const Book = ({ book, showButtons }) => {
+const Book3D = ({ book, showButtons, image }) => {
 
-  const image = book.image_url !== undefined
-    ? book.image_url
-    : book.volumeInfo.imageLinks.thumbnail !== undefined ? book.volumeInfo.imageLinks.thumbnail : "";
+
 
   const dispatch = useDispatch();
   const [modal, setModal] = useState();
@@ -43,7 +41,7 @@ const Book = ({ book, showButtons }) => {
   );
 };
 
-export default Book;
+export default Book3D;
 
 const Container = styled(motion.div)`
 display:flex;

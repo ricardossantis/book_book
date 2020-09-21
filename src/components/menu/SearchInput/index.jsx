@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { IoMdSearch, IoIosClose } from "react-icons/io"
 import { useDispatch } from "react-redux";
-import { setInputValue } from "../../redux/actions/input"
+import { setInputValue } from "../../../redux/actions/input"
 import {
     SearchBox,
     CloseSearch,
