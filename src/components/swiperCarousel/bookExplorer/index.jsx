@@ -24,7 +24,8 @@ import {
 const CardExplorer = ({ book, friends, user }) => {
   const dispatch = useDispatch();
   const [description, setDescription] = useState("");
-  useEffect(() => {
+
+  if (description) {
     axios
       .get(`https://www.googleapis.com/books/v1/volumes/${book.google_book_id}`)
       .then((res) => {
@@ -36,8 +37,9 @@ const CardExplorer = ({ book, friends, user }) => {
       })
       .catch((err) => {
         setDescription("Este livro não possui uma descrição.");
-      });
-  }, [book.google_book_id]);
+      })
+  }
+
 
   return (
     <>

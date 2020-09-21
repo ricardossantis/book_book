@@ -7,6 +7,7 @@ import "swiper/components/navigation/navigation.scss";
 import CardExplorer from "./bookExplorer";
 import CardSearch from "./bookSearch"
 import SwiperCore, { Navigation } from 'swiper';
+import CardProfile from "./bookProfile";
 
 SwiperCore.use([Navigation])
 const Carousel = ({
@@ -53,8 +54,10 @@ const Carousel = ({
         return (
           <SwiperSlide key={index}>
             {pathname.match("explorar")
-              && <CardExplorer book={book} friends={friends} user={user} />
-              // : <CardSearch book={book} />
+              ? <CardExplorer book={book} friends={friends} user={user} />
+              : pathname.match("pesquisa")
+                ? <CardSearch book={book} />
+                : <CardProfile book={book} />
             }
           </SwiperSlide>
         );

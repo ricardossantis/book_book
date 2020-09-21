@@ -41,9 +41,11 @@ const Shelves = () => {
       counter++;
     }
   }, [books, token, user, dispatch]);
+
+
   const ShelvesFilter = (filterShelf) =>
     currentUser.books.filter(({ shelf }) => filterShelf === shelf)
-  console.log(ShelvesFilter(1))
+
   return (
     <Container>
       <Profile>
@@ -98,7 +100,7 @@ margin:10px 0 0 0;
 }
 `;
 const StyledLink = styled(Link)`
-
+color:white;
 display:block;
 `;
 const ChartBox = styled.div`
@@ -119,10 +121,13 @@ flex-flow:column;
 height: 200px;
 padding:5px;
 background:rgb(0,0,0,0.1);
+color:white;
 
 h2,h3{
   margin:0 !important;
   font-family:"Archivo",sans-serif;
+  color:white;
+
 }
 h2{
   font-weight:bold;
@@ -144,7 +149,7 @@ div {
 const FriendBox = styled.div`
 height:400px;
 width: 100%;
-color:black;
+color:white;
 font-family:"Archivo",sans-serif;
 font-weight:bold;
 display:flex;
@@ -172,7 +177,7 @@ width: 30px !important;
 height: 30px !important;
 margin-top:10px;
 border-radius:50%;
-color:black;
+color:white;
 background: rgb(204,140,104) ;
 transition:0.3s;
 &:hover {
@@ -192,29 +197,22 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  color:black;
+  color:white;
   font-family:"Archivo",sans-serif;
   font-weight:bold;
+
 `;
 const Profile = styled.div`
   width: 90%;
   height: 500px;
-  background-color: #cccccc;
   border-radius: 6px;
   margin: 30px 0 30px 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-flow:column;
-  background-image: linear-gradient(
-    to top,
-    #d5d4d0 0%,
-    #d6d3c8 1%,
-    #eeeeec 31%,
-    #efeeec 75%,
-    #e9e9e7 100%
-  );
- 
+  background: rgba(0,0,0,0.3);
+  color:white;
 @media(min-width:600px){
   flex-flow:row;
   height: 300px;

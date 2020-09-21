@@ -3,7 +3,7 @@ import { Form, Input, Button, Rate } from "antd";
 import { useDispatch } from "react-redux";
 import { updateBook } from "../../../redux/actions/books";
 import { useParams } from "react-router-dom";
-import { StyledModal, ShadowBox, Title, StyledButton, BoxClose } from "../styled.js";
+import { StyledModal, ShadowBox, Title } from "../styled.js";
 
 const Feedback = ({ book, setModal }) => {
   const dispatch = useDispatch();

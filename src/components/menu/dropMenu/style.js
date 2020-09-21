@@ -22,9 +22,7 @@ height:0px;
 left:30px;
 visibility:hidden;
 clip-path: polygon(100% 100%, 0% 100%, 0 6%, 0.2% 6%, 7.5% 0, 20% 6%, 100% 6%);
-background-image:radial-gradient( 
-  var(--color-primary-0)
-  ,var(--color-primary-3));
+background: var(--color-secondary-2-2);
 transition: 0.4s 0s;
 border-radius: 4px;
 
@@ -44,7 +42,7 @@ width: 100%;
 height: 0px;
 margin:10px;
 display:flex;
-color:rgba(0,0,0,0.8);
+color:white;
 justify-content:center;
 align-items:center;
 transition: 0.1s;
@@ -58,7 +56,7 @@ font-size:20px;
   /* border-top:4px solid rgba(10,10,10,0.2); */
   /* border-bottom:4px solid rgba(80,80,80,0.2); */
   background:rgba(20,20,20,0.2);
-  font-size:25px;
+  font-size:22px;
   color: var(--color-complement-1);
 }
 `
