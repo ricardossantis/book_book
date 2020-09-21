@@ -1,8 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-
-import store from "./redux/store/store";
+import store from "./redux/store/store.js";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import "antd/dist/antd.css";
@@ -15,4 +14,3 @@ ReactDOM.render(
   </Provider>,
   document.getElementById("root")
 );
-

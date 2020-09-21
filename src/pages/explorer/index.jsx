@@ -13,7 +13,6 @@ const Explorer = () => {
     state.books.reviews,
     state.session,
   ]);
-
   const friends = user.config;
 
   const AllBooksPages = reviews;

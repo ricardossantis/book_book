@@ -5,8 +5,9 @@ import "swiper/swiper.scss";
 import { useLocation } from "react-router-dom";
 import "swiper/components/navigation/navigation.scss";
 import CardExplorer from "./bookExplorer";
-import CardSearch from "./bookSearch";
-import SwiperCore, { Navigation } from "swiper";
+import CardSearch from "./bookSearch"
+import SwiperCore, { Navigation } from 'swiper';
+import CardProfile from "./bookProfile";
 
 SwiperCore.use([Navigation]);
 const Carousel = ({
@@ -49,11 +50,12 @@ const Carousel = ({
       {books.map((book, index) => {
         return (
           <SwiperSlide key={index}>
-            {pathname.match("explorar") ? (
-              <CardExplorer book={book} friends={user.config} user={user} />
-            ) : (
-              <CardSearch book={book} />
-            )}
+            {pathname.match("explorar")
+              ? <CardExplorer book={book} friends={friends} user={user} />
+              : pathname.match("pesquisa")
+                ? <CardSearch book={book} />
+                : <CardProfile book={book} />
+            }
           </SwiperSlide>
         );
       })}

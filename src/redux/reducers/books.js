@@ -18,7 +18,9 @@ const books = (state = defaultState, { type, payload }) => {
     case REMOVE_BOOK:
       return {
         ...state,
-        books: state.books.filter((book) => book !== payload),
+        books: state.books.filter((book) => {
+          return book.id !== payload.id;
+        }),
       };
 
     case CLEAR_BOOKS:

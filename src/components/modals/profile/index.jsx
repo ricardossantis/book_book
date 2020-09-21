@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Form, Input, Button } from "antd";
-import { StyledModal, ShadowBox, StyledSelect } from "../styled.js";
+import { StyledModal, ShadowBox, StyledSelect, Title, StyledButton, BoxClose } from "../styled.js";
 import { useSelector } from "react-redux";
 import Api from "../../../services/api.js";
 import profilePicMale from "../../../assets/img/cardProfile.svg";
 import profilePicFemale from "../../../assets/img/cardProfile.svg";
+import { AiOutlineCloseCircle } from 'react-icons/ai';
 
 const Feedback = ({ setModal }) => {
   const userInfo = useSelector((state) => state.session);
@@ -63,14 +64,15 @@ const Feedback = ({ setModal }) => {
 
   return (
     <StyledModal>
-      <Button onClick={() => setModal(false)}>X</Button>
-      <ShadowBox />
-      <div>
-        <h1>Edit Profile</h1>
-      </div>
+      <BoxClose>
+        <StyledButton onClick={() => setModal(false)}>
+          <AiOutlineCloseCircle />
+        </StyledButton>
+      </BoxClose>
 
+      <ShadowBox />
       <Form name="basic" initialValues={{ remember: true }} onFinish={onFinish}>
-        <div>Select your avatar</div>
+        <Title>Select your avatar</Title>
         <Form.Item name="image_url">
           <StyledSelect
             value={selectedOption}
@@ -78,12 +80,14 @@ const Feedback = ({ setModal }) => {
             onChange={handleSelectChange}
           />
         </Form.Item>
+        <Title>About</Title>
 
-        <Form.Item name="about" label="Bio">
+        <Form.Item name="about" >
           <Input.TextArea allowClear={true} rows={3} />
         </Form.Item>
+        <Title>Name</Title>
 
-        <Form.Item name="name" label="Name">
+        <Form.Item name="name" >
           <Input
             type="text"
             rules={[
@@ -94,8 +98,9 @@ const Feedback = ({ setModal }) => {
             ]}
           />
         </Form.Item>
+        <Title>User name</Title>
 
-        <Form.Item name="user" label="Username">
+        <Form.Item name="user">
           <Input
             type="text"
             rules={[
@@ -106,12 +111,14 @@ const Feedback = ({ setModal }) => {
             ]}
           />
         </Form.Item>
+        <Title>Adress</Title>
 
-        <Form.Item name="address" label="Address">
+        <Form.Item name="address">
           <Input />
         </Form.Item>
+        <Title>Email</Title>
 
-        <Form.Item name="email" label="Email">
+        <Form.Item name="email">
           <Input
             type="text"
             rules={[
@@ -121,8 +128,9 @@ const Feedback = ({ setModal }) => {
             ]}
           />
         </Form.Item>
+        <Title>Password</Title>
 
-        <Form.Item name="password" label="Password">
+        <Form.Item name="password">
           <Input
             type="password"
             rules={[
@@ -137,8 +145,9 @@ const Feedback = ({ setModal }) => {
             ]}
           />
         </Form.Item>
+        <Title>Confirm password</Title>
 
-        <Form.Item name="confirmPassword" label="Confirm password">
+        <Form.Item name="confirmPassword">
           <Input
             type="password"
             rules={[
@@ -165,3 +174,5 @@ const Feedback = ({ setModal }) => {
 };
 
 export default Feedback;
+
+
