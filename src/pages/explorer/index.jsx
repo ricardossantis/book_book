@@ -9,10 +9,12 @@ import { ExplorerContainer, Set, Title } from "./styled-explorer";
 
 const Explorer = () => {
   const dispatch = useDispatch();
-  const [reviews, { user, friends, token }] = useSelector((state) => [
+  const [reviews, { user, token }] = useSelector((state) => [
     state.books.reviews,
     state.session,
   ]);
+
+  const friends = user.config;
 
   const AllBooksPages = reviews;
   const [currentAllPageBooks, setCurrentAllPageBooks] = useState([]);

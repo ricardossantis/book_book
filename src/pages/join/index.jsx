@@ -13,7 +13,7 @@ const SignIn = () => {
   let history = useHistory();
   const dispatch = useDispatch();
   const name = useSelector((state) => state.session.user.user);
-  const [{ token }] = useSelector((state) => [state.session]);
+  const [{ user, token }] = useSelector((state) => [state.session]);
   useEffect(() => {
     dispatch(updateSession());
   }, [dispatch, token]);
@@ -58,6 +58,14 @@ export const TopBar = styled.div`
   height: 150px;
   background-image: url(${chatBackground});
   background-size: cover;
+
+  @media (max-width: 550px) {
+    height: 100px;
+  }
+
+  @media (min-width: 500px) and (max-width: 760px) {
+    height: 70px;
+  }
 `;
 export const Title = styled.h1`
   height: 100%;
@@ -74,6 +82,14 @@ export const Title = styled.h1`
     rgba(0, 0, 0, 0) 0%,
     rgba(0, 0, 0, 1) 100%
   );
+
+  @media (max-width: 550px) {
+    font-size: 2.6rem;
+  }
+
+  @media (min-width: 500px) and (max-width: 760px) {
+    font-size: 2.4rem;
+  }
 `;
 
 export const FormBox = styled.div`
@@ -88,6 +104,17 @@ export const FormBox = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 470px) {
+    width: 270px;
+    margin: 40px auto 1px;
+    height: 400px;
+  }
+
+  @media (min-width: 500px) and (max-width: 760px) {
+    margin: 40px auto 1px;
+    height: 330px;
+  }
 `;
 
 export const Title2 = styled.div`
@@ -97,6 +124,15 @@ export const Title2 = styled.div`
   color: #e5e5e5;
   margin: 25px 0;
   text-shadow: 3px 3px 16px #000;
+
+  @media (max-width: 470px) {
+    font-size: 1.6em;
+    margin: 10px 0;
+  }
+
+  @media (min-width: 500px) and (max-width: 760px) {
+    font-size: 1.4rem;
+  }
 `;
 
 export const RoomBtn = styled.button`
@@ -113,5 +149,21 @@ export const BtnImage = styled.img`
   transition: 0.2s;
   &:hover {
     transform: scale(1.2);
+  }
+
+  @media (max-width: 470px) {
+    width: 200px;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  @media (min-width: 500px) and (max-width: 760px) {
+    width: 150px;
+
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 `;

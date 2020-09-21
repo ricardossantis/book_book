@@ -11,7 +11,6 @@ import SwiperCore, { Navigation } from "swiper";
 SwiperCore.use([Navigation]);
 const Carousel = ({
   books = [],
-  friends,
   user,
   carousel = [],
   setCurrentBooks = () => {},
@@ -51,7 +50,7 @@ const Carousel = ({
         return (
           <SwiperSlide key={index}>
             {pathname.match("explorar") ? (
-              <CardExplorer book={book} friends={friends} user={user} />
+              <CardExplorer book={book} friends={user.config} user={user} />
             ) : (
               <CardSearch book={book} />
             )}

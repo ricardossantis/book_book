@@ -85,6 +85,10 @@ export const RoomContainer = styled.div`
   @media (min-width: 320px) and (max-width: 480px) {
     height: 100%;
   }
+
+  @media (min-width: 500px) and (max-width: 760px) {
+    height: 600px;
+  }
 `;
 
 export const TopBar = styled.div`

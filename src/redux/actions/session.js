@@ -18,7 +18,6 @@ export const loginWithAPI = (info) => (dispatch) => {
           status: 200,
           token: response.data.auth_token,
           user: response.data.user,
-          friends: response.data.config,
         })
       );
     })
@@ -57,9 +56,4 @@ const clearBooksState = () => ({
 const logout = (page) => ({
   type: LOGOUT,
   payload: { status: page },
-});
-
-export const addFriend = ({ id, user }) => ({
-  type: UPDATE_FRIENDS,
-  payload: { [id]: { id, user } },
 });

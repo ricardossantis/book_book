@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import UserIcon from "../../../assets/icons/profile-icon.png";
 import BookBlank from "../../../assets/img/book-blank.png";
-import { updateFriends } from "../../../redux/actions/friends";
+import { updateFriends, removeFriends } from "../../../redux/actions/friends";
 import {
   Book,
   BookImg,
@@ -21,10 +21,13 @@ import {
   AddButton,
 } from "./styled-book";
 
-const CardExplorer = ({ book, friends, user }) => {
+const CardExplorer = ({ book }) => {
   const dispatch = useDispatch();
   const [description, setDescription] = useState("");
-  useEffect(() => {
+  const { user } = useSelector((state) => state.session);
+  const friends = user.config;
+
+  if (description) {
     axios
       .get(`https://www.googleapis.com/books/v1/volumes/${book.google_book_id}`)
       .then((res) => {
@@ -37,7 +40,7 @@ const CardExplorer = ({ book, friends, user }) => {
       .catch((err) => {
         setDescription("Este livro não possui uma descrição.");
       });
-  }, [book.google_book_id]);
+  }
 
   return (
     <>
@@ -76,8 +79,13 @@ const CardExplorer = ({ book, friends, user }) => {
             <BtnContainer>
               {book.creator.id !== user.id && (
                 <AddButton
-                  disabled={friends && friends[book.creator.id] ? true : false}
-                  onClick={() => dispatch(updateFriends(user.id, book.creator))}
+                  onClick={() => {
+                    if (friends && friends[book.creator.id]) {
+                      dispatch(removeFriends(user, book.creator));
+                    } else {
+                      dispatch(updateFriends(user, book.creator));
+                    }
+                  }}
                 >
                   {friends && friends[book.creator.id]
                     ? "Desfazer amizade"

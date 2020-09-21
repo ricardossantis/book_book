@@ -20,11 +20,11 @@ const Shelves = () => {
   const [modal, setModal] = useState();
   const [showButtons, setShowButtons] = useState(true);
   const [currentUser, setCurrentUser] = useState({ user: {}, books: [] });
-  const [
-    { user, token, friends },
-    books,
-  ] = useSelector(({ session, books }) => [session, books.books]);
-
+  const [{ user, token }, books] = useSelector(({ session, books }) => [
+    session,
+    books.books,
+  ]);
+  const friends = user.config;
   useEffect(() => {
     if (user.id !== undefined && user.id === Number(params.id)) {
       setShowButtons(true);
@@ -47,15 +47,16 @@ const Shelves = () => {
     currentUser.books
       .filter(({ shelf }) => filterShelf === shelf)
       .map((book) => {
-        const { image_url = BookBlank } = book
+        const { image_url = BookBlank } = book;
 
         return (
           <Book
             book={book}
             image={image_url}
             key={book.id}
-            showButtons={showButtons} />
-        )
+            showButtons={showButtons}
+          />
+        );
       });
 
   return (
@@ -72,14 +73,14 @@ const Shelves = () => {
           <section>
             Amigos:
             {Object.values(friends).map((friend) => (
-            <Link
-              key={friend.id}
-              to={`/perfil/${friend.id}`}
-              style={{ margin: "0 5px" }}
-            >
-              {friend.user}
-            </Link>
-          ))}
+              <Link
+                key={friend.id}
+                to={`/perfil/${friend.id}`}
+                style={{ margin: "0 5px" }}
+              >
+                {friend.user}
+              </Link>
+            ))}
           </section>
           <ChartPie />
         </Profile>
