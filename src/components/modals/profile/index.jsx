@@ -44,6 +44,7 @@ const Feedback = ({ setModal }) => {
 
   const onFinish = (values) => {
     let apiObject = { user: values };
+    console.log(apiObject);
     if (values.image_url) apiObject.user.image_url = values.image_url.value;
     Api.put(
       `users/${userInfo.user.id}`,

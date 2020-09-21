@@ -24,7 +24,6 @@
   --color-complement-2: #74a296;
   --color-complement-3: #1e6854;
   --color-complement-4: #024a37;
-  
 }
 
 html,
@@ -132,9 +131,9 @@ div.App {
   text-align: center;
   background-color: var(--color-primary-1);
   min-height: 100vh;
-  /* display: flex;
-  flex-direction: column;
-  align-items: center; */
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* align-items: center; */
   font-size: calc(10px + 2vmin);
   color: white;
 }

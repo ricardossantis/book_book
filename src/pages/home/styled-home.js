@@ -6,7 +6,7 @@ export const HomePage = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   background-image: url(${library});
   background-repeat: no-repeat;
   background-size: cover;

@@ -10,6 +10,8 @@ import {
 } from "../pages/exports.js";
 import { useSelector } from "react-redux";
 import api from "../services/api";
+import styled from "styled-components";
+import FramerLoading from "../components/framerLoading";
 import { Menu } from "../components/exports.js";
 
 const Routes = () => {
@@ -22,7 +24,8 @@ const Routes = () => {
       setAuthorized(false);
       history.push("/");
     } else {
-      api.get("/users", { headers: { Authorization: token } })
+      api
+        .get("/users", { headers: { Authorization: token } })
         .then(() => setAuthorized(true))
         .catch(() => setAuthorized(false));
     }
@@ -45,7 +48,7 @@ const Routes = () => {
             <Route path="/join">
               <Join />
             </Route>
-            <Route path="/chat/:name/:room" component={Chat}></Route>
+            <Route path="/chat" component={Chat}></Route>
           </Switch>
         </Menu>
       );
@@ -60,8 +63,17 @@ const Routes = () => {
       );
 
     default:
-      return <div>Loading...</div>;
+      return (
+        <LoadingScreen>
+          <FramerLoading />
+        </LoadingScreen>
+      );
   }
 };
 
 export default Routes;
+
+const LoadingScreen = styled.div`
+  width: 100vw;
+  heght: 100vh;
+`;

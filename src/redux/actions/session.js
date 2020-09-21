@@ -1,6 +1,6 @@
 import api from "../../services/api";
 import { getUserAndToken } from "../../utils/getUsers.js";
-import { LOGIN, LOGOUT, ADD_FRIEND, CLEAR_BOOKS } from "./actionsType.js";
+import { LOGIN, LOGOUT, UPDATE_FRIENDS, CLEAR_BOOKS } from "./actionsType.js";
 
 const setTokenAndUserToLocalStorage = ({ auth_token, user }) => {
   localStorage.setItem("token", auth_token);
@@ -12,6 +12,7 @@ export const loginWithAPI = (info) => (dispatch) => {
     .post("/authenticate", info)
     .then((response) => {
       setTokenAndUserToLocalStorage(response.data);
+      console.log(response.data);
       dispatch(
         setLogged({
           status: 200,
@@ -55,9 +56,4 @@ const clearBooksState = () => ({
 const logout = (page) => ({
   type: LOGOUT,
   payload: { status: page },
-});
-
-export const addFriend = ({ id, user }) => ({
-  type: ADD_FRIEND,
-  payload: { [id]: { id, user } },
 });

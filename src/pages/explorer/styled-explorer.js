@@ -1,80 +1,98 @@
 import styled from "styled-components";
-import FramerLoading from "../../components/framerLoading";
-
-export const Loading = styled.div`
-  width: 96vw;
-  height: 90vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
 
 export const ExplorerContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  scroll-behavior: smooth;
+`;
+
+export const Set = styled.div`
+  position: relative;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  scroll-behavior: smooth;
+  margin-top: 40px;
 `;
 
-export const Filters = styled.div`
-  width: 100%;
-  font-family: "Scan", sans-serif;
-  font-size: 1.2rem;
-  border: 2px solid #fff;
-  margin: 10px;
+export const Title = styled.div`
+  position: absolute;
+  top: 0;
+  left: 5vw;
 
-  select {
-    font-weight: 800;
-    width: 100%;
-    position: relative;
-    margin: 10px 0;
-    background-color: #000;
-    padding: 5px;
-    outline: none;
-    border: none;
-    margin: 0;
+  h1 {
+    font-family: "Helvetica", sans-serif;
+    font-weight: 900;
+    color: #000;
+    font-size: 1.6vw;
+    display: table-cell;
 
-    option {
-      font-weight: 800;
+    @media (max-width: 550px) {
+      font-size: 1.8rem;
     }
   }
-
-  @media (min-width: 550px) {
-    // width: 80%;
-  }
-
-  @media (min-width: 768px) {
-    align-self: flex-start;
-    width: 20%;
-    font-size: 1.3rem;
-  }
 `;
 
-export const Filter = styled.option`
-  font-size: 80%;
-  color: #000;
+export const BookSection = styled.section`
+  scroll-behavior: smooth;
+  position: relative;
+  width: 100%;
+  height: 315px;
+  display: grid;
+  grid-template-columns: repeat(8, 12%);
+  column-gap: 9px;
+  grid-template-rows: 310px;
+`;
+
+export const Btn = styled.button`
+  position: absolute;
+  width: 100px;
+  height: 100%;
   outline: none;
-  margin: 2px;
   color: #fff;
-  cursor: pointer;
-  border: 1px solid #e1332d;
-  transition: all 150ms linear;
-`;
-
-export const Books = styled.div`
+  font-size: 6em;
+  border-radius: 3px;
+  background: rgb(0, 0, 0);
+  border: none;
+  text-decoration: none;
+  padding: 0;
   display: flex;
-  flex-wrap: wrap;
-  width: 94vw;
-  justify-content: space-evenly;
+  text-align: center;
 
-  @media (min-width: 768px) {
-    align-items: center;
-    justify-content: center;
+  svg {
+    height: 100%;
+    cursor: pointer;
+    pointer-events: auto;
+    border-top: 60px solid transparent;
+    border-bottom: 60px solid transparent;
+  }
 
-    width: auto;
-    justify-content: flex-start;
+  :nth-of-type(1) {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(
+      -90deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 1) 100%
+    );
+  }
+  &:nth-of-type(2) {
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 1) 100%
+    );
+
+    svg {
+      margin-left: 8px;
+    }
   }
 `;
-
-export { FramerLoading };
