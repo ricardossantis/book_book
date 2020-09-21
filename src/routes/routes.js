@@ -48,9 +48,7 @@ const Routes = () => {
             <Route path="/join">
               <Join />
             </Route>
-            <Route path="/chat/:name/:room">
-              <Chat />
-            </Route>
+            <Route path="/chat" component={Chat}></Route>
           </Switch>
         </Menu>
       );

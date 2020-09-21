@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 import UserIcon from "../../../assets/icons/profile-icon.png";
 import BookBlank from "../../../assets/img/book-blank.png";
-import { addFriend } from "../../../redux/actions/session";
+import { updateFriends } from "../../../redux/actions/friends";
 import {
   Book,
   BookImg,
@@ -77,7 +77,7 @@ const CardExplorer = ({ book, friends, user }) => {
               {book.creator.id !== user.id && (
                 <AddButton
                   disabled={friends && friends[book.creator.id] ? true : false}
-                  onClick={() => dispatch(addFriend(book.creator))}
+                  onClick={() => dispatch(updateFriends(user.id, book.creator))}
                 >
                   {friends && friends[book.creator.id]
                     ? "Desfazer amizade"

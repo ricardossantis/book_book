@@ -1,7 +1,6 @@
 import React from "react";
 import DevBox from "./dev";
 import { motion } from "framer-motion";
-import Gif from "../../../assets/giphy.gif";
 import { InfoBox, LinkBack, Title, Squad, Development } from "./styled-info";
 import LinkedinImg from "../../../assets/icons/linkedin.png";
 import GitLabImg from "../../../assets/icons/gitlab.png";
@@ -12,6 +11,10 @@ import reactImg from "../../../assets/icons/react.png";
 import reduxImg from "../../../assets/icons/redux.png";
 import blankImg from "../../../assets/icons/blank.png";
 import antdImg from "../../../assets/icons/antd.svg";
+import maicon from "../../../assets/pictures/maicon.jpeg";
+import christopher from "../../../assets/pictures/christopher.jpeg";
+import luis from "../../../assets/pictures/luis.jpeg";
+import ricardo from "../../../assets/pictures/ricardo.jpeg";
 
 const InfoPage = ({ onHandle, page }) => {
   return (
@@ -41,7 +44,7 @@ const InfoPage = ({ onHandle, page }) => {
         <Title>Esquadrão SCRUM</Title>
         <Squad>
           <DevBox
-            photo={Gif}
+            photo={maicon}
             name="Maicon Lourenço"
             role="Scrum Master"
             description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
@@ -57,7 +60,7 @@ const InfoPage = ({ onHandle, page }) => {
           />
 
           <DevBox
-            photo={Gif}
+            photo={christopher}
             name="Christopher William"
             role="Product Owner"
             description="Essa descrição pode ser refatorada???"
@@ -76,7 +79,7 @@ const InfoPage = ({ onHandle, page }) => {
           />
 
           <DevBox
-            photo={Gif}
+            photo={luis}
             name="Luis Cazuriaga"
             role="Tech Leader"
             description="Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
@@ -92,7 +95,7 @@ const InfoPage = ({ onHandle, page }) => {
           />
 
           <DevBox
-            photo={Gif}
+            photo={ricardo}
             name="Ricardo Santis"
             role="QA/Tester"
             description="BookBook foi um projeto que testou exaustivamente todos os conhecimentos adquiridos até então!"

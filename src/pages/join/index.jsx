@@ -1,52 +1,49 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { updateSession } from "../../redux/actions/session.js";
-import styled from "styled-components";
-import "./Join.css";
+import PageTransition from "../../components/pageTransition";
 import chatBackground from "../../assets/chat-topbar.jpg";
 import bookbookIcon from "../../assets/icons/bookbook-icon.png";
 import DevsIcon from "../../assets/icons/developers-icon.png";
 import KenzieIcon from "../../assets/icons/kenzie-academy-icon.png";
+
 const SignIn = () => {
   let history = useHistory();
   const dispatch = useDispatch();
-
   const name = useSelector((state) => state.session.user.user);
-  const [room, setRoom] = useState("");
-
+  const [{ token }] = useSelector((state) => [state.session]);
   useEffect(() => {
     dispatch(updateSession());
-  }, [dispatch]);
+  }, [dispatch, token]);
 
   const enterRoom = (evt) => {
-    console.log(evt.currentTarget.value);
     evt.preventDefault();
-    history.push(
-      `/chat/${name && name.replace(/\s/g, "").toLowerCase()}/${
-        evt.currentTarget.value
-      }`
-    );
+    history.push(`/chat?name=${name}&room=${evt.currentTarget.value}`);
   };
 
   return (
-    <JoinRoom>
-      <TopBar>
-        <Title>Chat Aberto</Title>
-      </TopBar>
-      <FormBox>
-        <Title2>Escolha uma sala</Title2>
-        <RoomBtn value="bookbook" onClick={(e) => enterRoom(e)}>
-          <BtnImage src={bookbookIcon} alt="bookbook-icon" />
-        </RoomBtn>
-        <RoomBtn value="developers" onClick={(e) => enterRoom(e)}>
-          <BtnImage src={DevsIcon} alt="developers-icon" />
-        </RoomBtn>
-        <RoomBtn value="kenzie" onClick={(e) => enterRoom(e)}>
-          <BtnImage src={KenzieIcon} alt="kenzie-academy-icon" />
-        </RoomBtn>
-      </FormBox>
-    </JoinRoom>
+    <PageTransition>
+      <JoinRoom>
+        <TopBar>
+          <Title>Chat Aberto</Title>
+        </TopBar>
+        <FormBox>
+          <Title2>Escolha uma sala</Title2>
+
+          <RoomBtn value="bookbook" onClick={(e) => enterRoom(e)}>
+            <BtnImage src={bookbookIcon} alt="bookbook-icon" />
+          </RoomBtn>
+          <RoomBtn value="developers" onClick={(e) => enterRoom(e)}>
+            <BtnImage src={DevsIcon} alt="developers-icon" />
+          </RoomBtn>
+          <RoomBtn value="kenzie" onClick={(e) => enterRoom(e)}>
+            <BtnImage src={KenzieIcon} alt="kenzie-academy-icon" />
+          </RoomBtn>
+        </FormBox>
+      </JoinRoom>
+    </PageTransition>
   );
 };
 
@@ -66,7 +63,7 @@ export const Title = styled.h1`
   height: 100%;
   font-family: "Scada", sans-serif;
   font-weight: 600;
-  font-size: 4.5rem;
+  font-size: 4rem;
   color: #e5e5e5;
   text-align: left;
   padding-top: 20px;
@@ -105,6 +102,7 @@ export const Title2 = styled.div`
 export const RoomBtn = styled.button`
   background: none;
   border: none;
+  outline: none;
   cursor: pointer;
 `;
 

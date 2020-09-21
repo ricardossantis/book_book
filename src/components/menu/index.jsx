@@ -3,9 +3,7 @@ import { Link, useHistory, useLocation } from "react-router-dom";
 import { clearAllState } from "../../redux/actions/session";
 import { useDispatch } from "react-redux";
 import { IoIosLogOut } from "react-icons/io";
-
 import styled from "styled-components";
-
 import ProfileImg from "../../assets/img/cardProfile.svg";
 import DropDownMenu from "../dropMenu";
 import SearchInput from "../SearchInput";

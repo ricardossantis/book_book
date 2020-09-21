@@ -21,11 +21,11 @@ const Message = ({ message: { text, user }, name }) => {
     </MessageContainer>
   ) : (
     <MessageContainer className="justifyStart">
-      <messageBox className="backgroundLight">
+      <MessageBox className="backgroundLight">
         <MessageText className="colorDark">
           {ReactEmoji.emojify(text)}
         </MessageText>
-      </messageBox>
+      </MessageBox>
       <SentText className="pl-10 ">{user}</SentText>
     </MessageContainer>
   );
@@ -35,37 +35,34 @@ export default Message;
 
 const MessageBox = styled.div`
   background: #f3f3f3;
-  border-radius: 20px;
-  padding: 5px 20px;
-  color: white;
+  border-radius: 6px;
+  padding: 6px 16px;
+  color: #000;
   display: inline-block;
-  max-width: 80%;
+  max-width: 70%;
 
-  .backgroundBlue {
+  &.backgroundBlue {
     background: #2979ff;
   }
 
-  .backgroundLight {
+  &.backgroundLight {
     background: #f3f3f3;
   }
 `;
 
 const MessageText = styled.p`
   width: 100%;
-  letter-spacing: 0;
   float: left;
-  font-size: 1.1em;
+  letter-spacing: 0;
+  font-size: 1.1rem;
   word-wrap: break-word;
-
-  img {
-    vertical-align: middle;
+  vertical-align: middle;
+  margin: 0;
+  &.colorWhite {
+    color: #fff;
   }
 
-  .colorWhite {
-    color: white;
-  }
-
-  .colorDark {
+  &.colorDark {
     color: #353535;
   }
 `;
@@ -74,13 +71,13 @@ const MessageContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   padding: 0 5%;
-  margin-top: 3px;
+  margin-top: 10px;
 
-  .justifyStart {
+  &.justifyStart {
     justify-content: flex-start;
   }
 
-  .justifyEnd {
+  &.justifyEnd {
     justify-content: flex-end;
   }
 `;
@@ -89,14 +86,16 @@ const SentText = styled.p`
   display: flex;
   align-items: center;
   font-family: Helvetica;
+  font-size: 1.2rem;
   color: #828282;
-  letter-spacing: 0.3px;
+  background: #ffffff;
+  margin: 0;
 
-  .pl-10 {
+  &.pl-10 {
     padding-left: 10px;
   }
 
-  .pr-10 {
+  &.pr-10 {
     padding-right: 10px;
   }
 `;
