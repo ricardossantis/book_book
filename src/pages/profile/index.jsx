@@ -10,6 +10,7 @@ import ProfileModal from "../../components/modals/profile";
 import ProfilePic from "../../components/profilePic";
 import PageTransition from "../../components/pageTransition";
 import ChartPie from "../../components/chart/index.jsx";
+import BookBlank from "../../assets/img/book-blank.png";
 
 let counter = 0;
 
@@ -42,13 +43,20 @@ const Shelves = () => {
       counter++;
     }
   }, [books, token, user, dispatch]);
-
   const ShelvesFilter = (filterShelf) =>
     currentUser.books
       .filter(({ shelf }) => filterShelf === shelf)
-      .map((book) => (
-        <Book book={book} key={book.id} showButtons={showButtons} />
-      ));
+      .map((book) => {
+        const { image_url = BookBlank } = book
+
+        return (
+          <Book
+            book={book}
+            image={image_url}
+            key={book.id}
+            showButtons={showButtons} />
+        )
+      });
 
   return (
     <PageTransition>
@@ -64,14 +72,14 @@ const Shelves = () => {
           <section>
             Amigos:
             {Object.values(friends).map((friend) => (
-              <Link
-                key={friend.id}
-                to={`/perfil/${friend.id}`}
-                style={{ margin: "0 5px" }}
-              >
-                {friend.user}
-              </Link>
-            ))}
+            <Link
+              key={friend.id}
+              to={`/perfil/${friend.id}`}
+              style={{ margin: "0 5px" }}
+            >
+              {friend.user}
+            </Link>
+          ))}
           </section>
           <ChartPie />
         </Profile>
