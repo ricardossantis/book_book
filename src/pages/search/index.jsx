@@ -35,7 +35,7 @@ const Search = () => {
     totalItems: 0,
     items: [],
   });
-  const input = useSelector((state) => state.inputValue.inputValue);
+  const input = useSelector((state) => state.inputValue.inputValue)
   const [category, setCategory] = useState("initial");
 
   useEffect(() => {
@@ -103,14 +103,14 @@ const Search = () => {
           {googleBooksSearch.totalItems === 0 ? (
             <StyledBox>Please, search a book</StyledBox>
           ) : (
-            <Carousel books={googleBooksSearch.items} />
-          )}
+              <Carousel books={googleBooksSearch.items} />
+            )}
           <StyledTitle>Sugestion</StyledTitle>
           {googleBooksSugestion.totalItems === 0 ? (
             <StyledBox>No sugestions, add books</StyledBox>
           ) : (
-            <Carousel books={googleBooksSugestion.items} />
-          )}
+              <Carousel books={googleBooksSugestion.items} />
+            )}
           {[googleBooksFixed1, googleBooksFixed2].map((el, key) => (
             <React.Fragment key={key}>
               <StyledTitle>Diverse Books</StyledTitle>
@@ -124,3 +124,4 @@ const Search = () => {
 };
 
 export default Search;
+

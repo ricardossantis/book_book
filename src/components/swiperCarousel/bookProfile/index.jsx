@@ -2,71 +2,28 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import BookBlank from "../../../assets/img/book-blank.png";
-import { AiOutlineForm, AiOutlineGoogle } from 'react-icons/ai';
-import { IoMdBusiness } from 'react-icons/io';
+import { AiOutlineForm, AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
 import { BsBookmarkPlus, BsBookmarkFill, BsBookmarkCheck } from 'react-icons/bs';
-import { updateBook } from "../../../redux/actions/books";
+import { deleteBook, updateBook } from "../../../redux/actions/books";
 import Book3D from "../../book"
-import api from "../../../services/api";
-
+import { useParams } from "react-router-dom"
 
 const CardSearch = ({ book }) => {
   const dispatch = useDispatch()
-  const [userInfo, userBooks] = useSelector((state) => [state.session, state.books.books])
+  const userId = useSelector((state) => state.session.user.id)
   const [infos, setInfos] = useState(false)
   const [hover, sethover] = useState(true)
+  const user = useParams();
 
-  const handleBookClick = (
-    shelf,
-    { volumeInfo: { title, authors = ["Desconhecido"], imageLinks = "", categories = [], }, id, }
-  ) => {
-    const bookInfo = {
-      book: {
-        title: title,
-        author: authors.join(","),
-        shelf: shelf,
-        image_url: imageLinks.thumbnail,
-        grade: "",
-        categories: categories.join(","),
-        review: "",
-        google_book_id: id,
-      },
-    };
-
-    const filteredTitle = userBooks.filter(
-      (book) => book.title === bookInfo.book.title
-    );
-    if (filteredTitle.length === 0) {
-      api
-        .post(`/users/${userInfo.user.id}/books/`, bookInfo, {
-          headers: { authorization: userInfo.token },
-        })
-        .catch((err) => console.log(err));
-    } else {
-      dispatch(
-        updateBook(
-          { book: { shelf: shelf } },
-          userInfo.user,
-          filteredTitle[0]
-        )
-      );
-    }
+  const changeShelf = (shelf) => {
+    dispatch(updateBook({ book: { shelf: shelf } }, user, book));
   };
-
-  const {
-    title,
-    publisher,
-    description,
-    authors = [],
-    infoLink,
-    imageLinks = { thumbnail: BookBlank } }
-    = book.volumeInfo
 
   return (
     <Container onClick={() => hover && setInfos(!infos)} onMouseLeave={() => setInfos(false)}>
       <Book>
         <BookImg
-          src={imageLinks.thumbnail}
+          src={book.image_url ? book.image_url : BookBlank}
           alt="book-image"
         />
       </Book>
@@ -75,53 +32,47 @@ const CardSearch = ({ book }) => {
         {infos && window.innerWidth > 732 &&
           <Book3D
             book={book}
-            image={imageLinks.thumbnail ? imageLinks.thumbnail : BookBlank}
+            image={book.image_url ? book.image_url : BookBlank}
           />
         }
         <Content infos={infos}>
-          <Title infos={infos}>{title}</Title>
+          <Title infos={infos}>{book.title}</Title>
           <BookInfos infos={infos}>
             <Infos>
               <AiOutlineForm />
-              {authors[0]}
+              {book.author}
             </Infos>
-            <Infos>
-              <IoMdBusiness />
-              {publisher}</Infos>
           </BookInfos>
-          <Description infos={infos}>{description ? description : "Sem descrição"}</Description>
-          <ButtonBox infos={infos}>
+          <ButtonBox infos={infos} showButtons={!(userId === Number(user.id))}>
             <Button
               onMouseLeave={() => { sethover(true) }}
               onMouseOver={() => { sethover(false) }}
-              onClick={() => { handleBookClick(1, book) }}>
+              onClick={() => { changeShelf(1) }}>
               <BsBookmarkPlus />
               <p>Quero ler</p>
             </Button>
             <Button
               onMouseLeave={() => { sethover(true) }}
               onMouseOver={() => sethover(false)}
-              onClick={() => { handleBookClick(2, book) }}>
+              onClick={() => { changeShelf(2) }}>
               <BsBookmarkFill />
               <p>Lendo</p>
             </Button>
             <Button
               onMouseLeave={() => sethover(true)}
               onMouseOver={() => sethover(false)}
-              onClick={() => { handleBookClick(3, book) }}>
+              onClick={() => { changeShelf(3) }}>
               <BsBookmarkCheck />
               <p>Lido</p>
             </Button>
-            <a href={infoLink} target="_blank" rel="noopener noreferrer">
-              <Button >
-                <AiOutlineGoogle />
-                <p>Mais sobre</p>
-              </Button>
-            </a>
+            <Button onClick={() => dispatch(deleteBook({ user, book }))}>
+              <AiOutlineDelete />
+              <p>Deletar</p>
+            </Button>
           </ButtonBox>
         </Content>
       </ContentBox>
-    </Container>
+    </Container >
   );
 };
 
@@ -142,6 +93,9 @@ align-self:end;
 margin:auto 0 10px 0;
 opacity:0;
 transition:0s;
+${({ showButtons }) => showButtons && `
+visibility:hidden;
+`}
 
 ${({ infos }) => infos && `
   opacity:1;
@@ -156,8 +110,8 @@ div{
 @media(min-width:732px){
   div{
   transition:0.2s;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
 }
 }
   `}
@@ -168,6 +122,7 @@ div{
   a:hover{
     color:white;
   }
+ 
   `;
 
 export const Button = styled.div`
@@ -194,15 +149,15 @@ margin: 0 5px 0 5px;
 
   &:hover{
   border-radius:10%;
-  width: 80px;
-  height: 50px;
+  width: 65px;
+  height: 45px;
   padding:5px;
   background-color:var(--color-secondary-2-2);
 }
 svg{
   transition:0.2s;
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
 }
 p{
   position:absolute;
@@ -219,14 +174,14 @@ p{
   align-items:center;
 }
 &:hover p{
-  font-size:11px;
+  font-size:8px;
   transition:0.2s 0.1s;
-  width:40px;
+  width:30px;
   visibility:visible;
 
 }
 &:hover svg{
-transform:translateX(-80%)
+transform:translateX(-60%)
 }
     }
 `;
@@ -267,8 +222,8 @@ ${({ infos }) => infos && `
     width:150%;
     height: 100%;
     @media(min-width:732px){
-      width: 560px;
-      height: 320px;
+      width: 400px;
+      height: 300px;
     }
   `}
   @media(min-width:732px){
