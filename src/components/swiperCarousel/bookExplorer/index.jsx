@@ -27,20 +27,20 @@ const CardExplorer = ({ book }) => {
   const { user } = useSelector((state) => state.session);
   const friends = user.config;
 
-  if (!description) {
-    axios
-      .get(`https://www.googleapis.com/books/v1/volumes/${book.google_book_id}`)
-      .then((res) => {
-        if (res.data.volumeInfo.description === undefined) {
-          setDescription("Este livro não possui uma descrição.");
-        } else {
-          setDescription(res.data.volumeInfo.description);
-        }
-      })
-      .catch((err) => {
-        setDescription("Este livro não possui uma descrição.");
-      });
-  }
+  // if (!description) {
+  //   axios
+  //     .get(`https://www.googleapis.com/books/v1/volumes/${book.google_book_id}`)
+  //     .then((res) => {
+  //       if (res.data.volumeInfo.description === undefined) {
+  //         setDescription("Este livro não possui uma descrição.");
+  //       } else {
+  //         setDescription(res.data.volumeInfo.description);
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       setDescription("Este livro não possui uma descrição.");
+  //     });
+  // }
 
   return (
     <>

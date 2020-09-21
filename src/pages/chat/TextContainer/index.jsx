@@ -40,7 +40,7 @@ const TextContainerBox = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 80px;
-  color: #fff;
+  color: #000;
   height: 70%;
   width: 20%;
   justify-content: space-between;
@@ -49,7 +49,7 @@ const TextContainerBox = styled.div`
   h1 {
     font-family: "Inter", sans-serif;
     font-weight: 800;
-    color: #fff;
+    color: #000;
     margin-bottom: 0px;
   }
 
