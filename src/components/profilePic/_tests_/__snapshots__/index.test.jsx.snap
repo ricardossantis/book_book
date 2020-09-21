@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render Test renders a picture 1`] = `
+<div
+  className="sc-bdnylx iUfuel"
+>
+  <img
+    alt="profile-pic"
+    src="cardProfile.svg"
+  />
+</div>
+`;

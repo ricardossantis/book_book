@@ -66,7 +66,7 @@ const Search = () => {
             .reduce(
               (acc, cur, idx, arr) =>
                 arr.filter((val) => val === acc).length >=
-                  arr.filter((val) => val === cur).length
+                arr.filter((val) => val === cur).length
                   ? acc
                   : cur,
               null
@@ -96,9 +96,6 @@ const Search = () => {
       });
   }, [input]);
 
-
-
-  //ARRUMAR O STYLE  DESCONSTRUÇÃO
   return (
     <>
       <StyledSearch>

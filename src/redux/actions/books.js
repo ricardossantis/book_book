@@ -14,7 +14,7 @@ export const getBooks = ({ user, token }) => (dispatch) => {
         console.warn(`getBooks Status:${response.status}`);
         dispatch(addBooks(response.data));
       })
-      .catch((error) => console.error(error));
+      .catch((error) => console.log(error.message));
 };
 
 export const deleteBook = ({ user, book, token }) => (dispatch) => {
