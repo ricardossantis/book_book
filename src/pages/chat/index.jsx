@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
+import queryString from "query-string";
 import io from "socket.io-client";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import TextContainer from "../TextContainer/TextContainer";
+import Messages from "../Messages/Messages";
+import InfoBar from "../InfoBar/InfoBar";
+import Input from "../Input/Input";
 
 let socket;
 
-const Chat = () => {
+const Chat = ({ location }) => {
   const params = useParams();
   const [name, setName] = useState("");
   const [room, setRoom] = useState("");
@@ -17,6 +22,8 @@ const Chat = () => {
   const ENDPOINT = "https://book-book-app.herokuapp.com/";
 
   useEffect(() => {
+    const { name, room } = queryString.parse(location.search);
+
     socket = io(ENDPOINT);
     setRoom(params.room);
     setName(params.name);
@@ -92,16 +99,5 @@ const Chat = () => {
 
 export default Chat;
 
-const Rooms = styled.div``;
-
-const ThisRoom = styled.div`
-  span {
-    margin: 0 5px;
-  }
-`;
-
-const AllRooms = styled.div`
-  span {
-    margin: 0 5px;
-  }
-`;
+export const RoomContainer = styled.div``;
+export const Container = styled.div``;
