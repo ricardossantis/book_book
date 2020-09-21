@@ -5,7 +5,7 @@ import BookBlank from "../../../assets/img/book-blank.png";
 import { AiOutlineForm, AiOutlineGoogle } from 'react-icons/ai';
 import { IoMdBusiness } from 'react-icons/io';
 import { BsBookmarkPlus, BsBookmarkFill, BsBookmarkCheck } from 'react-icons/bs';
-import { updateBook } from "../../../redux/actions/books";
+import { getBooks, updateBook } from "../../../redux/actions/books";
 import Book3D from "../../book"
 import api from "../../../services/api";
 
@@ -18,7 +18,15 @@ const CardSearch = ({ book }) => {
 
   const handleBookClick = (
     shelf,
-    { volumeInfo: { title, authors = ["Desconhecido"], imageLinks = "", categories = [], }, id, }
+    {
+      volumeInfo: {
+        title,
+        authors = ["Desconhecido"],
+        imageLinks = "",
+        categories = [],
+      },
+      id,
+    }
   ) => {
     const bookInfo = {
       book: {
@@ -36,22 +44,32 @@ const CardSearch = ({ book }) => {
     const filteredTitle = userBooks.filter(
       (book) => book.title === bookInfo.book.title
     );
+    console.log(bookInfo);
     if (filteredTitle.length === 0) {
       api
         .post(`/users/${userInfo.user.id}/books/`, bookInfo, {
           headers: { authorization: userInfo.token },
         })
         .catch((err) => console.log(err));
+      dispatch(getBooks(userInfo));
     } else {
-      dispatch(
-        updateBook(
-          { book: { shelf: shelf } },
-          userInfo.user,
-          filteredTitle[0]
-        )
+      let filteredShelf = filteredTitle.filter(
+        (book) => book.shelf === bookInfo.book.shelf
       );
+      if (filteredShelf.length === 0) {
+        dispatch(
+          updateBook(
+            { book: { shelf: shelf } },
+            userInfo.user,
+            filteredTitle[0]
+          )
+        );
+      } else {
+        console.log("book already added");
+      }
     }
   };
+
 
   const {
     title,
