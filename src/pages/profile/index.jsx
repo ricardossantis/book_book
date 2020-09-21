@@ -77,9 +77,9 @@ const Shelves = () => {
             </>
           ))}
         </FriendBox> */}
-        <ChartBox>
+        {/* <ChartBox>
           <ChartPie />
-        </ChartBox>
+        </ChartBox> */}
       </Profile>
 
       <Shelf>
