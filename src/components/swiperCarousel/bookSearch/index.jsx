@@ -70,7 +70,6 @@ const CardSearch = ({ book }) => {
     }
   };
 
-
   const {
     title,
     publisher,
