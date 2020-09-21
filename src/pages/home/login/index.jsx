@@ -42,7 +42,8 @@ const Login = ({ onHandle }) => {
   };
 
   const onFinish = (values) => {
-    if (!verified) {
+    if (verified) {
+      console.log();
       dispatch(loginWithAPI(values));
     } else {
       message.warning("Complete o reCAPTCHA para efetuar login!");
