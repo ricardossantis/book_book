@@ -23,8 +23,8 @@ const Shelves = () => {
     books.books,
   ]);
 
-  const userInfo = useSelector((state) => state.session);
-  const friends = JSON.parse(userInfo.user.config);
+  // const userInfo = useSelector((state) => state.session);
+  // const friends = JSON.parse(userInfo.user.config);
 
   useEffect(() => {
     if (user.id !== undefined && user.id === Number(params.id)) {
@@ -63,7 +63,7 @@ const Shelves = () => {
             </StyledButton>
           )}
         </BoxInfos>
-        <TitleFriends>{Object.values(friends).length} Amigos</TitleFriends>
+        {/* <TitleFriends>{Object.values(friends).length} Amigos</TitleFriends>
         <FriendBox>
           {Object.values(friends).map((friend) => (
             <>
@@ -76,7 +76,7 @@ const Shelves = () => {
               </StyledLink>
             </>
           ))}
-        </FriendBox>
+        </FriendBox> */}
         <ChartBox>
           <ChartPie />
         </ChartBox>
