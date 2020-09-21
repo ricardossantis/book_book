@@ -17,6 +17,7 @@
   --color-secondary-2-2: #8086aa;
   --color-secondary-2-3: #29336d;
   --color-secondary-2-4: #0c154e;
+  --color-secondary-2-5: #1e2738;
   /* Main Complement color */
   --color-complement-0: #448674;
   --color-complement-1: #b7ccc6;
@@ -121,14 +122,14 @@ ul {
 
 body,
 html {
-  background-color: #1e2738;
+  background-color: var(--color-secondary-2-5);
   max-width: 100vw;
   margin: 0;
 }
 
 div.App {
   text-align: center;
-  background-color: #1e2738;
+  background-color: var(--color-secondary-2-5);
   min-height: 100vh;
   /* display: flex; */
   /* flex-direction: column; */
