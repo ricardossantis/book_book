@@ -139,11 +139,9 @@ const Register = ({ onHandle }) => {
                 type="password"
                 rules={[pass_confirm, pass_verify]}
               />
-              {/* NÃO APAGAR ESTES COMENTÁRIOS! */}
-              {/* USAR ESTÁ CHAVE DEPOIS DO DEPLOY ->  6LfpLc0ZAAAAAL7mJZpq3ZAc_b6mK7Dgx0akx7mg */}
               <Captcha>
                 <Recaptcha
-                  sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+                  sitekey="6LfpLc0ZAAAAAL7mJZpq3ZAc_b6mK7Dgx0akx7mg"
                   render="explicit"
                   hl="pt-BR"
                   onloadCallback={recaptchaLoaded}

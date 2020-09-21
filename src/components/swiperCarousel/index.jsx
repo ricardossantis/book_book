@@ -5,13 +5,15 @@ import "swiper/swiper.scss";
 import { useLocation } from "react-router-dom";
 import "swiper/components/navigation/navigation.scss";
 import CardExplorer from "./bookExplorer";
-import CardSearch from "./bookSearch"
-import SwiperCore, { Navigation } from 'swiper';
+import CardSearch from "./bookSearch";
+import SwiperCore, { Navigation } from "swiper";
 import CardProfile from "./bookProfile";
+import { useSelector } from "react-redux";
 
 SwiperCore.use([Navigation]);
 const Carousel = ({
   books = [],
+  friends,
   user,
   carousel = [],
   setCurrentBooks = () => {},
@@ -20,7 +22,6 @@ const Carousel = ({
   const { pathname } = useLocation();
   const [loadedBooks, setLoadedBooks] = useState(0);
   const [totalBooks, setTotalBooks] = useState(books.length);
-
   useEffect(() => {
     getMoreBooks(
       loadedBooks,
@@ -50,12 +51,13 @@ const Carousel = ({
       {books.map((book, index) => {
         return (
           <SwiperSlide key={index}>
-            {pathname.match("explorar")
-              ? <CardExplorer book={book} friends={friends} user={user} />
-              : pathname.match("pesquisa")
-                ? <CardSearch book={book} />
-                : <CardProfile book={book} />
-            }
+            {pathname.match("explorar") ? (
+              <CardExplorer book={book} friends={friends} user={user} />
+            ) : pathname.match("pesquisa") ? (
+              <CardSearch book={book} />
+            ) : (
+              <CardProfile book={book} />
+            )}
           </SwiperSlide>
         );
       })}
@@ -86,71 +88,9 @@ const StyledSwiper = styled(Swiper)`
     }
   }
 
-  .swiper-button-prev,
-  .swiper-button-next {
-    height: calc(100% - 98px);
-    width: 60px;
-    color: white;
-  }
-  .swiper-button-prev:after,
-  .swiper-button-next:after {
-    height: calc(100% - 98px);
-    width: 60px;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .swiper-button-next {
-    transform: translateY(-43%) translateX(20%);
-    background: linear-gradient(
-      -90deg,
-      rgba(0, 0, 0, 1) 0%,
-      rgba(0, 0, 0, 0) 100%
-    );
-  }
-  .swiper-button-prev {
-    transform: translateY(-43%) translateX(-20%);
-    background: linear-gradient(
-      -90deg,
-      rgba(0, 0, 0, 0) 0%,
-      rgba(0, 0, 0, 1) 100%
-    );
-  }
   @media (min-width: 532px) {
     //começo
     height: 410px;
-    .swiper-button-prev,
-    .swiper-button-next {
-      height: calc(100% - 98px);
-      width: 60px;
-      color: white;
-    }
-    .swiper-button-prev:after,
-    .swiper-button-next:after {
-      height: calc(100% - 98px);
-      width: 60px;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .swiper-button-next {
-      transform: translateY(-43%) translateX(20%);
-      background: linear-gradient(
-        -90deg,
-        rgba(0, 0, 0, 1) 0%,
-        rgba(0, 0, 0, 0) 100%
-      );
-    }
-    .swiper-button-prev {
-      transform: translateY(-43%) translateX(-20%);
-      background: linear-gradient(
-        -90deg,
-        rgba(0, 0, 0, 0) 0%,
-        rgba(0, 0, 0, 1) 100%
-      );
-    }
   } //fim
 
   @media (min-width: 731px) {

@@ -27,7 +27,7 @@ const CardExplorer = ({ book }) => {
   const { user } = useSelector((state) => state.session);
   const friends = user.config;
 
-  if (description) {
+  if (!description) {
     axios
       .get(`https://www.googleapis.com/books/v1/volumes/${book.google_book_id}`)
       .then((res) => {

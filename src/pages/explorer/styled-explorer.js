@@ -27,9 +27,13 @@ export const Title = styled.div`
   h1 {
     font-family: "Helvetica", sans-serif;
     font-weight: 900;
-    color: #e5e5e5;
+    color: #000;
     font-size: 1.6vw;
     display: table-cell;
+
+    @media (max-width: 550px) {
+      font-size: 1.8rem;
+    }
   }
 `;
 
