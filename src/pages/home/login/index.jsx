@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useHistory } from "react-router-dom";
 import { user, password } from "./verifications.json";
 import { useDispatch, useSelector } from "react-redux";
-import { loginWithAPI } from "../../../redux/actions/session.js";
+import { loginWithAPI, updateSession } from "../../../redux/actions/session.js";
 import StylezedInput from "../../../components/input";
 import BookIcon from "../../../assets/icons/books-icon.png";
 import Recaptcha from "react-recaptcha";
@@ -31,9 +31,7 @@ const Login = ({ onHandle }) => {
   const { token, status } = useSelector((state) => state.session);
   const [verified, setVerified] = useState(false);
 
-  const recaptchaLoaded = () => {
-    // console.log("Captcha carregou com sucesso!");
-  };
+  const recaptchaLoaded = () => {};
 
   const verifyReCaptchaV2 = (response) => {
     if (response) {
@@ -46,7 +44,6 @@ const Login = ({ onHandle }) => {
   const onFinish = (values) => {
     if (verified) {
       dispatch(loginWithAPI(values));
-      // token && history.push("/explorar");
     } else {
       message.warning("Complete o reCAPTCHA para efetuar login!");
     }
@@ -54,8 +51,11 @@ const Login = ({ onHandle }) => {
 
   useEffect(() => {
     token && history.push("/explorar");
-    status === 401 && message.warning("Usuário ou senha inválidos!");
-  }, [status, token, history]);
+    if (status === 401) {
+      message.warning("Usuário ou senha inválidos!");
+      dispatch(updateSession({ status: 0 }));
+    }
+  }, [status, token, history, dispatch]);
 
   return (
     <motion.div
@@ -100,7 +100,6 @@ const Login = ({ onHandle }) => {
                 type="password"
                 rules={password}
               />
-              {/* NÃO APAGAR ESTES COMENTÁRIOS! */}
               {/* USAR ESTÁ CHAVE DEPOIS DO DEPLOY ->  6LfpLc0ZAAAAAL7mJZpq3ZAc_b6mK7Dgx0akx7mg */}
               <Captcha>
                 <Recaptcha

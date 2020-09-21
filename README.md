@@ -63,32 +63,36 @@ Somos uma escola norte-americana que veio para o Brasil com o objetivo de oferta
 ### menu
 - passar barra de pesquisa para menu - FEITO
 - fazer redux da barra de pesquisa - FEITO
-
+- tirar a pesquisa do TIMELINE/EXPLORAR - FEITO  20
 ### Search - SearchInput
 - usar o selector para pegar o valor do input -FEITO
-- estilizar barra de pesquisa - FEITO
+- estilizar barra de pesquisa - FEITO  
 
 ### Carousel
-- arrumar os botões - FEITO
-- arrumar responsividade do carrocel - PARCIAL 
-   - BUG: se entrar no modo mobile ele buga, porem aparetemnte somente no devtools, porque se diminuir na mão, funciona normalmente
-- Card do carrocel
-- fazer a div aparecer abaixo quando clicar em uma livro - N
-
+- arrumar responsividade do carrocel - PARCIAL - ARRUMAR FAZENDO TERNARIO 
+- BUG: se entrar no modo mobile ele buga, porem aparetemnte somente no devtools, porque se diminuir na mão, funciona normalmente
+- fazer a div aparecer abaixo quando clicar em uma livro - AINDA NÃO 
+- Card do carrocel -FEITO  20
+- arrumar os botões - FEITO  20
+- estilizar os botões do carrocel(netflix) - FEITO  20
+- FAZER O CARD COM BOOK - FEITO - DEIXAR TUDO 3D NO PERFIL ?  20
 ### Search 
-- estilizar melhor a search 
-  - mudar cores das letras
+- estilizar detalhes a search - FEITO  20
+
+#### Card
+- title - FEITO  20
+- publishDate - FEITO  20
+- description - FEITO  20
+- authors -FEITO  20
+- arrumar os botões - FEITO  20
 
 ### Chart
-- fazer os dados do grafico 
-  - reduce 
+- fazer os dados do grafico - reduce   20
 
-### Profile
-- colocar instante no profile
-- aplicar carrocel 
-- estilizar profile e arrumar as posições
-- responsividade do profile
-  - Cards não estão com os botões
-#### Feadback
-- arrumar estilo e verificar responsividade
-- 
+### Profile 20
+- aplicar carrocel - FEITO  20
+- estilizar detalhes profile e arrumar as posições - FEITO  20
+- refazer responsividade do profile - FEITO  20
+- fazer amigos com scroll estilizado - AINDA NÃO
+- colocar instante no profile - AINDA NÃO  20
+- reajustar carrocel - AINDA NÃO 

@@ -41,7 +41,6 @@ const Shelves = () => {
       counter++;
     }
   }, [books, token, user, dispatch]);
-
   const ShelvesFilter = (filterShelf) =>
     currentUser.books.filter(({ shelf }) => filterShelf === shelf)
 

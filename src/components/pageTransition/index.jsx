@@ -13,7 +13,7 @@ const PageTransition = ({ children }) => {
         pageAnimate: {
           opacity: 1,
           transition: {
-            delay: 0.4,
+            delay: 0.3,
           },
         },
       }}

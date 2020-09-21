@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateSession } from "../../redux/actions/session";
 import axios from "axios";
-import api from "../../services/api.js";
-import { getBooks, updateBook } from "../../redux/actions/books.js";
+import { getBooks } from "../../redux/actions/books.js";
 import {
   StyledSearch,
   StyledContainer,
@@ -81,6 +80,7 @@ const Search = () => {
           .then(({ data }) => setGoogleBooksSugestion(data));
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, userInfo, userBooks, category]);
 
   useEffect(() => {
@@ -93,57 +93,10 @@ const Search = () => {
       )
       .then(({ data }) => {
         data.items !== undefined && setGoogleBooksSearch(data);
-      })
+      });
   }, [input]);
 
 
-  const handleBookClick = (
-    shelf,
-    {
-      volumeInfo: { title, authors = ["Desconhecido"], imageLinks = "", categories = [] },
-      id,
-    }
-  ) => {
-    const bookInfo = {
-      book: {
-        title: title,
-        author: authors.join(","),
-        shelf: shelf,
-        image_url: imageLinks.thumbnail,
-        grade: "",
-        categories: categories.join(","),
-        review: "",
-        google_book_id: id,
-      },
-    };
-
-    const filteredTitle = userBooks.filter(
-      (book) => book.title === bookInfo.book.title
-    );
-    if (filteredTitle.length === 0) {
-      api
-        .post(`/users/${userInfo.user.id}/books/`, bookInfo, {
-          headers: { authorization: userInfo.token },
-        })
-        .catch((err) => console.log(err));
-      dispatch(getBooks(userInfo));
-    } else {
-      let filteredShelf = filteredTitle.filter(
-        (book) => book.shelf === bookInfo.book.shelf
-      );
-      if (filteredShelf.length === 0) {
-        dispatch(
-          updateBook(
-            { book: { shelf: shelf } },
-            userInfo.user,
-            filteredTitle[0]
-          )
-        );
-      } else {
-        console.log("book already added");
-      }
-    }
-  };
 
   //ARRUMAR O STYLE  DESCONSTRUÇÃO
   return (
@@ -154,26 +107,21 @@ const Search = () => {
             <StyledBox>Please, search a book</StyledBox>
           ) : (
               <Carousel books={googleBooksSearch.items} />
-
             )}
           <StyledTitle>Sugestion</StyledTitle>
-          {
-            googleBooksSugestion.totalItems === 0 ? (
-              <StyledBox>No sugestions, add books</StyledBox>
-            ) : (
-                <Carousel books={googleBooksSugestion.items} />
-              )
-          }
-          {
-            [googleBooksFixed1, googleBooksFixed2].map((el, key) => (
-              <React.Fragment key={key}>
-                <StyledTitle>Diverse Books</StyledTitle>
-                <Carousel books={el.items} />
-              </React.Fragment>
-            ))
-          }
-        </StyledContainer >
-      </StyledSearch >
+          {googleBooksSugestion.totalItems === 0 ? (
+            <StyledBox>No sugestions, add books</StyledBox>
+          ) : (
+              <Carousel books={googleBooksSugestion.items} />
+            )}
+          {[googleBooksFixed1, googleBooksFixed2].map((el, key) => (
+            <React.Fragment key={key}>
+              <StyledTitle>Diverse Books</StyledTitle>
+              <Carousel books={el.items} />
+            </React.Fragment>
+          ))}
+        </StyledContainer>
+      </StyledSearch>
     </>
   );
 };

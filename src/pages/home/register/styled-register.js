@@ -117,7 +117,7 @@ export const Captcha = styled.div`
 export const StyledButton = styled(Button)`
   width: 100%;
   height: 50px;
-  border-radius: 10px;
+  border-radius: 6px;
   margin: 1rem 0;
   font-size: 1.2rem;
   outline: none;
